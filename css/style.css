@@ -5,24 +5,8 @@ body{margin:0;font-family:system-ui,sans-serif;background:var(--bg);color:var(--
 header{position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);padding:16px 5%;z-index:99}
 nav{display:flex;gap:18px;flex-wrap:wrap}
 nav a{text-decoration:none;color:var(--dark)}
-.hero{
-min-height:85vh;
-display:flex;
-align-items:center;
-padding:8%;
-
-background:
-linear-gradient(
-rgba(0,0,0,.45),
-rgba(0,0,0,.45)
-),
-
-background-size:cover;
-background-position:center center;
-background-repeat:no-repeat;
-
-color:white;
-}
+.hero{min-height:85vh;display:flex;align-items:center;padding:8%;background:linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.45)), url("../images/blinkitanaplazi.jpg"); color:white}
+.hero-card{max-width:800px}
 h1,h2,h3{font-family:Georgia,serif}
 .btn{display:inline-block;padding:12px 24px;background:var(--gold);color:white;text-decoration:none;border-radius:30px}
 section{padding:80px 8%}
