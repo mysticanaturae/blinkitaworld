@@ -147,7 +147,7 @@
 
   <h2>Belize</h2>
 
-  <p class="lead">Tukaj sem nehala bežati.</p>
+  <p class="lead">Tukaj sem našla delček svoje duše.</p>
   <p>Tukaj sem začela živeti drugače.</p>
 
   <a class="btn" href="belize.html">🌿 Raziskuj Belize</a>
@@ -232,5 +232,41 @@
   <p>Prejmi naslednje pismo iz Blinkita World.</p>
 </footer>
 
+<!-- CLOSING -->
+<section class="closing">
+
+  <h2>Vrata so odprta.</h2>
+
+  <p>Čas te je pripeljal sem.</p>
+
+  <div class="cta-buttons">
+    <a class="btn" href="koda-casa.html">✨ Koda Časa</a>
+    <a class="btn" href="knjiznica.html">📚 Knjižnica</a>
+    <a class="btn" href="circle.html">✨ Circle</a>
+  </div>
+
+</section>
+
+<footer>
+  <h3>Pridruži se Circle</h3>
+  <p>Prejmi naslednje pismo iz Blinkita World.</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add("in-view");
+    }
+  });
+},{threshold:0.2});
+
+document.querySelectorAll("section").forEach(sec=>{
+  observer.observe(sec);
+});
+</script>
+
+</body>
+</html>
 </body>
 </html>
