@@ -650,13 +650,6 @@ function getZivCas() {
   };
 }
 
-/* --- FLIP --- */
-
-function flipOracle() {
-  const card = document.querySelector(".oracle-card");
-  if (card) card.classList.toggle("flipped");
-}
-
 /* --- UPDATE --- */
 
 function updateZivCas() {
@@ -709,11 +702,64 @@ function updateZivCas() {
 
 window.addEventListener("load", updateZivCas);
 
-/* --- ORACLE TOGGLE --- */
+/* =========================
+   PORTAL CONTROL
+   ========================= */
 
 function toggleOracle() {
   const panel = document.getElementById("oracle-panel");
 
+  if (!panel) return;
+
   panel.classList.toggle("oracle-visible");
   panel.classList.toggle("oracle-hidden");
+
+  // vedno reset flip ob odprtju
+  const card = document.querySelector(".oracle-card");
+  if (card) card.classList.remove("flipped");
 }
+
+function flipOracle() {
+  const card = document.querySelector(".oracle-card");
+  if (card) card.classList.toggle("flipped");
+}
+
+/* =========================
+   INTRO — TIME PORTAL (3 FAZE)
+   ========================= */
+
+window.addEventListener("load", () => {
+
+  const intro = document.getElementById("time-portal");
+
+  if (!intro) return;
+
+  const phase = document.getElementById("portal-phase");
+  const text = document.getElementById("portal-text");
+
+  const sequence = [
+    { p: "SPOMIN", t: "Spominjaš se, kar si že vedela." },
+    { p: "ODPIRANJE", t: "Vrata se odpirajo skozi tvojo zavest." },
+    { p: "VSTOP", t: "Zdaj vstopaš v Kodo Časa." }
+  ];
+
+  let i = 0;
+
+  const run = () => {
+    if (i < sequence.length) {
+      phase.textContent = sequence[i].p;
+      text.textContent = sequence[i].t;
+      i++;
+      setTimeout(run, 2200);
+    } else {
+      intro.style.opacity = "0";
+      intro.style.transition = "opacity 1.5s ease";
+
+      setTimeout(() => {
+        intro.style.display = "none";
+      }, 1600);
+    }
+  };
+
+  setTimeout(run, 1200);
+});
