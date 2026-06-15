@@ -435,3 +435,21 @@ footer{
   pointer-events:auto;
   display:flex;
 }
+
+.oracle-close{
+  position:absolute;
+  top:18px;
+  right:18px;
+
+  background:none;
+  border:none;
+
+  font-size:24px;
+  cursor:pointer;
+
+  color:var(--gold);
+}
+
+.oracle-content{
+  position:relative;
+}
