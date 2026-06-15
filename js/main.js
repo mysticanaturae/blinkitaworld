@@ -604,10 +604,8 @@ const signMedicine = {
    ========================= */
 
 function updateZivCas() {
+  const data = (typeof getZivCas === "function") ? getZivCas() : null;
 
-  if (typeof getZivCas !== "function") return;
-
-  const data = getZivCas();
   if (!data) return;
 
   // MINI HEADER
@@ -623,7 +621,8 @@ function updateZivCas() {
   const numImgEl = document.getElementById("tzolkin-number-img");
 
   if (imgEl) {
-    imgEl.src = data.img || "";
+    safeSetImage(imgEl, data.img);
+    safeSetImage(numImgEl, data.numImg);
     imgEl.style.display = data.img ? "" : "none";
     imgEl.onerror = () => imgEl.style.display = "none";
   }
@@ -638,21 +637,8 @@ function updateZivCas() {
   const oracleDate = document.getElementById("oracle-date");
   if (oracleDate) oracleDate.textContent = data.greg || "";
 
-  const oracleNumImg = document.getElementById("oracle-num-img");
-  const oracleSignImg = document.getElementById("oracle-sign-img");
-
-  if (oracleNumImg) {
-    oracleNumImg.src = data.numImg || "";
-    oracleNumImg.onerror = () => oracleNumImg.style.display = "none";
-  }
-
-  if (oracleSignImg) {
-    oracleSignImg.src = data.img || "";
-    oracleSignImg.onerror = () => oracleSignImg.style.display = "none";
-  }
-
-  const toneInfo = toneOracle?.[data.number] || {};
-  const signInfo = signOracle?.[data.sign] || {};
+  const toneInfo = toneOracle[String(data.number)] || {};
+  const signInfo = signOracle[data.sign] || {};
 
   const toneTitle = document.getElementById("oracle-number-title");
   const toneEss = document.getElementById("oracle-number-essence");
@@ -667,7 +653,7 @@ function updateZivCas() {
   const signKeywords = document.getElementById("oracle-sign-keywords");
   const signMedFront = document.getElementById("oracle-sign-medicine");
 
-  if (signTitle) signTitle.textContent = data.sign;
+  if (signTitle) signTitle.textContent = data.sign || "";
   if (signEss) signEss.textContent = signInfo.essence || "";
   if (signKeywords) signKeywords.textContent = signInfo.keywords || "";
   if (signMedFront) signMedFront.textContent = signInfo.medicine || "";
@@ -700,13 +686,14 @@ function updateZivCas() {
   }
 }
 
-
 /* =========================
    INIT (SAFE SINGLE POINT)
    ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(updateZivCas, 120);
+  requestAnimationFrame(() => {
+    setTimeout(updateZivCas, 300);
+  });
 });
 
 
