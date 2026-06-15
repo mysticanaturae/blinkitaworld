@@ -227,6 +227,37 @@
 
 </section>
 
+<section class="multiverse">
+
+  <h2>Multiverse Map</h2>
+  <p class="lead">Izberi svet. Ne stran.</p>
+
+  <div class="universe-grid">
+
+    <a href="index.html" class="world home">
+      <span>Blinkita World</span>
+    </a>
+
+    <a href="belize.html" class="world belize">
+      <span>Belize Ocean</span>
+    </a>
+
+    <a href="blinkita-tv.html" class="world tv">
+      <span>Blinkita TV</span>
+    </a>
+
+    <a href="knjiznica.html" class="world library">
+      <span>Knjižnica</span>
+    </a>
+
+    <a href="circle.html" class="world circle">
+      <span>Circle</span>
+    </a>
+
+  </div>
+
+</section>
+
 <footer>
   <h3>Pridruži se Circle</h3>
   <p>Prejmi naslednje pismo iz Blinkita World.</p>
@@ -254,6 +285,76 @@
 
 <!-- SCRIPTS (CLEAN ENGINE) -->
 <script>
+
+window.UNIVERSE = {
+  mood: "neutral",   // calm | active | deep | mystical
+  intensity: 0.5
+};
+
+function setMood(mood){
+  window.UNIVERSE.mood = mood;
+  document.body.setAttribute("data-mood", mood);
+}
+
+
+<script>
+const sections = document.querySelectorAll("section");
+const worlds = document.querySelectorAll(".world, .card, a");
+
+let interactionScore = 0;
+
+function updateMood(){
+  if(interactionScore < 3) setMood("calm");
+  else if(interactionScore < 7) setMood("active");
+  else if(interactionScore < 12) setMood("deep");
+  else setMood("mystical");
+}
+
+// vsaka interakcija vpliva na “svet”
+worlds.forEach(el=>{
+  el.addEventListener("mouseenter", ()=>{
+    interactionScore += 1;
+    updateMood();
+  });
+
+  el.addEventListener("click", ()=>{
+    interactionScore += 2;
+    updateMood();
+  });
+});
+
+
+let lastHover = Date.now();
+
+document.addEventListener("mousemove", ()=>{
+  lastHover = Date.now();
+});
+
+setInterval(()=>{
+  const idle = Date.now() - lastHover;
+
+  if(idle > 5000){
+    setMood("deep");
+  }
+  if(idle > 12000){
+    setMood("mystical");
+  }
+}, 2000);
+
+document.querySelectorAll(".world").forEach(world=>{
+  world.addEventListener("mouseenter", ()=>{
+    const type = world.classList.contains("belize") ? "deep"
+                : world.classList.contains("circle") ? "mystical"
+                : "active";
+
+    setMood(type);
+  });
+
+  world.addEventListener("mouseleave", ()=>{
+    setMood("neutral");
+  });
+});
+
 const sections = document.querySelectorAll("section");
 
 const observer = new IntersectionObserver((entries)=>{
