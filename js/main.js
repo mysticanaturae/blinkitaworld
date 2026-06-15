@@ -384,7 +384,6 @@ function getZivCas() {
     img: tzolkinSignImages[tzSignIndex],
     numImg: tzolkinNumberImages[tzNumberIndex],
 
-    medicine: getMedicine(sign, number)
   };
 }
 
@@ -443,6 +442,8 @@ if (signTitle) signTitle.textContent = data.sign;
 if (signEss) signEss.textContent = signData.essence;
 if (signKey) signKey.textContent = signData.keywords;
 if (signMed) signMed.textContent = signData.medicine;
+
+}
 
 window.addEventListener("load", updateZivCas);
 
