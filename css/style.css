@@ -410,9 +410,11 @@ footer{
 .oracle-hidden{
   opacity:0;
   pointer-events:none;
+  display:none;
 }
 
 .oracle-visible{
   opacity:1;
   pointer-events:auto;
+  display:flex;
 }

@@ -15,17 +15,13 @@ window.addEventListener("load", () => {
 
   if (intro) {
     setTimeout(() => {
-      intro.style.display = "none";
-    }, 3000);
-  }
+  intro.style.opacity = "0";
+  intro.style.transition = "opacity 1.2s ease";
+}, 4500);
 
-  /* PORTAL LOADER (KODA ČASA / CODEx PAGES) */
-  const loader = document.getElementById("portal-loader");
-
-  if (loader) {
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 2000);
+setTimeout(() => {
+  intro.style.display = "none";
+}, 6000);
   }
 
 });
@@ -415,26 +411,38 @@ const numImgEl = document.getElementById("tzolkin-number-img");
   if (imgEl) imgEl.src = data.img;
   if (numImgEl) numImgEl.src = data.numImg;
 
-const signData = signOracle[data.sign];
-const toneData = toneOracle[data.number];
+const signData = signOracle[data.sign] || {};
+const toneData = toneOracle[data.number] || {};
 
-document.getElementById("oracle-date").textContent = data.greg;
+const oracleDate = document.getElementById("oracle-date");
+if (oracleDate) oracleDate.textContent = data.greg;
 
 // IMAGES
-document.getElementById("oracle-num-img").src = data.numImg;
-document.getElementById("oracle-sign-img").src = data.img;
+const oracleNumImg = document.getElementById("oracle-num-img");
+const oracleSignImg = document.getElementById("oracle-sign-img");
+
+if (oracleNumImg) oracleNumImg.src = data.numImg;
+if (oracleSignImg) oracleSignImg.src = data.img;
 
 // TONE
-document.getElementById("oracle-number-title").textContent = "Ton " + data.number;
-document.getElementById("oracle-number-essence").textContent = toneData.essence;
-document.getElementById("oracle-number-medicine").textContent = toneData.medicine;
+const toneTitle = document.getElementById("oracle-number-title");
+const toneEss = document.getElementById("oracle-number-essence");
+const toneMed = document.getElementById("oracle-number-medicine");
+
+if (toneTitle) toneTitle.textContent = "Ton " + data.number;
+if (toneEss) toneEss.textContent = toneData.essence;
+if (toneMed) toneMed.textContent = toneData.medicine;
 
 // SIGN
-document.getElementById("oracle-sign-title").textContent = data.sign;
-document.getElementById("oracle-sign-essence").textContent = signData.essence;
-document.getElementById("oracle-sign-keywords").textContent = signData.keywords;
-document.getElementById("oracle-sign-medicine").textContent = signData.medicine;
-}
+const signTitle = document.getElementById("oracle-sign-title");
+const signEss = document.getElementById("oracle-sign-essence");
+const signKey = document.getElementById("oracle-sign-keywords");
+const signMed = document.getElementById("oracle-sign-medicine");
+
+if (signTitle) signTitle.textContent = data.sign;
+if (signEss) signEss.textContent = signData.essence;
+if (signKey) signKey.textContent = signData.keywords;
+if (signMed) signMed.textContent = signData.medicine;
 
 window.addEventListener("load", updateZivCas);
 
