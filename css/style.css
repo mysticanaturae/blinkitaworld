@@ -614,3 +614,58 @@ footer{
   }
 
 }
+
+/* ==========================
+   REVEAL SYSTEM
+   ========================== */
+
+section{
+
+  opacity:0;
+
+  transform:
+    translateY(40px);
+
+  transition:
+    opacity 1s ease,
+    transform 1s ease;
+
+}
+
+section.visible{
+
+  opacity:1;
+
+  transform:
+    translateY(0);
+
+}
+
+/* HERO ostane vedno viden */
+
+.hero{
+
+  opacity:1 !important;
+
+  transform:none !important;
+
+}
+
+/* PAGE TRANSITION */
+
+body{
+
+  transition:
+    opacity .4s ease,
+    transform .4s ease;
+
+}
+
+body.page-leaving{
+
+  opacity:0;
+
+  transform:
+    scale(.98);
+
+}
