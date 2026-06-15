@@ -21,3 +21,68 @@ section{padding:80px 8%}
 footer{background:#ece4d7;padding:60px 8%}
 input,textarea{width:100%;padding:12px;margin:8px 0;border-radius:12px;border:1px solid #ccc}
 @media(max-width:768px){.hero{min-height:60vh;padding:12%}}
+
+.hero-kicker{
+text-transform:uppercase;
+letter-spacing:2px;
+font-size:.9rem;
+opacity:.9;
+}
+
+.hero-subtitle{
+font-size:1.2rem;
+max-width:700px;
+margin:24px 0;
+}
+
+.hero-buttons{
+display:flex;
+gap:16px;
+flex-wrap:wrap;
+margin-top:30px;
+}
+
+.btn-secondary{
+display:inline-block;
+padding:12px 24px;
+border:1px solid white;
+color:white;
+text-decoration:none;
+border-radius:30px;
+}
+
+.intro{
+max-width:900px;
+margin:auto;
+text-align:center;
+}
+
+.lead{
+font-size:1.2rem;
+max-width:800px;
+margin:auto;
+}
+
+.manifest{
+text-align:center;
+background:white;
+border-radius:24px;
+padding:60px;
+}
+
+.manifest p{
+font-size:1.5rem;
+font-family:Georgia,serif;
+}
+
+.closing{
+text-align:center;
+}
+
+.cta-buttons{
+display:flex;
+justify-content:center;
+gap:16px;
+flex-wrap:wrap;
+margin-top:30px;
+}
