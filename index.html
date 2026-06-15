@@ -3,11 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
+
   <title>Blinkita World</title>
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#b79a6b">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="codex">
+
+<!-- PORTAL LOADER -->
+<div id="portal-loader">
+  <div class="loader-content">
+    <h1>Vstop v Kodo Časa</h1>
+    <p>odpiram tvoj časovni podpis…</p>
+  </div>
+</div>
 
 <!-- INTRO -->
 <div class="blinkita-intro">
@@ -17,7 +31,28 @@
   </div>
 </div>
 
-<!-- HEADER -->
+<!-- ŽIV ČAS HEADER (EDINI PRAVI SYSTEM) -->
+<div id="ziv-cas-header">
+  <div class="ziv-inner">
+
+    <div class="ziv-top">
+      <span id="greg-date"></span>
+    </div>
+
+    <div class="ziv-middle">
+      <img id="tzolkin-sign-img" src="" alt="Tzolkin znak">
+    </div>
+
+    <div class="ziv-bottom">
+      <span id="tzolkin-kin"></span>
+      <span>•</span>
+      <span id="tzolkin-sign"></span>
+    </div>
+
+  </div>
+</div>
+
+<!-- NAV -->
 <header>
   <nav>
     <a href="index.html">Domov</a>
@@ -50,6 +85,10 @@
       To je vstopni portal.
     </p>
 
+    <p style="font-size:12px; opacity:0.6;">
+      ne iščeš — spominjaš se
+    </p>
+
     <div class="hero-buttons">
       <a class="btn" href="koda-casa.html">✨ Odkrij svojo Kodo Časa</a>
       <a class="btn-secondary" href="blinkita-tv.html">📺 Vstopi v Blinkita TV</a>
@@ -61,22 +100,18 @@
 
 <!-- WHAT IS -->
 <section>
-
   <h2>Kaj je Blinkita World?</h2>
 
   <p class="lead">Ni sistem. Ni metoda. Ni program.</p>
 
   <p>Je živ zemljevid časa, zavesti in preobrazbe.</p>
-
   <p>Prostor, kjer se srečajo zgodba, identiteta in spomin.</p>
 
   <h3>Kdo postajaš?</h3>
-
 </section>
 
 <!-- TRANSFORMATION -->
 <section>
-
   <h2>Pot preobrazbe</h2>
 
   <img src="images/Blinkita-PrejinPotem.jpg" alt="Pot preobrazbe">
@@ -85,12 +120,10 @@
     Vsaka zgodba ima točko zloma.<br>
     In točko, kjer se začne znova.
   </p>
-
 </section>
 
 <!-- FIVE DOORS -->
 <section>
-
   <h2>Pet vrat Blinkita World</h2>
 
   <p class="lead">
@@ -100,44 +133,22 @@
 
   <div class="grid">
 
-    <div class="card door">
-      <h3>ODKRIJ</h3>
-      <p>Koda Časa</p>
-    </div>
-
-    <div class="card door">
-      <h3>PREBUDI</h3>
-      <p>Blinkita Mind</p>
-    </div>
-
-    <div class="card door">
-      <h3>UTELESI</h3>
-      <p>Blinkita Body</p>
-    </div>
-
-    <div class="card door">
-      <h3>USTVARI</h3>
-      <p>Blinkita Life</p>
-    </div>
-
-    <div class="card door">
-      <h3>OSTANI</h3>
-      <p>Blinkita Circle</p>
-    </div>
+    <div class="card"><h3>ODKRIJ</h3><p>Koda Časa</p></div>
+    <div class="card"><h3>PREBUDI</h3><p>Blinkita Mind</p></div>
+    <div class="card"><h3>UTELESI</h3><p>Blinkita Body</p></div>
+    <div class="card"><h3>USTVARI</h3><p>Blinkita Life</p></div>
+    <div class="card"><h3>OSTANI</h3><p>Blinkita Circle</p></div>
 
   </div>
-
 </section>
 
 <!-- WHO -->
 <section>
-
   <h2>Kdo je Blinkita?</h2>
 
   <p class="lead">
-    raziskovalka časa • avtorica 200+ knjig • hipnoterapevtka • učenka Maya tradicije • mama
+    Raziskovalka časa • tkalka zgodb med svetovi • avtorica 200+ eknjig • hipnoterapevtka • Saq I'x • mama
   </p>
-
 </section>
 
 <!-- BELIZE -->
@@ -156,27 +167,21 @@
 
 <!-- TV -->
 <section>
-
   <h2>Blinkita TV</h2>
 
   <div class="netflix">
     <div class="card">Medicina Časa</div>
     <div class="card">Dnevnik iz Belizeja</div>
-    <div class="card">Oživimo razglednice</div>
+    <div class="card">Razglednice</div>
     <div class="card">Pogovori pod palmami</div>
   </div>
-
 </section>
 
 <!-- LIBRARY -->
 <section class="library">
-
   <h2>Knjižnica</h2>
-
   <p class="lead">Več kot 200 knjig. Več kot 200 prehodov.</p>
-
   <a class="btn" href="knjiznica.html">📚 Vstopi v knjižnico</a>
-
 </section>
 
 <!-- VARUHINJA -->
@@ -185,7 +190,6 @@
   <img src="images/Blinkita-Xunantunich.jpg" alt="Varuhinja">
 
   <h2>Varuhinja prehodov</h2>
-
   <p class="lead">Nekatere poti se ne izberejo. Srečajo te.</p>
 
   <a class="btn" href="varuhinja-prehodov.html">🔥 Spoznaj zgodbo</a>
@@ -194,29 +198,21 @@
 
 <!-- CIRCLE -->
 <section>
-
   <h2>Circle</h2>
-
   <p class="lead">Prostor ljudi, ki jih zanima preobrazba, čas in zavest.</p>
-
   <a class="btn" href="circle.html">✨ Pridruži se Circle</a>
-
 </section>
 
 <!-- MANIFEST -->
 <section class="manifest">
-
   <h2>Manifest Blinkita World</h2>
-
   <p>Ne učim ljudi, kako začeti.<br>Pomagam jim razumeti, kako ostati.</p>
-
 </section>
 
 <!-- CLOSING -->
 <section class="closing">
 
   <h2>Vrata so odprta.</h2>
-
   <p>Čas te je pripeljal sem.</p>
 
   <div class="cta-buttons">
@@ -227,6 +223,7 @@
 
 </section>
 
+<!-- MULTIVERSE -->
 <section class="multiverse">
 
   <h2>Multiverse Map</h2>
@@ -234,25 +231,11 @@
 
   <div class="universe-grid">
 
-    <a href="index.html" class="world home">
-      <span>Blinkita World</span>
-    </a>
-
-    <a href="belize.html" class="world belize">
-      <span>Belize Ocean</span>
-    </a>
-
-    <a href="blinkita-tv.html" class="world tv">
-      <span>Blinkita TV</span>
-    </a>
-
-    <a href="knjiznica.html" class="world library">
-      <span>Knjižnica</span>
-    </a>
-
-    <a href="circle.html" class="world circle">
-      <span>Circle</span>
-    </a>
+    <a href="index.html" class="world home"><span>Blinkita World</span></a>
+    <a href="belize.html" class="world belize"><span>Belize Ocean</span></a>
+    <a href="blinkita-tv.html" class="world tv"><span>Blinkita TV</span></a>
+    <a href="knjiznica.html" class="world library"><span>Knjižnica</span></a>
+    <a href="circle.html" class="world circle"><span>Circle</span></a>
 
   </div>
 
