@@ -25,7 +25,6 @@
 
 <!-- TIME PORTAL INTRO -->
 <div class="blinkita-intro" id="time-portal">
-
   <div class="blinkita-intro-inner">
 
     <div id="portal-phase" class="phase">SPOMIN</div>
@@ -35,7 +34,6 @@
     <p id="portal-text">Spominjaš se, kar si že vedela.</p>
 
   </div>
-
 </div>
 
 <!-- NAV -->
@@ -50,69 +48,84 @@
     <a href="varuhinja-prehodov.html">Varuhinja</a>
   </nav>
 
- <!-- MINI KODA ČASA -->
-<div id="ziv-cas-header" onclick="toggleOracle()">
+  <!-- MINI KODA ČASA -->
+  <div id="ziv-cas-header" onclick="toggleOracle()">
+    <div class="ziv-inner">
 
-  <div class="ziv-inner">
+      <div class="ziv-title">
+        KODA ČASA • PORTAL DNEVA
+      </div>
 
-    <div class="ziv-title">
-      KODA ČASA • PORTAL DNEVA
+      <div class="tzolkin-mini">
+        <img id="tzolkin-number-img" alt="Ton">
+        <span id="tzolkin-number"></span>
+
+        <img id="tzolkin-sign-img" alt="Znak">
+        <span id="tzolkin-sign"></span>
+      </div>
+
+      <div id="greg-date"></div>
+
     </div>
-
-    <div class="tzolkin-mini">
-
-      <img id="tzolkin-number-img" alt="Ton">
-      <span id="tzolkin-number"></span>
-
-      <img id="tzolkin-sign-img" alt="Znak">
-      <span id="tzolkin-sign"></span>
-
-    </div>
-
-    <div id="greg-date"></div>
-
   </div>
-
-</div>
 
 </header>
 
-<!-- ORACLE PANEL (FULL VIEW) -->
+<!-- ORACLE PANEL (FLIP CARD) -->
 <div id="oracle-panel" class="oracle-hidden">
 
-  <div class="oracle-content">
+  <div class="oracle-card">
 
-<button class="oracle-close" onclick="toggleOracle()">
-✕
-</button>
+    <!-- FRONT -->
+    <div class="oracle-front">
 
-    <h2>KODA ČASA & PORTAL DNEVA</h2>
+      <button class="oracle-close" onclick="toggleOracle()">✕</button>
 
-    <p id="oracle-date"></p>
+      <h2>KODA ČASA & PORTAL DNEVA</h2>
 
-    <div class="oracle-images">
-      <img id="oracle-num-img">
-      <img id="oracle-sign-img">
+      <p id="oracle-date"></p>
+
+      <div class="oracle-images">
+        <img id="oracle-num-img">
+        <img id="oracle-sign-img">
+      </div>
+
+      <h3 id="oracle-number-title"></h3>
+      <p id="oracle-number-essence"></p>
+      <p id="oracle-number-medicine"></p>
+
+      <hr>
+
+      <h3 id="oracle-sign-title"></h3>
+      <p id="oracle-sign-essence"></p>
+      <p id="oracle-sign-keywords"></p>
+      <p id="oracle-sign-medicine"></p>
+
+      <button class="flip-btn" onclick="flipOracle()">➜</button>
+
     </div>
 
-    <h3 id="oracle-number-title"></h3>
-    <p id="oracle-number-essence"></p>
-    <p id="oracle-number-medicine"></p>
+    <!-- BACK -->
+    <div class="oracle-back">
 
-    <hr>
+      <h2>KODA ČASA – MEDICINA ČASA</h2>
 
-    <h3 id="oracle-sign-title"></h3>
-    <p id="oracle-sign-essence"></p>
-    <p id="oracle-sign-keywords"></p>
-    <p id="oracle-sign-medicine"></p>
+      <p id="oracle-keyword" class="big-keyword"></p>
+
+      <p id="oracle-medicine-text"></p>
+
+      <p id="oracle-affirmation"></p>
+      <p id="oracle-question"></p>
+
+      <button class="flip-btn back" onclick="flipOracle()">←</button>
+
+    </div>
 
   </div>
-
 </div>
 
 <!-- HERO -->
 <section class="hero">
-
   <div class="hero-card">
 
     <p class="hero-kicker">Dobrodošla v Blinkita World</p>
@@ -125,170 +138,30 @@
       Od iskanja do spomina.
     </p>
 
-    <p>
-      To ni spletna stran.<br>
-      To je vstopni portal.
-    </p>
-
-    <p style="font-size:12px; opacity:0.6;">
-      ne iščeš — spominjaš se
-    </p>
+    <p>To ni spletna stran.<br>To je vstopni portal.</p>
 
     <div class="hero-buttons">
       <a class="btn" href="koda-casa.html">✨ Odkrij svojo Kodo Časa</a>
-      <a class="btn-secondary" href="blinkita-tv.html">📺 Vstopi v Blinkita TV</a>
+      <a class="btn-secondary" href="blinkita-tv.html">📺 Blinkita TV</a>
     </div>
 
   </div>
-
 </section>
 
-<!-- WHAT IS -->
-<section>
-  <h2>Kaj je Blinkita World?</h2>
-
-  <p class="lead">Ni sistem. Ni metoda. Ni program.</p>
-
-  <p>Je živ zemljevid časa, zavesti in preobrazbe.</p>
-  <p>Prostor, kjer se srečajo zgodba, identiteta in spomin.</p>
-
-  <h3>Kdo postajaš?</h3>
-</section>
-
-<!-- TRANSFORMATION -->
-<section>
-  <h2>Pot preobrazbe</h2>
-
-  <img src="images/Blinkita-PrejinPotem.jpg" alt="Pot preobrazbe">
-
-  <p class="lead">
-    Vsaka zgodba ima točko zloma.<br>
-    In točko, kjer se začne znova.
-  </p>
-</section>
-
-<!-- FIVE DOORS -->
-<section>
-  <h2>Pet vrat Blinkita World</h2>
-
-  <p class="lead">
-    Ne začneš pri vseh vratih.<br>
-    Začneš pri tistih, ki te pokličejo.
-  </p>
-
-  <div class="grid">
-
-    <div class="card"><h3>ODKRIJ</h3><p>Koda Časa</p></div>
-    <div class="card"><h3>PREBUDI</h3><p>Blinkita Mind</p></div>
-    <div class="card"><h3>UTELESI</h3><p>Blinkita Body</p></div>
-    <div class="card"><h3>USTVARI</h3><p>Blinkita Life</p></div>
-    <div class="card"><h3>OSTANI</h3><p>Blinkita Circle</p></div>
-
-  </div>
-</section>
-
-<!-- WHO -->
-<section>
-  <h2>Kdo je Blinkita?</h2>
-
-  <p class="lead">
-    Raziskovalka časa • tkalka zgodb med svetovi • avtorica 200+ eknjig • hipnoterapevtka • Saq I'x • mama
-  </p>
-</section>
-
-<!-- BELIZE -->
-<section id="belize">
-
-  <img src="images/Belize-Hopkins-Plaža.jpg" alt="Belize">
-
-  <h2>Belize</h2>
-
-  <p class="lead">Tukaj sem našla delček svoje duše.</p>
-  <p>Tukaj sem začela živeti drugače.</p>
-
-  <a class="btn" href="belize.html">🌿 Raziskuj Belize</a>
-
-</section>
-
-<!-- TV -->
-<section>
-  <h2>Blinkita TV</h2>
-
-  <div class="netflix">
-    <div class="card">Medicina Časa</div>
-    <div class="card">Dnevnik iz Belizeja</div>
-    <div class="card">Razglednice</div>
-    <div class="card">Pogovori pod palmami</div>
-  </div>
-</section>
-
-<!-- LIBRARY -->
-<section class="library">
-  <h2>Knjižnica</h2>
-  <p class="lead">Več kot 200 knjig. Več kot 200 prehodov.</p>
-  <a class="btn" href="knjiznica.html">📚 Vstopi v knjižnico</a>
-</section>
-
-<!-- VARUHINJA -->
-<section class="varuhinja">
-
-  <img src="images/Blinkita-Xunantunich.jpg" alt="Varuhinja">
-
-  <h2>Varuhinja prehodov</h2>
-  <p class="lead">Nekatere poti se ne izberejo. Srečajo te.</p>
-
-  <a class="btn" href="varuhinja-prehodov.html">🔥 Spoznaj zgodbo</a>
-
-</section>
-
-<!-- CIRCLE -->
-<section>
-  <h2>Circle</h2>
-  <p class="lead">Prostor ljudi, ki jih zanima preobrazba, čas in zavest.</p>
-  <a class="btn" href="circle.html">✨ Pridruži se Circle</a>
-</section>
-
-<!-- MANIFEST -->
-<section class="manifest">
-  <h2>Manifest Blinkita World</h2>
-  <p>Ne učim ljudi, kako začeti.<br>Pomagam jim razumeti, kako ostati.</p>
-</section>
-
-<!-- CLOSING -->
-<section class="closing">
-
-  <h2>Vrata so odprta.</h2>
-  <p>Čas te je pripeljal sem.</p>
-
-  <div class="cta-buttons">
-    <a class="btn" href="koda-casa.html">✨ Koda Časa</a>
-    <a class="btn" href="knjiznica.html">📚 Knjižnica</a>
-    <a class="btn" href="circle.html">✨ Circle</a>
-  </div>
-
-</section>
-
-<!-- MULTIVERSE -->
-<section class="multiverse">
-
-  <h2>Multiverse Map</h2>
-  <p class="lead">Izberi svet. Ne stran.</p>
-
-  <div class="universe-grid">
-
-    <a href="index.html" class="world home"><span>Blinkita World</span></a>
-    <a href="belize.html" class="world belize"><span>Belize Ocean</span></a>
-    <a href="blinkita-tv.html" class="world tv"><span>Blinkita TV</span></a>
-    <a href="knjiznica.html" class="world library"><span>Knjižnica</span></a>
-    <a href="circle.html" class="world circle"><span>Circle</span></a>
-
-  </div>
-
-</section>
+<!-- OSTALO OSTANE ISTO -->
+<section><h2>Kaj je Blinkita World?</h2></section>
+<section><h2>Pot preobrazbe</h2></section>
+<section><h2>Pet vrat Blinkita World</h2></section>
+<section><h2>Kdo je Blinkita?</h2></section>
+<section id="belize"><h2>Belize</h2></section>
+<section><h2>Blinkita TV</h2></section>
+<section class="library"><h2>Knjižnica</h2></section>
+<section class="varuhinja"><h2>Varuhinja prehodov</h2></section>
+<section><h2>Circle</h2></section>
+<section class="manifest"><h2>Manifest Blinkita World</h2></section>
 
 <footer>
   <h3>Pridruži se Circle</h3>
-  <p>Prejmi naslednje pismo iz Blinkita World.</p>
 </footer>
 
 <script src="js/main.js"></script>

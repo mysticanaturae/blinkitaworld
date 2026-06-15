@@ -453,3 +453,49 @@ footer{
 .oracle-content{
   position:relative;
 }
+
+.oracle-card{
+  position:relative;
+  width:90%;
+  max-width:650px;
+  transform-style:preserve-3d;
+  transition:transform 0.8s ease;
+}
+
+/* flip state */
+.oracle-card.flipped{
+  transform:rotateY(180deg);
+}
+
+/* front & back */
+.oracle-front,
+.oracle-back{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  background:var(--cream);
+  border-radius:28px;
+  padding:40px;
+  box-shadow:0 30px 100px rgba(0,0,0,.35);
+  text-align:center;
+}
+
+/* back side */
+.oracle-back{
+  transform:rotateY(180deg);
+}
+
+/* puščice */
+.flip-btn{
+  margin-top:25px;
+  padding:10px 18px;
+  border-radius:999px;
+  border:1px solid var(--gold);
+  background:transparent;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.flip-btn.back{
+  margin-top:30px;
+}
