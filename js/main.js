@@ -628,33 +628,13 @@ const signMedicine = {
 
 /* --- CORE CALCULATION --- */
 
-function getZivCas() {
-
-  const now = new Date();
-
-  const dayOffset = Math.floor(
-    (now - anchorDate) / (1000 * 60 * 60 * 24)
-  );
-
-  const tzNumberIndex = (anchorTone - 1 + dayOffset) % 13;
-  const tzSignIndex = (anchorSignIdx + dayOffset) % 20;
-
-  return {
-    greg: now.toLocaleDateString("sl-SI"),
-
-    number: tzolkinNumbers[tzNumberIndex],
-    sign: tzolkinSigns[tzSignIndex],
-
-    img: tzolkinSignImages[tzSignIndex],
-    numImg: tzolkinNumberImages[tzNumberIndex],
-  };
-}
-
-/* --- UPDATE --- */
-
 function updateZivCas() {
 
   const data = getZivCas();
+
+  /* =========================
+     MINI HEADER
+     ========================= */
 
   const dateEl = document.getElementById("greg-date");
   const numEl = document.getElementById("tzolkin-number");
@@ -670,32 +650,147 @@ function updateZivCas() {
   if (imgEl) imgEl.src = data.img;
   if (numImgEl) numImgEl.src = data.numImg;
 
-  const signData = signMedicine?.[data.sign] || {};
-  const toneData = toneMedicine?.[data.number] || {};
+  /* =========================
+     FRONT CARD
+     ========================= */
 
-  const keywordEl = document.getElementById("oracle-keyword");
-  const medEl = document.getElementById("oracle-medicine-text");
-  const affEl = document.getElementById("oracle-affirmation");
-  const qEl = document.getElementById("oracle-question");
+  const oracleDate =
+    document.getElementById("oracle-date");
+
+  if (oracleDate) {
+    oracleDate.textContent = data.greg;
+  }
+
+  const oracleNumImg =
+    document.getElementById("oracle-num-img");
+
+  const oracleSignImg =
+    document.getElementById("oracle-sign-img");
+
+  if (oracleNumImg) {
+    oracleNumImg.src = data.numImg;
+  }
+
+  if (oracleSignImg) {
+    oracleSignImg.src = data.img;
+  }
+
+  const toneInfo =
+    toneOracle?.[data.number] || {};
+
+  const signInfo =
+    signOracle?.[data.sign] || {};
+
+  const toneTitle =
+    document.getElementById("oracle-number-title");
+
+  const toneEss =
+    document.getElementById("oracle-number-essence");
+
+  const toneMedFront =
+    document.getElementById("oracle-number-medicine");
+
+  if (toneTitle) {
+    toneTitle.textContent = "Ton " + data.number;
+  }
+
+  if (toneEss) {
+    toneEss.textContent =
+      toneInfo.essence || "";
+  }
+
+  if (toneMedFront) {
+    toneMedFront.textContent =
+      toneInfo.medicine || "";
+  }
+
+  const signTitle =
+    document.getElementById("oracle-sign-title");
+
+  const signEss =
+    document.getElementById("oracle-sign-essence");
+
+  const signKey =
+    document.getElementById("oracle-sign-keywords");
+
+  const signMedFront =
+    document.getElementById("oracle-sign-medicine");
+
+  if (signTitle) {
+    signTitle.textContent = data.sign;
+  }
+
+  if (signEss) {
+    signEss.textContent =
+      signInfo.essence || "";
+  }
+
+  if (signKey) {
+    signKey.textContent =
+      signInfo.keywords || "";
+  }
+
+  if (signMedFront) {
+    signMedFront.textContent =
+      signInfo.medicine || "";
+  }
+
+  /* =========================
+     BACK CARD
+     ========================= */
+
+  const toneBack =
+    toneMedicine?.[data.number] || {};
+
+  const signBack =
+    signMedicine?.[data.sign] || {};
+
+  const keywordEl =
+    document.getElementById("oracle-keyword");
+
+  const medEl =
+    document.getElementById("oracle-medicine-text");
+
+  const affEl =
+    document.getElementById("oracle-affirmation");
+
+  const qEl =
+    document.getElementById("oracle-question");
 
   if (keywordEl) {
-    keywordEl.textContent = data.sign + " • " + data.number;
+
+    keywordEl.textContent =
+      (toneBack.keyword || "") +
+      " " +
+      (signBack.keyword || "");
+
   }
 
   if (medEl) {
+
     medEl.textContent =
-      (toneData.medicine || "") + " " + (signData.medicine || "");
+      (toneBack.medicine || "") +
+      " " +
+      (signBack.medicine || "");
+
   }
 
   if (affEl) {
+
     affEl.textContent =
-      "Afirmacija: " + (toneData.affirmation || "");
+      "Afirmacija: " +
+      (toneBack.affirmation || "");
+
   }
 
   if (qEl) {
+
     qEl.textContent =
-      "Vprašanje: " + (toneData.question || "");
+      "Vprašanje: " +
+      (toneBack.question || "");
+
   }
+
 }
 
 /* --- INIT --- */
