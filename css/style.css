@@ -383,7 +383,7 @@ footer{
 }
 
 /* =========================
-   ORACLE PORTAL CARD (FLIP)
+   ORACLE FIXED CORE (NO GLASS BUG)
    ========================= */
 
 #oracle-panel {
@@ -393,61 +393,93 @@ footer{
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 99999;
+
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.6s ease;
+
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 #oracle-panel.oracle-visible {
   opacity: 1;
+  visibility: visible;
   pointer-events: all;
 }
+
+/* =========================
+   CARD WRAPPER
+   ========================= */
 
 .oracle-card {
   width: min(520px, 92vw);
   height: min(720px, 85vh);
   position: relative;
+
   transform-style: preserve-3d;
-  transition: transform 1s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transition: transform 0.9s cubic-bezier(0.4, 0.2, 0.2, 1);
+
+  border-radius: 24px;
 }
 
+/* FLIP */
 .oracle-card.flipped {
   transform: rotateY(180deg);
 }
 
-/* FRONT + BACK */
+/* =========================
+   FRONT + BACK FIXED (NO TRANSPARENCY)
+   ========================= */
+
 .oracle-front,
 .oracle-back {
   position: absolute;
   inset: 0;
+
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+
   border-radius: 24px;
-  padding: 24px;
-  background: #f7f2ea;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+
+  padding: 28px;
+
+  /* 🔥 KLJUČNI FIX */
+  background-color: #f7f2ea;
+  color: #1f1a17;
+
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+
   overflow-y: auto;
 }
 
+/* BACK SIDE */
 .oracle-back {
   transform: rotateY(180deg);
-  background: #efe6d8;
+  background-color: #efe6d8;
 }
 
-/* CLOSE BUTTON */
+/* =========================
+   CLOSE BUTTON
+   ========================= */
+
 .oracle-close {
   position: absolute;
   top: 12px;
   right: 14px;
   border: none;
   background: transparent;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
+  z-index: 5;
 }
 
-/* FLIP BUTTON */
+/* =========================
+   FLIP BUTTONS
+   ========================= */
+
 .flip-btn {
-  margin-top: 20px;
+  margin-top: 24px;
   border: none;
   background: #b79a6b;
   color: white;
@@ -460,20 +492,21 @@ footer{
   background: #7a5f3a;
 }
 
-/* KEYWORD BACK */
+/* =========================
+   KEYWORD
+   ========================= */
+
 .big-keyword {
   font-size: 24px;
   font-weight: 600;
   margin: 20px 0;
-  letter-spacing: 1px;
 }
 
-/* MINI ANIMACIJA */
-#oracle-panel.oracle-visible .oracle-card {
-  animation: portalIn 0.8s ease;
-}
+/* =========================
+   SAFETY FIX (TEXT ALWAYS VISIBLE)
+   ========================= */
 
-@keyframes portalIn {
-  from { transform: scale(0.9) rotateX(10deg); opacity: 0; }
-  to { transform: scale(1) rotateX(0deg); opacity: 1; }
+.oracle-front *,
+.oracle-back * {
+  color: inherit;
 }
