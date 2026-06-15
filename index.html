@@ -8,6 +8,13 @@
 
 <body>
 
+<div class="blinkita-intro">
+  <div class="blinkita-intro-inner">
+    <h1>Blinkita World</h1>
+    <p>vstop v čas • zavest • zgodbo</p>
+  </div>
+</div>
+
 <header>
   <nav>
     <a href="index.html">Domov</a>
@@ -259,6 +266,23 @@
   <h3>Pridruži se Circle</h3>
   <p>Prejmi naslednje pismo iz Blinkita World.</p>
 </footer>
+
+<script>
+let lastScroll = 0;
+const header = document.querySelector("header");
+
+window.addEventListener("scroll", () => {
+  const current = window.pageYOffset;
+
+  if(current > lastScroll){
+    header.classList.add("hide");
+  } else {
+    header.classList.remove("hide");
+  }
+
+  lastScroll = current;
+});
+</script>
 
 </body>
 </html>
