@@ -253,3 +253,147 @@ footer{
     transform:translateY(0);
   }
 }
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+/* vsaka sekcija “diha” */
+section{
+  padding:100px 8%;
+  opacity:0;
+  transform:translateY(40px);
+  animation:reveal 1.2s ease forwards;
+}
+
+section:nth-child(1){animation-delay:.1s}
+section:nth-child(2){animation-delay:.2s}
+section:nth-child(3){animation-delay:.3s}
+section:nth-child(4){animation-delay:.4s}
+section:nth-child(5){animation-delay:.5s}
+section:nth-child(6){animation-delay:.6s}
+section:nth-child(7){animation-delay:.7s}
+section:nth-child(8){animation-delay:.8s}
+
+@keyframes reveal{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.hero{
+  position:relative;
+  min-height:90vh;
+  display:flex;
+  align-items:center;
+  padding:8%;
+  color:white;
+  overflow:hidden;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center, rgba(255,255,255,.08), transparent 60%);
+  mix-blend-mode:overlay;
+  animation:pulse 6s infinite ease-in-out;
+}
+
+@keyframes pulse{
+  0%,100%{opacity:.4}
+  50%{opacity:.8}
+}
+
+.door{
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.4s ease;
+  border:1px solid rgba(0,0,0,.05);
+}
+
+/* svetlobni “portal” */
+.door::before{
+  content:"";
+  position:absolute;
+  inset:-50%;
+  background:radial-gradient(circle, rgba(184,154,92,.25), transparent 60%);
+  transform:scale(0);
+  transition:.6s ease;
+}
+
+.door:hover{
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
+}
+
+.door:hover::before{
+  transform:scale(1);
+}
+
+section img{
+  transition:1s ease;
+}
+
+section img:hover{
+  transform:scale(1.03);
+}
+
+/* Belize sekcija “wide cinematic feel” */
+#belize{
+  position:relative;
+}
+
+#belize img{
+  border-radius:30px;
+  filter:saturate(1.1) contrast(1.05);
+}
+
+#circle{
+  background:linear-gradient(135deg, #1f1a17, #2b2320);
+  color:white;
+  border-radius:40px;
+  padding:120px 8%;
+  margin:60px 0;
+}
+
+#circle .lead{
+  opacity:.9;
+}
+
+#circle a.btn{
+  background:white;
+  color:#1f1a17;
+}
+
+@media(max-width:768px){
+
+  section{
+    padding:80px 6%;
+  }
+
+  .hero{
+    min-height:70vh;
+    text-align:left;
+  }
+
+  .hero-buttons{
+    flex-direction:column;
+  }
+
+  .netflix{
+    gap:12px;
+  }
+
+}
+
+.card{
+  backdrop-filter:blur(6px);
+  background:rgba(255,255,255,.85);
+}
