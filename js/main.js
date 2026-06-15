@@ -20,33 +20,46 @@ function safeSetImage(img, src) {
 
 window.addEventListener("load", () => {
 
-  const intro = document.querySelector(".blinkita-intro") || document.getElementById("time-portal");
-  const phaseEl = document.getElementById("portal-phase");
-  const textEl = document.getElementById("portal-text");
+  try {
 
-  if (!intro || !phaseEl || !textEl) return;
+    const intro = document.querySelector(".blinkita-intro") || document.getElementById("time-portal");
+    const phaseEl = document.getElementById("portal-phase");
+    const textEl = document.getElementById("portal-text");
 
-  const phases = [
-    { name: "SPOMIN", text: "Spominjaš se, kar si že vedela." },
-    { name: "ODPIRANJE", text: "Vrata se ne odpirajo zunaj, ampak znotraj." },
-    { name: "VSTOP", text: "Prestopaš v prostor, ki je vedno obstajal." }
-  ];
+    if (!intro || !phaseEl || !textEl) return;
 
-  let i = 0;
+    const phases = [
+      { name: "SPOMIN", text: "Spominjaš se, kar si že vedela." },
+      { name: "ODPIRANJE", text: "Vrata se ne odpirajo zunaj, ampak znotraj." },
+      { name: "VSTOP", text: "Prestopaš v prostor, ki je vedno obstajal." }
+    ];
 
-  const run = () => {
-    if (i < phases.length) {
-      phaseEl.textContent = phases[i].name;
-      textEl.textContent = phases[i].text;
-      i++;
-      setTimeout(run, 2200);
-    } else {
-      intro.classList.add("fade");
-      setTimeout(() => intro.style.display = "none", 1200);
-    }
-  };
+    let i = 0;
 
-  setTimeout(run, 800);
+    const run = () => {
+      try {
+        if (i < phases.length) {
+          phaseEl.textContent = phases[i].name;
+          textEl.textContent = phases[i].text;
+          i++;
+          setTimeout(run, 2200);
+        } else {
+          intro.classList.add("fade");
+          setTimeout(() => {
+            intro.style.display = "none";
+          }, 1200);
+        }
+      } catch (e) {
+        console.error("INTRO STEP ERROR:", e);
+      }
+    };
+
+    setTimeout(run, 800);
+
+  } catch (e) {
+    console.error("INTRO INIT ERROR:", e);
+  }
+
 });
 
 
@@ -604,9 +617,20 @@ const signMedicine = {
    ========================= */
 
 function updateZivCas() {
-  const data = (typeof getZivCas === "function") ? getZivCas() : null;
+  console.log("UPDATE RUNNING");
 
-  if (!data) return;
+  if (typeof getZivCas !== "function") {
+    console.error("getZivCas is missing!");
+    return;
+  }
+
+  const data = getZivCas();
+  if (!data) {
+    console.error("NO DATA FROM getZivCas()");
+    return;
+  }
+
+  console.log("DATA OK:", data);
 
   // MINI HEADER
   const dateEl = document.getElementById("greg-date");
@@ -622,15 +646,10 @@ function updateZivCas() {
 
   if (imgEl) {
     safeSetImage(imgEl, data.img);
-    safeSetImage(numImgEl, data.numImg);
-    imgEl.style.display = data.img ? "" : "none";
-    imgEl.onerror = () => imgEl.style.display = "none";
   }
 
   if (numImgEl) {
-    numImgEl.src = data.numImg || "";
-    numImgEl.style.display = data.numImg ? "" : "none";
-    numImgEl.onerror = () => numImgEl.style.display = "none";
+    safeSetImage(numImgEl, data.numImg);
   }
 
   // FRONT CARD
@@ -678,40 +697,16 @@ function updateZivCas() {
   }
 
   if (affEl) {
-    affEl.textContent = toneBack.affirmation ? "Afirmacija: " + toneBack.affirmation : "";
+    affEl.textContent = toneBack.affirmation
+      ? "Afirmacija: " + toneBack.affirmation
+      : "";
   }
 
   if (qEl) {
-    qEl.textContent = toneBack.question ? "Vprašanje: " + toneBack.question : "";
+    qEl.textContent = toneBack.question
+      ? "Vprašanje: " + toneBack.question
+      : "";
   }
-}
 
-/* =========================
-   INIT (SAFE SINGLE POINT)
-   ========================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-  requestAnimationFrame(() => {
-    setTimeout(updateZivCas, 300);
-  });
-});
-
-
-/* =========================
-   ORACLE CONTROLS
-   ========================= */
-
-function toggleOracle() {
-  const panel = document.getElementById("oracle-panel");
-  if (!panel) return;
-
-  panel.classList.toggle("oracle-visible");
-
-  const card = document.querySelector(".oracle-card");
-  if (card) card.classList.remove("flipped");
-}
-
-function flipOracle() {
-  const card = document.querySelector(".oracle-card");
-  if (card) card.classList.toggle("flipped");
+  console.log("UPDATE DONE");
 }
