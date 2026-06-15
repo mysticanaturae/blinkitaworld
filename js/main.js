@@ -1,106 +1,117 @@
 /* ==========================
    BLINKITA WORLD 8.0
-   CLEAN STABLE CORE FIX
+   CLEAN STABLE CORE FIX v2
    ========================== */
 
 function safeSetImage(img, src) {
   if (!img) return;
+
   if (!src) {
     img.style.display = "none";
     return;
   }
+
   img.style.display = "";
   img.src = src;
-  img.onerror = () => img.style.display = "none";
+  img.onerror = () => {
+    img.style.display = "none";
+  };
 }
 
 /* =========================
-   INTRO (SAFE FIXED FLOW)
+   INTRO SAFE FLOW
    ========================= */
 
 window.addEventListener("load", () => {
+  const intro = document.querySelector(".blinkita-intro") || document.getElementById("time-portal");
+  const phaseEl = document.getElementById("portal-phase");
+  const textEl = document.getElementById("portal-text");
 
-  try {
+  if (!intro || !phaseEl || !textEl) return;
 
-    const intro = document.querySelector(".blinkita-intro") || document.getElementById("time-portal");
-    const phaseEl = document.getElementById("portal-phase");
-    const textEl = document.getElementById("portal-text");
+  const phases = [
+    { name: "SPOMIN", text: "Spominjaš se, kar si že vedela." },
+    { name: "ODPIRANJE", text: "Vrata se ne odpirajo zunaj, ampak znotraj." },
+    { name: "VSTOP", text: "Prestopaš v prostor, ki je vedno obstajal." }
+  ];
 
+  let i = 0;
+
+  const run = () => {
     if (!intro || !phaseEl || !textEl) return;
 
-    const phases = [
-      { name: "SPOMIN", text: "Spominjaš se, kar si že vedela." },
-      { name: "ODPIRANJE", text: "Vrata se ne odpirajo zunaj, ampak znotraj." },
-      { name: "VSTOP", text: "Prestopaš v prostor, ki je vedno obstajal." }
-    ];
+    if (i < phases.length) {
+      phaseEl.textContent = phases[i].name;
+      textEl.textContent = phases[i].text;
+      i++;
+      setTimeout(run, 2200);
+    } else {
+      intro.classList.add("fade");
+      setTimeout(() => {
+        if (intro) intro.style.display = "none";
+      }, 1200);
+    }
+  };
 
-    let i = 0;
-
-    const run = () => {
-      try {
-        if (i < phases.length) {
-          phaseEl.textContent = phases[i].name;
-          textEl.textContent = phases[i].text;
-          i++;
-          setTimeout(run, 2200);
-        } else {
-          intro.classList.add("fade");
-          setTimeout(() => {
-            intro.style.display = "none";
-          }, 1200);
-        }
-      } catch (e) {
-        console.error("INTRO STEP ERROR:", e);
-      }
-    };
-
-    setTimeout(run, 800);
-
-  } catch (e) {
-    console.error("INTRO INIT ERROR:", e);
-  }
-
+  setTimeout(run, 800);
 });
 
-
 /* =========================
-   SCROLL REVEAL
+   SCROLL REVEAL (SAFE)
    ========================= */
 
 const sections = document.querySelectorAll("section");
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-    }
+if ("IntersectionObserver" in window && sections.length > 0) {
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        obs.unobserve(entry.target); // performance boost
+      }
+    });
+  }, { threshold: 0.15 });
+
+  sections.forEach(section => {
+    if (section) observer.observe(section);
   });
-}, { threshold: 0.15 });
-
-sections.forEach(section => observer.observe(section));
-
+}
 
 /* =========================
-   HERO PARALLAX
+   HERO PARALLAX (SAFE)
    ========================= */
 
-window.addEventListener("scroll", () => {
-  const hero = document.querySelector(".hero");
-  if (!hero) return;
-  hero.style.backgroundPositionY = `${window.scrollY * 0.25}px`;
-});
+const hero = document.querySelector(".hero");
 
+if (hero) {
+  let ticking = false;
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        hero.style.backgroundPositionY = `${window.scrollY * 0.25}px`;
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+}
 
 /* =========================
-   PAGE TRANSITIONS
+   PAGE TRANSITIONS (SAFE LINKS)
    ========================= */
 
 document.querySelectorAll("a").forEach(link => {
   const href = link.getAttribute("href");
-  if (!href || !href.includes(".html")) return;
+  if (!href) return;
+
+  const isInternalPage = href.includes(".html");
+
+  if (!isInternalPage) return;
 
   link.addEventListener("click", (e) => {
     e.preventDefault();
+
     document.body.classList.add("page-leaving");
 
     setTimeout(() => {
@@ -613,100 +624,76 @@ const signMedicine = {
 
 
 /* =========================
-   CORE SAFE UPDATE (FIXED)
+   CORE UPDATE ENGINE
    ========================= */
 
 function updateZivCas() {
-  console.log("UPDATE RUNNING");
+  try {
+    if (typeof getZivCas !== "function") return;
 
-  if (typeof getZivCas !== "function") {
-    console.error("getZivCas is missing!");
-    return;
+    const data = getZivCas();
+    if (!data) return;
+
+    // HEADER
+    const dateEl = document.getElementById("greg-date");
+    const numEl = document.getElementById("tzolkin-number");
+    const signEl = document.getElementById("tzolkin-sign");
+
+    if (dateEl) dateEl.textContent = data.greg || "";
+    if (numEl) numEl.textContent = data.number || "";
+    if (signEl) signEl.textContent = data.sign || "";
+
+    safeSetImage(document.getElementById("tzolkin-sign-img"), data.img);
+    safeSetImage(document.getElementById("tzolkin-number-img"), data.numImg);
+
+    // ORACLE FRONT
+    const toneInfo = toneOracle?.[String(data.number)] || {};
+    const signInfo = signOracle?.[data.sign] || {};
+
+    const toneTitle = document.getElementById("oracle-number-title");
+    const toneEss = document.getElementById("oracle-number-essence");
+    const toneMedFront = document.getElementById("oracle-number-medicine");
+
+    if (toneTitle) toneTitle.textContent = "Ton " + data.number;
+    if (toneEss) toneEss.textContent = toneInfo.essence || "";
+    if (toneMedFront) toneMedFront.textContent = toneInfo.medicine || "";
+
+    const signTitle = document.getElementById("oracle-sign-title");
+    const signEss = document.getElementById("oracle-sign-essence");
+    const signKeywords = document.getElementById("oracle-sign-keywords");
+    const signMedFront = document.getElementById("oracle-sign-medicine");
+
+    if (signTitle) signTitle.textContent = data.sign || "";
+    if (signEss) signEss.textContent = signInfo.essence || "";
+    if (signKeywords) signKeywords.textContent = signInfo.keywords || "";
+    if (signMedFront) signMedFront.textContent = signInfo.medicine || "";
+
+    // BACK ORACLE
+    const toneBack = toneMedicine?.[data.number] || {};
+    const signBack = signMedicine?.[data.sign] || {};
+
+    const keywordEl = document.getElementById("oracle-keyword");
+    const medEl = document.getElementById("oracle-medicine-text");
+    const affEl = document.getElementById("oracle-affirmation");
+    const qEl = document.getElementById("oracle-question");
+
+    if (keywordEl) {
+      keywordEl.textContent = `${toneBack.keywords || ""} ${signBack.keywords || ""}`.trim();
+    }
+
+    if (medEl) {
+      medEl.textContent = `${toneBack.medicine || ""} ${signBack.medicine || ""}`.trim();
+    }
+
+    if (affEl) {
+      affEl.textContent = toneBack.affirmation ? `Afirmacija: ${toneBack.affirmation}` : "";
+    }
+
+    if (qEl) {
+      qEl.textContent = toneBack.question ? `Vprašanje: ${toneBack.question}` : "";
+    }
+
+  } catch (err) {
+    console.error("updateZivCas crash:", err);
   }
-
-  const data = getZivCas();
-  if (!data) {
-    console.error("NO DATA FROM getZivCas()");
-    return;
-  }
-
-  console.log("DATA OK:", data);
-
-  // MINI HEADER
-  const dateEl = document.getElementById("greg-date");
-  const numEl = document.getElementById("tzolkin-number");
-  const signEl = document.getElementById("tzolkin-sign");
-
-  if (dateEl) dateEl.textContent = data.greg || "";
-  if (numEl) numEl.textContent = data.number || "";
-  if (signEl) signEl.textContent = data.sign || "";
-
-  const imgEl = document.getElementById("tzolkin-sign-img");
-  const numImgEl = document.getElementById("tzolkin-number-img");
-
-  if (imgEl) {
-    safeSetImage(imgEl, data.img);
-  }
-
-  if (numImgEl) {
-    safeSetImage(numImgEl, data.numImg);
-  }
-
-  // FRONT CARD
-  const oracleDate = document.getElementById("oracle-date");
-  if (oracleDate) oracleDate.textContent = data.greg || "";
-
-  const toneInfo = toneOracle[String(data.number)] || {};
-  const signInfo = signOracle[data.sign] || {};
-
-  const toneTitle = document.getElementById("oracle-number-title");
-  const toneEss = document.getElementById("oracle-number-essence");
-  const toneMedFront = document.getElementById("oracle-number-medicine");
-
-  if (toneTitle) toneTitle.textContent = "Ton " + data.number;
-  if (toneEss) toneEss.textContent = toneInfo.essence || "";
-  if (toneMedFront) toneMedFront.textContent = toneInfo.medicine || "";
-
-  const signTitle = document.getElementById("oracle-sign-title");
-  const signEss = document.getElementById("oracle-sign-essence");
-  const signKeywords = document.getElementById("oracle-sign-keywords");
-  const signMedFront = document.getElementById("oracle-sign-medicine");
-
-  if (signTitle) signTitle.textContent = data.sign || "";
-  if (signEss) signEss.textContent = signInfo.essence || "";
-  if (signKeywords) signKeywords.textContent = signInfo.keywords || "";
-  if (signMedFront) signMedFront.textContent = signInfo.medicine || "";
-
-  // BACK CARD
-  const toneBack = toneMedicine?.[data.number] || {};
-  const signBack = signMedicine?.[data.sign] || {};
-
-  const keywordEl = document.getElementById("oracle-keyword");
-  const medEl = document.getElementById("oracle-medicine-text");
-  const affEl = document.getElementById("oracle-affirmation");
-  const qEl = document.getElementById("oracle-question");
-
-  if (keywordEl) {
-    keywordEl.textContent =
-      (toneBack.keywords || "") + " " + (signBack.keywords || "");
-  }
-
-  if (medEl) {
-    medEl.textContent =
-      (toneBack.medicine || "") + " " + (signBack.medicine || "");
-  }
-
-  if (affEl) {
-    affEl.textContent = toneBack.affirmation
-      ? "Afirmacija: " + toneBack.affirmation
-      : "";
-  }
-
-  if (qEl) {
-    qEl.textContent = toneBack.question
-      ? "Vprašanje: " + toneBack.question
-      : "";
-  }
-
-  console.log("UPDATE DONE");
 }
