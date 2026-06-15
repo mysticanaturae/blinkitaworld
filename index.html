@@ -1,90 +1,269 @@
-<script>
-window.UNIVERSE = {
-  mood: "neutral",
-  intensity: 0.5
-};
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/style.css">
+  <title>Blinkita World</title>
+</head>
 
-function setMood(mood){
-  window.UNIVERSE.mood = mood;
-  document.body.setAttribute("data-mood", mood);
-}
+<body>
 
-/* INTERAKCIJE */
-const interactiveElements = document.querySelectorAll(".world, .card, a");
+<!-- INTRO -->
+<div class="blinkita-intro">
+  <div class="blinkita-intro-inner">
+    <h1>Blinkita World</h1>
+    <p>vstop v čas • zavest • zgodbo</p>
+  </div>
+</div>
 
-let interactionScore = 0;
+<!-- HEADER -->
+<header>
+  <nav>
+    <a href="index.html">Domov</a>
+    <a href="koda-casa.html">Koda Časa</a>
+    <a href="blinkita-tv.html">Blinkita TV</a>
+    <a href="knjiznica.html">Knjižnica</a>
+    <a href="belize.html">Belize</a>
+    <a href="circle.html">Circle</a>
+    <a href="varuhinja-prehodov.html">Varuhinja</a>
+  </nav>
+</header>
 
-function updateMood(){
-  if(interactionScore < 3) setMood("calm");
-  else if(interactionScore < 7) setMood("active");
-  else if(interactionScore < 12) setMood("deep");
-  else setMood("mystical");
-}
+<!-- HERO -->
+<section class="hero">
 
-interactiveElements.forEach(el=>{
-  el.addEventListener("mouseenter", ()=>{
-    interactionScore += 1;
-    updateMood();
-  });
+  <div class="hero-card">
 
-  el.addEventListener("click", ()=>{
-    interactionScore += 2;
-    updateMood();
-  });
-});
+    <p class="hero-kicker">Dobrodošla v Blinkita World</p>
 
-/* SCROLL ANIMACIJE */
-const sections = document.querySelectorAll("section");
+    <h1>Nekatere poti te pripeljejo nazaj k sebi.</h1>
 
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add("in-view");
+    <p class="hero-subtitle">
+      Od Slovenije do Belizeja.<br>
+      Od vprašanj do Medicine Časa.<br>
+      Od iskanja do spomina.
+    </p>
 
-      const ripple = document.createElement("div");
-      ripple.className = "ripple active";
-      document.body.appendChild(ripple);
+    <p>
+      To ni spletna stran.<br>
+      To je vstopni portal.
+    </p>
 
-      setTimeout(()=>ripple.remove(), 800);
-    }
-  });
-},{threshold:0.25});
+    <div class="hero-buttons">
+      <a class="btn" href="koda-casa.html">✨ Odkrij svojo Kodo Časa</a>
+      <a class="btn-secondary" href="blinkita-tv.html">📺 Vstopi v Blinkita TV</a>
+    </div>
 
-sections.forEach(s=>observer.observe(s));
+  </div>
 
-/* AUDIO */
-const audio = document.querySelector("#ambience");
+</section>
 
-window.addEventListener("click", () => {
-  if(audio){
-    audio.volume = 0.3;
-    audio.play().catch(()=>{});
-  }
-}, { once:true });
+<!-- WHAT IS -->
+<section>
 
-/* PORTAL TRANSITION */
-const overlay = document.createElement("div");
-overlay.className = "portal-overlay";
-document.body.appendChild(overlay);
+  <h2>Kaj je Blinkita World?</h2>
 
-document.querySelectorAll("a").forEach(link=>{
-  link.addEventListener("click", (e)=>{
-    const href = link.getAttribute("href");
+  <p class="lead">Ni sistem. Ni metoda. Ni program.</p>
 
-    if(!href || !href.includes(".html")) return;
+  <p>Je živ zemljevid časa, zavesti in preobrazbe.</p>
 
-    e.preventDefault();
+  <p>Prostor, kjer se srečajo zgodba, identiteta in spomin.</p>
 
-    overlay.classList.add("active");
+  <h3>Kdo postajaš?</h3>
 
-    document.body.style.transform = "scale(1.02)";
-    document.body.style.transition = "0.6s ease";
+</section>
 
-    setTimeout(()=>{
-      window.location.href = href;
-    }, 600);
-  });
-});
-</script>
+<!-- TRANSFORMATION -->
+<section>
+
+  <h2>Pot preobrazbe</h2>
+
+  <img src="images/blinkita-before-after.jpg" alt="Pot preobrazbe">
+
+  <p class="lead">
+    Vsaka zgodba ima točko zloma.<br>
+    In točko, kjer se začne znova.
+  </p>
+
+</section>
+
+<!-- FIVE DOORS -->
+<section>
+
+  <h2>Pet vrat Blinkita World</h2>
+
+  <p class="lead">
+    Ne začneš pri vseh vratih.<br>
+    Začneš pri tistih, ki te pokličejo.
+  </p>
+
+  <div class="grid">
+
+    <div class="card door">
+      <h3>ODKRIJ</h3>
+      <p>Koda Časa</p>
+    </div>
+
+    <div class="card door">
+      <h3>PREBUDI</h3>
+      <p>Blinkita Mind</p>
+    </div>
+
+    <div class="card door">
+      <h3>UTELESI</h3>
+      <p>Blinkita Body</p>
+    </div>
+
+    <div class="card door">
+      <h3>USTVARI</h3>
+      <p>Blinkita Life</p>
+    </div>
+
+    <div class="card door">
+      <h3>OSTANI</h3>
+      <p>Blinkita Circle</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- WHO -->
+<section>
+
+  <h2>Kdo je Blinkita?</h2>
+
+  <p class="lead">
+    raziskovalka časa • avtorica 200+ knjig • hipnoterapevtka • učenka Maya tradicije • mama
+  </p>
+
+</section>
+
+<!-- BELIZE -->
+<section id="belize">
+
+  <img src="images/karibskaplaza.jpg" alt="Belize">
+
+  <h2>Belize</h2>
+
+  <p class="lead">Tukaj sem našla delček svoje duše.</p>
+  <p>Tukaj sem začela živeti drugače.</p>
+
+  <a class="btn" href="belize.html">🌿 Raziskuj Belize</a>
+
+</section>
+
+<!-- TV -->
+<section>
+
+  <h2>Blinkita TV</h2>
+
+  <div class="netflix">
+    <div class="card">Medicina Časa</div>
+    <div class="card">Dnevnik iz Belizeja</div>
+    <div class="card">Oživimo razglednice</div>
+    <div class="card">Pogovori pod palmami</div>
+  </div>
+
+</section>
+
+<!-- LIBRARY -->
+<section class="library">
+
+  <h2>Knjižnica</h2>
+
+  <p class="lead">Več kot 200 knjig. Več kot 200 prehodov.</p>
+
+  <a class="btn" href="knjiznica.html">📚 Vstopi v knjižnico</a>
+
+</section>
+
+<!-- VARUHINJA -->
+<section class="varuhinja">
+
+  <img src="images/blinkitaprofilkacrnobela.jpg" alt="Varuhinja">
+
+  <h2>Varuhinja prehodov</h2>
+
+  <p class="lead">Nekatere poti se ne izberejo. Srečajo te.</p>
+
+  <a class="btn" href="varuhinja-prehodov.html">🔥 Spoznaj zgodbo</a>
+
+</section>
+
+<!-- CIRCLE -->
+<section>
+
+  <h2>Circle</h2>
+
+  <p class="lead">Prostor ljudi, ki jih zanima preobrazba, čas in zavest.</p>
+
+  <a class="btn" href="circle.html">✨ Pridruži se Circle</a>
+
+</section>
+
+<!-- MANIFEST -->
+<section class="manifest">
+
+  <h2>Manifest Blinkita World</h2>
+
+  <p>Ne učim ljudi, kako začeti.<br>Pomagam jim razumeti, kako ostati.</p>
+
+</section>
+
+<!-- CLOSING -->
+<section class="closing">
+
+  <h2>Vrata so odprta.</h2>
+
+  <p>Čas te je pripeljal sem.</p>
+
+  <div class="cta-buttons">
+    <a class="btn" href="koda-casa.html">✨ Koda Časa</a>
+    <a class="btn" href="knjiznica.html">📚 Knjižnica</a>
+    <a class="btn" href="circle.html">✨ Circle</a>
+  </div>
+
+</section>
+
+<section class="multiverse">
+
+  <h2>Multiverse Map</h2>
+  <p class="lead">Izberi svet. Ne stran.</p>
+
+  <div class="universe-grid">
+
+    <a href="index.html" class="world home">
+      <span>Blinkita World</span>
+    </a>
+
+    <a href="belize.html" class="world belize">
+      <span>Belize Ocean</span>
+    </a>
+
+    <a href="blinkita-tv.html" class="world tv">
+      <span>Blinkita TV</span>
+    </a>
+
+    <a href="knjiznica.html" class="world library">
+      <span>Knjižnica</span>
+    </a>
+
+    <a href="circle.html" class="world circle">
+      <span>Circle</span>
+    </a>
+
+  </div>
+
+</section>
+
+<footer>
+  <h3>Pridruži se Circle</h3>
+  <p>Prejmi naslednje pismo iz Blinkita World.</p>
+</footer>
+
+<script src="js/main.js"></script>
+
 </body>
 </html>

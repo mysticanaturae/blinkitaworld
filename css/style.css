@@ -1,325 +1,336 @@
 
-/* =========================
-   LIVING UNIVERSE ENGINE
-   Blinkita World — Level 6
-   ========================= */
+/* ==========================
+   BLINKITA WORLD 8.0
+   Luxury Storytelling Edition
+   ========================== */
 
 :root{
-  --bg:#f8f4ee;
-  --dark:#1f1a17;
+
+  --sand:#f6f1ea;
+  --cream:#fbf8f4;
   --gold:#b89a5c;
+  --gold-soft:#d8c7a0;
 
-  --ocean:#0aa6a6;
-  --deep:#071a1c;
+  --ocean:#8fb8b7;
+  --sage:#a8b7a1;
 
-  --glass:rgba(255,255,255,.08);
-  --glass-strong:rgba(255,255,255,.18);
+  --ink:#2b2522;
+  --text:#4a433f;
 
-  --shadow:0 25px 80px rgba(0,0,0,.12);
-  --glow:0 0 40px rgba(0,180,160,.25);
+  --shadow:
+    0 20px 60px rgba(0,0,0,.08);
+
 }
 
 /* RESET */
+
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
 }
 
 html{
   scroll-behavior:smooth;
-  scroll-snap-type:y proximity;
 }
 
 body{
-  font-family:system-ui,sans-serif;
-  background:radial-gradient(circle at top, #f8f4ee, #eef6f4, #e7f3f2);
-  color:var(--dark);
+
+  background:var(--sand);
+
+  color:var(--text);
+
+  font-family:
+    Inter,
+    system-ui,
+    sans-serif;
+
+  line-height:1.8;
+
   overflow-x:hidden;
-  position:relative;
+
 }
 
-/* =========================
-   UNIVERSAL LIGHT FIELD
-   ========================= */
-
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(184,154,92,.10), transparent 40%),
-    radial-gradient(circle at 70% 30%, rgba(0,180,160,.10), transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(0,120,200,.08), transparent 50%);
-  animation:breathe 14s ease-in-out infinite;
-  z-index:-2;
-}
-
-@keyframes breathe{
-  0%,100%{transform:scale(1); opacity:.6;}
-  50%{transform:scale(1.05); opacity:.9;}
-}
-
-/* soft depth noise layer */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:radial-gradient(circle, transparent 60%, rgba(0,0,0,.05));
-  mix-blend-mode:soft-light;
-  z-index:-1;
-}
-
-/* =========================
-   HEADER = FLOATING CONTROL BAR
-   ========================= */
-
-header{
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:999;
-  padding:14px 5%;
-  background:rgba(255,255,255,.75);
-  backdrop-filter:blur(14px);
-  transition:.4s ease;
-  box-shadow:0 10px 40px rgba(0,0,0,.05);
-}
-
-header.hide{
-  transform:translateY(-100%);
-}
-
-/* =========================
-   HERO = ENTRY PORTAL
-   ========================= */
-
-.hero{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  padding:8%;
-  color:white;
-  position:relative;
-  overflow:hidden;
-}
-
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(120deg, rgba(0,0,0,.55), rgba(0,0,0,.35)),
-    url("../images/blinkitanaplazi.jpg");
-  background-size:cover;
-  background-position:center;
-  transform:scale(1.05);
-  animation:slowZoom 30s ease-in-out infinite;
-  will-change:transform;
-}
-
-@keyframes slowZoom{
-  0%,100%{transform:scale(1.1);}
-  50%{transform:scale(1.2);}
-}
-
-/* hero glow layer */
-.hero::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at center, rgba(255,255,255,.08), transparent 60%);
-  animation:pulse 8s ease-in-out infinite;
-}
-
-@keyframes pulse{
-  0%,100%{opacity:.4;}
-  50%{opacity:.8;}
-}
-
-/* =========================
-   SECTION = LIVING CHAPTERS
-   ========================= */
-
-section{
-  min-height:100vh;
-  padding:120px 8%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-
-  opacity:6;
-  transform:translateY(40px) scale(.98);
-  filter:blur(2px);
-
-  transition:opacity .9s ease, transform .9s ease, filter .9s ease;
-
-  scroll-snap-align:start;
-}
-
-section.in-view{
-  opacity:1;
-  transform:translateY(0) scale(1);
-  filter:blur(0);
-}
-
-/* =========================
-   TYPOGRAPHY ENGINE
-   ========================= */
+/* TYPOGRAPHY */
 
 h1,h2,h3{
-  font-family:Georgia,serif;
-  letter-spacing:.5px;
+
+  font-family:
+    Georgia,
+    serif;
+
+  color:var(--ink);
+
+  font-weight:400;
+
+}
+
+h1{
+  font-size:clamp(3rem,6vw,5.5rem);
+  line-height:1.05;
+}
+
+h2{
+  font-size:clamp(2rem,4vw,3.5rem);
+  margin-bottom:25px;
+}
+
+h3{
+  font-size:1.4rem;
 }
 
 p{
-  opacity:.92;
-  line-height:1.7;
+  max-width:760px;
 }
 
 .lead{
-  font-size:1.2rem;
-  max-width:800px;
+  font-size:1.25rem;
 }
 
-/* =========================
-   CARDS = GLASS ENTITIES
-   ========================= */
+/* INTRO */
 
-.card{
-  background:var(--glass-strong);
-  backdrop-filter:blur(10px);
-  padding:24px;
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  transition:.4s ease;
+.blinkita-intro{
+
+  position:fixed;
+  inset:0;
+
+  background:var(--cream);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  z-index:99999;
+
+  animation:introFade 3s forwards;
 }
 
-.card{
-  cursor:pointer;
+.blinkita-intro-inner{
+  text-align:center;
 }
 
-.card:hover{
-  transform:translateY(-10px) scale(1.02);
-  box-shadow:0 0 45px rgba(0,180,160,.28);
+.blinkita-intro h1{
+  letter-spacing:2px;
 }
 
-/* =========================
-   DOORS = PORTAL SYSTEM
-   ========================= */
+.blinkita-intro p{
 
-.door{
+  margin-top:15px;
+
+  color:var(--gold);
+
+  text-transform:uppercase;
+
+  letter-spacing:4px;
+
+}
+
+@keyframes introFade{
+
+  0%,75%{
+    opacity:1;
+  }
+
+  100%{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
+
+}
+
+/* HEADER */
+
+header{
+
+  position:fixed;
+
+  top:0;
+  left:0;
+  right:0;
+
+  z-index:1000;
+
+  background:
+    rgba(251,248,244,.85);
+
+  backdrop-filter:blur(18px);
+
+  border-bottom:
+    1px solid rgba(184,154,92,.12);
+
+}
+
+nav{
+
+  max-width:1400px;
+
+  margin:auto;
+
+  padding:20px 40px;
+
+  display:flex;
+
+  justify-content:center;
+
+  gap:30px;
+
+  flex-wrap:wrap;
+
+}
+
+nav a{
+
+  text-decoration:none;
+
+  color:var(--ink);
+
+  transition:.3s;
+
+}
+
+nav a:hover{
+
+  color:var(--gold);
+
+}
+
+.hero{
+
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+
+  padding:120px 8%;
+
   position:relative;
-  overflow:hidden;
-  cursor:pointer;
-}
 
-.door::before{
-  content:"";
-  position:absolute;
-  inset:-50%;
-  background:radial-gradient(circle, rgba(184,154,92,.25), transparent 60%);
-  transform:scale(0);
-  transition:.8s ease;
-}
-
-.door:hover::before{
-  transform:scale(1);
-}
-
-/* =========================
-   BELIZE = OCEAN DIMENSION (COMPLETE)
-   ========================= */
-
-#belize{
-  position:relative;
-  overflow:hidden;
-  border-radius:30px;
   color:white;
-  min-height:110vh;
+
 }
 
-#belize::before{
+.hero::before{
+
   content:"";
+
   position:absolute;
   inset:0;
+
   background:
-    radial-gradient(circle at 30% 40%, rgba(0,200,180,.18), transparent 60%),
-    radial-gradient(circle at 70% 60%, rgba(0,120,255,.12), transparent 55%),
-    radial-gradient(circle at 50% 90%, rgba(255,220,180,.08), transparent 60%);
-  animation:oceanPulse 10s ease-in-out infinite;
-  mix-blend-mode:screen;
+    linear-gradient(
+      rgba(0,0,0,.35),
+      rgba(0,0,0,.35)
+    ),
+    url("../images/blinkitanaplazi.jpg");
+
+  background-size:cover;
+  background-position:center;
+
+  animation:heroZoom 35s ease infinite;
+
 }
 
-@keyframes oceanPulse{
-  0%,100%{transform:scale(1); opacity:.55;}
-  50%{transform:scale(1.06); opacity:.95;}
-}
+@keyframes heroZoom{
 
-/* cinematic water image behavior */
-#belize img{
-  filter:saturate(1.25) contrast(1.1) brightness(1.05);
-  transition:transform 1.2s ease, filter 1.2s ease;
-  transform:scale(1);
-}
-
-#belize:hover img{
-  transform:scale(1.04);
-  filter:saturate(1.35) contrast(1.15) brightness(1.1);
-}
-
-/* floating “breathing text” */
-#belize h2,
-#belize p{
-  animation:floatText 6s ease-in-out infinite;
-}
-
-@keyframes floatText{
-  0%,100%{transform:translateY(0px);}
-  50%{transform:translateY(-6px);}
-}
-
-/* =========================
-   FINAL GLOBAL DEPTH LAYER FIX
-   ========================= */
-
-/* ensures correct stacking */
-body{
-  background:radial-gradient(circle at top, #f8f4ee, #eef6f4, #e7f3f2);
-}
-
-/* prevents “flat UI” feeling */
-body::before,
-body::after{
-  will-change:transform, opacity;
-  transform:translateZ(0);
-}
-
-/* =========================
-   REALITY FOCUS SYSTEM (OPTIONAL POLISH)
-   ========================= */
-
-/* smooth “attention shift” */
-section{
-  transition:opacity 1s ease, transform 1s ease, filter 1s ease;
-}
-
-/* stronger in-view state (cleaner readability) */
-section.in-view{
-  opacity:1;
-  filter:blur(0);
-  transform:translateY(0) scale(1);
-}
-
-/* background breathing refinement */
-@media (prefers-reduced-motion: no-preference){
-  body::before{
-    animation-duration:16s;
+  0%,100%{
+    transform:scale(1);
   }
+
+  50%{
+    transform:scale(1.08);
+  }
+
 }
 
+.hero-card{
+
+  position:relative;
+  z-index:2;
+
+  max-width:700px;
+
+  background:
+    rgba(255,255,255,.12);
+
+  backdrop-filter:blur(16px);
+
+  padding:60px;
+
+  border-radius:30px;
+
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.25);
+
+}
+
+.hero-card h1{
+  color:white;
+}
+
+.hero-kicker{
+
+  color:#f4dfb7;
+
+  letter-spacing:3px;
+
+  text-transform:uppercase;
+
+  margin-bottom:15px;
+
+}
+
+.hero-subtitle{
+
+  font-size:1.2rem;
+
+  margin:25px 0;
+
+}
+
+.btn,
+.btn-secondary{
+
+  display:inline-block;
+
+  padding:16px 30px;
+
+  border-radius:999px;
+
+  text-decoration:none;
+
+  transition:.35s ease;
+
+  margin-top:20px;
+
+}
+
+.btn{
+
+  background:var(--gold);
+
+  color:white;
+
+}
+
+.btn:hover{
+
+  transform:translateY(-3px);
+
+}
+
+.btn-secondary{
+
+  border:1px solid rgba(255,255,255,.4);
+
+  color:white;
+
+  margin-left:10px;
+
+}
+
+.btn-secondary:hover{
+
+  background:rgba(255,255,255,.15);
+
+}
