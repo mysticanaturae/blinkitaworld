@@ -1,6 +1,6 @@
 /* ==========================
    BLINKITA WORLD 8.0
-   Luxury Storytelling Edition (CLEAN PORTAL CORE)
+   CLEAN STABLE CORE FIX
    ========================== */
 
 function safeSetImage(img, src) {
@@ -15,132 +15,95 @@ function safeSetImage(img, src) {
 }
 
 /* =========================
-   INTRO (INDEX + PORTAL SAFE)
+   INTRO (SAFE FIXED FLOW)
    ========================= */
 
 window.addEventListener("load", () => {
 
-  const intro = document.querySelector(".blinkita-intro");
-
+  const intro = document.querySelector(".blinkita-intro") || document.getElementById("time-portal");
   const phaseEl = document.getElementById("portal-phase");
   const textEl = document.getElementById("portal-text");
 
+  if (!intro || !phaseEl || !textEl) return;
+
   const phases = [
-    {
-      name: "SPOMIN",
-      text: "Spominjaš se, kar si že vedela."
-    },
-    {
-      name: "ODPIRANJE",
-      text: "Vrata se ne odpirajo zunaj, ampak znotraj."
-    },
-    {
-      name: "VSTOP",
-      text: "Prestopaš v prostor, ki je vedno obstajal."
-    }
+    { name: "SPOMIN", text: "Spominjaš se, kar si že vedela." },
+    { name: "ODPIRANJE", text: "Vrata se ne odpirajo zunaj, ampak znotraj." },
+    { name: "VSTOP", text: "Prestopaš v prostor, ki je vedno obstajal." }
   ];
 
   let i = 0;
 
-  const interval = setInterval(() => {
-
+  const run = () => {
     if (i < phases.length) {
       phaseEl.textContent = phases[i].name;
       textEl.textContent = phases[i].text;
       i++;
+      setTimeout(run, 2200);
     } else {
-
-      clearInterval(interval);
-
       intro.classList.add("fade");
-
-      setTimeout(() => {
-        intro.style.display = "none";
-      }, 1200);
+      setTimeout(() => intro.style.display = "none", 1200);
     }
+  };
 
-  }, 2200);
-
+  setTimeout(run, 800);
 });
 
+
 /* =========================
-   SCROLL REVEAL (PORTAL EFFECT)
+   SCROLL REVEAL
    ========================= */
 
 const sections = document.querySelectorAll("section");
 
 const observer = new IntersectionObserver((entries) => {
-
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add("visible");
     }
   });
+}, { threshold: 0.15 });
 
-}, {
-  threshold: 0.15
-});
-
-sections.forEach(section => {
-  observer.observe(section);
-});
+sections.forEach(section => observer.observe(section));
 
 
 /* =========================
-   HERO PARALLAX (SOFT DIMENSION SHIFT)
+   HERO PARALLAX
    ========================= */
 
 window.addEventListener("scroll", () => {
-
   const hero = document.querySelector(".hero");
-
   if (!hero) return;
-
-  const scrollY = window.scrollY;
-
-  hero.style.backgroundPositionY =
-    `${scrollY * 0.25}px`;
-
+  hero.style.backgroundPositionY = `${window.scrollY * 0.25}px`;
 });
 
 
 /* =========================
-   PORTAL PAGE TRANSITIONS
+   PAGE TRANSITIONS
    ========================= */
 
 document.querySelectorAll("a").forEach(link => {
-
   const href = link.getAttribute("href");
-
-  if (!href) return;
-
-  /* samo interne HTML strani */
-  if (!href.includes(".html")) return;
+  if (!href || !href.includes(".html")) return;
 
   link.addEventListener("click", (e) => {
-
     e.preventDefault();
-
     document.body.classList.add("page-leaving");
 
     setTimeout(() => {
       window.location.href = href;
     }, 400);
-
   });
-
 });
 
+
 /* =========================
-   ŽIV ČAS SYSTEM (ANCHOR BASED - TRADITIONAL)
+   ANCHOR SETUP (UNCHANGED)
    ========================= */
 
-/* --- ANCHOR SETUP --- */
-
-// --- Anchor datum za pravilno uskladitev Tzolkin ---
-const anchorDate = new Date("1800-01-01"); // 1.1.1800 = 10 Jaguar
-const anchorTone = 10; // 10 = Ix (tone za ta datum)
-const anchorSignIdx = 13; // Jaguar je 15. znak (če indeksiraš od 0, je 14)
+const anchorDate = new Date("1800-01-01");
+const anchorTone = 10;
+const anchorSignIdx = 13;
 
 /* --- DATA --- */
 
@@ -636,48 +599,42 @@ const signMedicine = {
 };
 
 
-/* --- CORE CALCULATION --- */
+/* =========================
+   CORE SAFE UPDATE (FIXED)
+   ========================= */
 
 function updateZivCas() {
 
-  const data = getZivCas?.() || {
-    greg: "",
-    number: "1",
-    sign: "Krokodil",
-    img: "",
-    numImg: ""
-  };
+  if (typeof getZivCas !== "function") return;
 
-  /* =========================
-     MINI HEADER
-     ========================= */
+  const data = getZivCas();
+  if (!data) return;
 
+  // MINI HEADER
   const dateEl = document.getElementById("greg-date");
   const numEl = document.getElementById("tzolkin-number");
   const signEl = document.getElementById("tzolkin-sign");
-
-  const imgEl = document.getElementById("tzolkin-sign-img");
-  const numImgEl = document.getElementById("tzolkin-number-img");
 
   if (dateEl) dateEl.textContent = data.greg || "";
   if (numEl) numEl.textContent = data.number || "";
   if (signEl) signEl.textContent = data.sign || "";
 
-  // SAFE IMAGE LOADING
+  const imgEl = document.getElementById("tzolkin-sign-img");
+  const numImgEl = document.getElementById("tzolkin-number-img");
+
   if (imgEl) {
     imgEl.src = data.img || "";
+    imgEl.style.display = data.img ? "" : "none";
     imgEl.onerror = () => imgEl.style.display = "none";
   }
 
   if (numImgEl) {
     numImgEl.src = data.numImg || "";
+    numImgEl.style.display = data.numImg ? "" : "none";
     numImgEl.onerror = () => numImgEl.style.display = "none";
   }
 
-  /* =========================
-     FRONT CARD
-     ========================= */
-
+  // FRONT CARD
   const oracleDate = document.getElementById("oracle-date");
   if (oracleDate) oracleDate.textContent = data.greg || "";
 
@@ -701,7 +658,7 @@ function updateZivCas() {
   const toneEss = document.getElementById("oracle-number-essence");
   const toneMedFront = document.getElementById("oracle-number-medicine");
 
-  if (toneTitle) toneTitle.textContent = "Ton " + (data.number || "");
+  if (toneTitle) toneTitle.textContent = "Ton " + data.number;
   if (toneEss) toneEss.textContent = toneInfo.essence || "";
   if (toneMedFront) toneMedFront.textContent = toneInfo.medicine || "";
 
@@ -710,15 +667,12 @@ function updateZivCas() {
   const signKeywords = document.getElementById("oracle-sign-keywords");
   const signMedFront = document.getElementById("oracle-sign-medicine");
 
-  if (signTitle) signTitle.textContent = data.sign || "";
+  if (signTitle) signTitle.textContent = data.sign;
   if (signEss) signEss.textContent = signInfo.essence || "";
   if (signKeywords) signKeywords.textContent = signInfo.keywords || "";
   if (signMedFront) signMedFront.textContent = signInfo.medicine || "";
 
-  /* =========================
-     BACK CARD
-     ========================= */
-
+  // BACK CARD
   const toneBack = toneMedicine?.[data.number] || {};
   const signBack = signMedicine?.[data.sign] || {};
 
@@ -729,48 +683,43 @@ function updateZivCas() {
 
   if (keywordEl) {
     keywordEl.textContent =
-      (toneBack.keywords || "") +
-      " " +
-      (signBack.keywords || "");
+      (toneBack.keywords || "") + " " + (signBack.keywords || "");
   }
 
   if (medEl) {
     medEl.textContent =
-      (toneBack.medicine || "") +
-      " " +
-      (signBack.medicine || "");
+      (toneBack.medicine || "") + " " + (signBack.medicine || "");
   }
 
   if (affEl) {
-    affEl.textContent =
-      "Afirmacija: " + (toneBack.affirmation || "");
+    affEl.textContent = toneBack.affirmation ? "Afirmacija: " + toneBack.affirmation : "";
   }
 
   if (qEl) {
-    qEl.textContent =
-      "Vprašanje: " + (toneBack.question || "");
+    qEl.textContent = toneBack.question ? "Vprašanje: " + toneBack.question : "";
   }
 }
 
-/* --- INIT --- */
-
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(updateZivCas, 50);
-});
 
 /* =========================
-   PORTAL CONTROL
+   INIT (SAFE SINGLE POINT)
+   ========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(updateZivCas, 120);
+});
+
+
+/* =========================
+   ORACLE CONTROLS
    ========================= */
 
 function toggleOracle() {
   const panel = document.getElementById("oracle-panel");
-
   if (!panel) return;
 
   panel.classList.toggle("oracle-visible");
-  panel.classList.toggle("oracle-hidden");
 
-  // vedno reset flip ob odprtju
   const card = document.querySelector(".oracle-card");
   if (card) card.classList.remove("flipped");
 }
@@ -779,43 +728,3 @@ function flipOracle() {
   const card = document.querySelector(".oracle-card");
   if (card) card.classList.toggle("flipped");
 }
-
-/* =========================
-   INTRO — TIME PORTAL (3 FAZE)
-   ========================= */
-
-window.addEventListener("load", () => {
-
-  const intro = document.getElementById("time-portal");
-
-  if (!intro) return;
-
-  const phase = document.getElementById("portal-phase");
-  const text = document.getElementById("portal-text");
-
-  const sequence = [
-    { p: "SPOMIN", t: "Spominjaš se, kar si že vedela." },
-    { p: "ODPIRANJE", t: "Vrata se odpirajo skozi tvojo zavest." },
-    { p: "VSTOP", t: "Zdaj vstopaš v Kodo Časa." }
-  ];
-
-  let i = 0;
-
-  const run = () => {
-    if (i < sequence.length) {
-      phase.textContent = sequence[i].p;
-      text.textContent = sequence[i].t;
-      i++;
-      setTimeout(run, 2200);
-    } else {
-      intro.style.opacity = "0";
-      intro.style.transition = "opacity 1.5s ease";
-
-      setTimeout(() => {
-        intro.style.display = "none";
-      }, 1600);
-    }
-  };
-
-  setTimeout(run, 1200);
-});
