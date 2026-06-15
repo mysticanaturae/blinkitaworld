@@ -1,12 +1,19 @@
+
 /* =========================
-   BLINKITA LEVEL 7 — NARRATIVE ENGINE
-   CLEAN CINEMATIC SYSTEM
+   LIVING UNIVERSE ENGINE
+   Blinkita World — Level 6
    ========================= */
 
 :root{
   --bg:#f8f4ee;
   --dark:#1f1a17;
   --gold:#b89a5c;
+
+  --ocean:#0aa6a6;
+  --deep:#071a1c;
+
+  --glass:rgba(255,255,255,.08);
+  --glass-strong:rgba(255,255,255,.18);
 
   --shadow:0 25px 80px rgba(0,0,0,.12);
   --glow:0 0 40px rgba(0,180,160,.25);
@@ -23,6 +30,7 @@
 
 html{
   scroll-behavior:smooth;
+  scroll-snap-type:y proximity;
 }
 
 body{
@@ -34,7 +42,7 @@ body{
 }
 
 /* =========================
-   LIGHT FIELD (CINEMATIC AMBIENCE)
+   UNIVERSAL LIGHT FIELD
    ========================= */
 
 body::before{
@@ -43,10 +51,10 @@ body::before{
   inset:0;
   pointer-events:none;
   background:
-    radial-gradient(circle at 20% 20%, rgba(184,154,92,.10), transparent 45%),
-    radial-gradient(circle at 70% 30%, rgba(0,180,160,.10), transparent 50%),
-    radial-gradient(circle at 50% 80%, rgba(0,120,200,.08), transparent 55%);
-  animation:breathe 16s ease-in-out infinite;
+    radial-gradient(circle at 20% 20%, rgba(184,154,92,.10), transparent 40%),
+    radial-gradient(circle at 70% 30%, rgba(0,180,160,.10), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(0,120,200,.08), transparent 50%);
+  animation:breathe 14s ease-in-out infinite;
   z-index:-2;
 }
 
@@ -55,7 +63,7 @@ body::before{
   50%{transform:scale(1.05); opacity:.9;}
 }
 
-/* subtle depth layer */
+/* soft depth noise layer */
 body::after{
   content:"";
   position:fixed;
@@ -67,7 +75,7 @@ body::after{
 }
 
 /* =========================
-   HEADER
+   HEADER = FLOATING CONTROL BAR
    ========================= */
 
 header{
@@ -79,10 +87,16 @@ header{
   padding:14px 5%;
   background:rgba(255,255,255,.75);
   backdrop-filter:blur(14px);
+  transition:.4s ease;
+  box-shadow:0 10px 40px rgba(0,0,0,.05);
+}
+
+header.hide{
+  transform:translateY(-100%);
 }
 
 /* =========================
-   HERO = AWAKENING SCENE
+   HERO = ENTRY PORTAL
    ========================= */
 
 .hero{
@@ -114,18 +128,22 @@ header{
   50%{transform:scale(1.2);}
 }
 
-/* hero breathing presence */
-.hero-card{
-  animation:heroFloat 6s ease-in-out infinite;
+/* hero glow layer */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at center, rgba(255,255,255,.08), transparent 60%);
+  animation:pulse 8s ease-in-out infinite;
 }
 
-@keyframes heroFloat{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-8px);}
+@keyframes pulse{
+  0%,100%{opacity:.4;}
+  50%{opacity:.8;}
 }
 
 /* =========================
-   SECTIONS = STORY SCENES
+   SECTION = LIVING CHAPTERS
    ========================= */
 
 section{
@@ -135,29 +153,29 @@ section{
   flex-direction:column;
   justify-content:center;
 
-  opacity:0;
-  transform:translateY(50px);
-  filter:blur(8px);
+  opacity:.2;
+  transform:translateY(40px) scale(.98);
+  filter:blur(6px);
+  transition:all 1.2s ease;
 
-  transition:all 1.2s cubic-bezier(.2,.8,.2,1);
+  scroll-snap-align:start;
 }
 
-/* scene becomes alive */
 section.in-view{
   opacity:1;
-  transform:translateY(0);
+  transform:translateY(0) scale(1);
   filter:blur(0);
 }
 
-/* focus system (attention shifts like film) */
+/* hover field interaction */
 body:has(section:hover) section:not(:hover){
-  opacity:.25;
-  transform:scale(.98);
-  filter:blur(3px);
+  opacity:.35;
+  filter:blur(2px);
+  transform:scale(.99);
 }
 
 /* =========================
-   TYPOGRAPHY
+   TYPOGRAPHY ENGINE
    ========================= */
 
 h1,h2,h3{
@@ -166,16 +184,21 @@ h1,h2,h3{
 }
 
 p{
-  line-height:1.7;
   opacity:.92;
+  line-height:1.7;
+}
+
+.lead{
+  font-size:1.2rem;
+  max-width:800px;
 }
 
 /* =========================
-   CARDS = MEMORY FRAGMENTS
+   CARDS = GLASS ENTITIES
    ========================= */
 
 .card{
-  background:rgba(255,255,255,.85);
+  background:var(--glass-strong);
   backdrop-filter:blur(10px);
   padding:24px;
   border-radius:18px;
@@ -184,18 +207,43 @@ p{
 }
 
 .card:hover{
-  transform:translateY(-6px);
+  transform:translateY(-8px);
   box-shadow:var(--glow);
 }
 
 /* =========================
-   BELIZE = MEMORY PORTAL SCENE
+   DOORS = PORTAL SYSTEM
+   ========================= */
+
+.door{
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+}
+
+.door::before{
+  content:"";
+  position:absolute;
+  inset:-50%;
+  background:radial-gradient(circle, rgba(184,154,92,.25), transparent 60%);
+  transform:scale(0);
+  transition:.6s ease;
+}
+
+.door:hover::before{
+  transform:scale(1);
+}
+
+/* =========================
+   BELIZE = OCEAN DIMENSION (COMPLETE)
    ========================= */
 
 #belize{
   position:relative;
   overflow:hidden;
+  border-radius:30px;
   color:white;
+  min-height:110vh;
 }
 
 #belize::before{
@@ -204,35 +252,215 @@ p{
   inset:0;
   background:
     radial-gradient(circle at 30% 40%, rgba(0,200,180,.18), transparent 60%),
-    radial-gradient(circle at 70% 60%, rgba(0,120,255,.12), transparent 55%);
+    radial-gradient(circle at 70% 60%, rgba(0,120,255,.12), transparent 55%),
+    radial-gradient(circle at 50% 90%, rgba(255,220,180,.08), transparent 60%);
+  animation:oceanPulse 10s ease-in-out infinite;
   mix-blend-mode:screen;
-  animation:belizePulse 10s ease-in-out infinite;
 }
 
-@keyframes belizePulse{
-  0%,100%{transform:scale(1); opacity:.5;}
-  50%{transform:scale(1.05); opacity:.9;}
+@keyframes oceanPulse{
+  0%,100%{transform:scale(1); opacity:.55;}
+  50%{transform:scale(1.06); opacity:.95;}
+}
+
+/* cinematic water image behavior */
+#belize img{
+  filter:saturate(1.25) contrast(1.1) brightness(1.05);
+  transition:transform 1.2s ease, filter 1.2s ease;
+  transform:scale(1);
+}
+
+#belize:hover img{
+  transform:scale(1.04);
+  filter:saturate(1.35) contrast(1.15) brightness(1.1);
+}
+
+/* floating “breathing text” */
+#belize h2,
+#belize p{
+  animation:floatText 6s ease-in-out infinite;
+}
+
+@keyframes floatText{
+  0%,100%{transform:translateY(0px);}
+  50%{transform:translateY(-6px);}
 }
 
 /* =========================
-   IMAGE SYSTEM (CINEMATIC BUT CONTROLLED)
+   FINAL GLOBAL DEPTH LAYER FIX
    ========================= */
 
-img{
-  max-width:100%;
-  display:block;
-  transition:transform 1s ease, filter 1s ease;
+/* ensures correct stacking */
+body{
+  background:radial-gradient(circle at top, #f8f4ee, #eef6f4, #e7f3f2);
 }
 
-section img:hover{
-  transform:scale(1.03);
-  filter:saturate(1.15) contrast(1.05);
+/* prevents “flat UI” feeling */
+body::before,
+body::after{
+  will-change:transform, opacity;
+  transform:translateZ(0);
 }
 
 /* =========================
-   FINAL FLOW CONTROL
+   REALITY FOCUS SYSTEM (OPTIONAL POLISH)
+   ========================= */
+
+/* smooth “attention shift” */
+section{
+  transition:opacity 1s ease, transform 1s ease, filter 1s ease;
+}
+
+/* stronger in-view state (cleaner readability) */
+section.in-view{
+  opacity:1;
+  filter:blur(0);
+  transform:translateY(0) scale(1);
+}
+
+/* background breathing refinement */
+@media (prefers-reduced-motion: no-preference){
+  body::before{
+    animation-duration:16s;
+  }
+}
+
+/* =========================
+   PORTAL TRANSITIONS (PAGE FLOW)
+   ========================= */
+
+.portal-transition{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(circle at center, rgba(0,0,0,.85), rgba(0,0,0,.95));
+  backdrop-filter:blur(10px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .6s ease;
+  z-index:99999;
+}
+
+.portal-transition.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* =========================
+   RIPPLE EVENT FIELD (INTERACTION MAGIC)
+   ========================= */
+
+.ripple{
+  position:fixed;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(184,154,92,.6), transparent 70%);
+  transform:translate(-50%, -50%) scale(0);
+  pointer-events:none;
+  z-index:99998;
+  animation:rippleExpand .8s ease-out forwards;
+}
+
+@keyframes rippleExpand{
+  to{
+    transform:translate(-50%, -50%) scale(18);
+    opacity:0;
+  }
+}
+
+/* =========================
+   TEXT “BREATHING PRESENCE”
+   ========================= */
+
+h1,h2,h3,p{
+  transition:transform .6s ease, opacity .6s ease;
+}
+
+section.in-view h1,
+section.in-view h2,
+section.in-view p{
+  animation:textBreath 1.2s ease forwards;
+}
+
+@keyframes textBreath{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+    filter:blur(4px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+    filter:blur(0);
+  }
+}
+
+/* =========================
+   HERO DEPTH PARALLAX FEEL
+   ========================= */
+
+.hero{
+  perspective:1000px;
+}
+
+.hero-card{
+  transform:translateZ(0);
+  animation:heroFloat 6s ease-in-out infinite;
+}
+
+@keyframes heroFloat{
+  0%,100%{transform:translateY(0px);}
+  50%{transform:translateY(-8px);}
+}
+
+/* =========================
+   SCROLL SIGNAL (WORLD LAYER SHIFT)
    ========================= */
 
 section{
   will-change:transform, opacity, filter;
+}
+
+/* =========================
+   ACTIVE FOCUS REALITY ZONE
+   ========================= */
+
+body:has(section:hover){
+  background:radial-gradient(circle at center, #f8f4ee, #eaf6f4);
+}
+
+/* dim non-active reality */
+body:has(section:hover) section:not(:hover){
+  opacity:.3;
+  filter:blur(2px) saturate(.8);
+  transform:scale(.98);
+}
+
+/* =========================
+   IMAGE LIVING SYSTEM
+   ========================= */
+
+img{
+  transition:transform 1s ease, filter 1s ease;
+  will-change:transform;
+}
+
+section img:hover{
+  transform:scale(1.04);
+  filter:saturate(1.2) contrast(1.1);
+}
+
+/* =========================
+   FINAL CINEMATIC VIGNETTE
+   ========================= */
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at center, transparent 55%, rgba(0,0,0,.08));
+  z-index:2;
+  mix-blend-mode:multiply;
 }
