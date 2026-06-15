@@ -277,34 +277,51 @@ footer{
   inset:0;
   z-index:99999;
 
-  background:linear-gradient(
-    180deg,
-    #fbf8f4,
-    #f6f1ea
-  );
+  background:linear-gradient(180deg,#fbf8f4,#f6f1ea);
 
   display:flex;
   align-items:center;
   justify-content:center;
 
-  animation:introFade 3s forwards;
-}
-
-.blinkita-intro-inner{
   text-align:center;
 }
 
-.blinkita-intro h1{
-  font-size:clamp(2.5rem,6vw,5rem);
-  letter-spacing:3px;
+.blinkita-intro-inner{
+  transition:opacity 1s ease, transform 1s ease;
 }
 
-.blinkita-intro p{
-  margin-top:15px;
-  color:var(--gold);
+.phase{
+  font-size:12px;
   letter-spacing:4px;
   text-transform:uppercase;
-  font-size:.85rem;
+  color:var(--gold);
+  margin-bottom:20px;
+}
+
+#portal-text{
+  margin-top:15px;
+  font-size:1rem;
+  color:#5a524d;
+  max-width:420px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* fade out */
+.blinkita-intro.fade{
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1.2s ease;
+}
+
+.blinkita-intro-inner{
+  animation: introPulse 4.5s ease-out;
+}
+
+@keyframes introPulse{
+  0%{transform:scale(0.98); opacity:0;}
+  40%{opacity:1;}
+  100%{transform:scale(1); opacity:1;}
 }
 
 /* ==========================
@@ -417,14 +434,4 @@ footer{
   opacity:1;
   pointer-events:auto;
   display:flex;
-}
-
-.blinkita-intro-inner{
-  animation: introPulse 4.5s ease-out;
-}
-
-@keyframes introPulse{
-  0%{transform:scale(0.98); opacity:0;}
-  40%{opacity:1;}
-  100%{transform:scale(1); opacity:1;}
 }

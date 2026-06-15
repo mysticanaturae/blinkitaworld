@@ -10,22 +10,48 @@
 
 window.addEventListener("load", () => {
 
-  /* INTRO SCREEN */
   const intro = document.querySelector(".blinkita-intro");
 
-  if (intro) {
-    setTimeout(() => {
-  intro.style.opacity = "0";
-  intro.style.transition = "opacity 1.2s ease";
-}, 4500);
+  const phaseEl = document.getElementById("portal-phase");
+  const textEl = document.getElementById("portal-text");
 
-setTimeout(() => {
-  intro.style.display = "none";
-}, 6000);
-  }
+  const phases = [
+    {
+      name: "SPOMIN",
+      text: "Spominjaš se, kar si že vedela."
+    },
+    {
+      name: "ODPIRANJE",
+      text: "Vrata se ne odpirajo zunaj, ampak znotraj."
+    },
+    {
+      name: "VSTOP",
+      text: "Prestopaš v prostor, ki je vedno obstajal."
+    }
+  ];
+
+  let i = 0;
+
+  const interval = setInterval(() => {
+
+    if (i < phases.length) {
+      phaseEl.textContent = phases[i].name;
+      textEl.textContent = phases[i].text;
+      i++;
+    } else {
+
+      clearInterval(interval);
+
+      intro.classList.add("fade");
+
+      setTimeout(() => {
+        intro.style.display = "none";
+      }, 1200);
+    }
+
+  }, 2200);
 
 });
-
 
 /* =========================
    SCROLL REVEAL (PORTAL EFFECT)
