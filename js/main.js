@@ -108,7 +108,7 @@ document.querySelectorAll("a").forEach(link => {
 // --- Anchor datum za pravilno uskladitev Tzolkin ---
 const anchorDate = new Date("1800-01-01"); // 1.1.1800 = 10 Jaguar
 const anchorTone = 10; // 10 = Ix (tone za ta datum)
-const anchorSignIdx = 14; // Jaguar je 15. znak (če indeksiraš od 0, je 14)
+const anchorSignIdx = 13; // Jaguar je 15. znak (če indeksiraš od 0, je 14)
 
 /* --- DATA --- */
 
