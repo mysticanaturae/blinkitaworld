@@ -179,14 +179,14 @@ function getZivCas() {
     (anchorSignIdx + dayOffset) % 20;
 
   return {
-    greg: now.toLocaleDateString("sl-SI"),
+  greg: now.toLocaleDateString("sl-SI"),
 
-    number: tzolkinNumbers[tzNumberIndex],
-    sign: tzolkinSigns[tzSignIndex],
+  number: tzolkinNumbers[tzNumberIndex],
+  sign: tzolkinSigns[tzSignIndex],
 
-    img: tzolkinSignImages[tzSignIndex],
-    numImg: tzolkinNumberImages[tzNumberIndex]
-  };
+  img: tzolkinSignImages[tzSignIndex],
+  numImg: tzolkinNumberImages[tzNumberIndex]
+};
 }
 
 /* --- HEADER UPDATE --- */
@@ -196,11 +196,12 @@ function updateZivCas() {
   const data = getZivCas();
 
   const dateEl = document.getElementById("greg-date");
-  const numEl = document.getElementById("tzNumber");
-  const signEl = document.getElementById("tzSign");
 
-  const imgEl = document.getElementById("tzSignImg");
-  const numImgEl = document.getElementById("tzNumberImg");
+const numEl = document.getElementById("tzolkin-number");
+const signEl = document.getElementById("tzolkin-sign");
+
+const imgEl = document.getElementById("tzolkin-sign-img");
+const numImgEl = document.getElementById("tzolkin-number-img");
 
   if (dateEl) dateEl.textContent = data.greg;
 
