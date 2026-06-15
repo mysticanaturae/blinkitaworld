@@ -3,6 +3,16 @@
    Luxury Storytelling Edition (CLEAN PORTAL CORE)
    ========================== */
 
+function safeSetImage(img, src) {
+  if (!img) return;
+  if (!src) {
+    img.style.display = "none";
+    return;
+  }
+  img.style.display = "";
+  img.src = src;
+  img.onerror = () => img.style.display = "none";
+}
 
 /* =========================
    INTRO (INDEX + PORTAL SAFE)
@@ -630,7 +640,13 @@ const signMedicine = {
 
 function updateZivCas() {
 
-  const data = getZivCas();
+  const data = getZivCas?.() || {
+    greg: "",
+    number: "1",
+    sign: "Krokodil",
+    img: "",
+    numImg: ""
+  };
 
   /* =========================
      MINI HEADER
@@ -643,159 +659,104 @@ function updateZivCas() {
   const imgEl = document.getElementById("tzolkin-sign-img");
   const numImgEl = document.getElementById("tzolkin-number-img");
 
-  if (dateEl) dateEl.textContent = data.greg;
-  if (numEl) numEl.textContent = data.number;
-  if (signEl) signEl.textContent = data.sign;
+  if (dateEl) dateEl.textContent = data.greg || "";
+  if (numEl) numEl.textContent = data.number || "";
+  if (signEl) signEl.textContent = data.sign || "";
 
-  if (imgEl) imgEl.src = data.img;
-  if (numImgEl) numImgEl.src = data.numImg;
+  // SAFE IMAGE LOADING
+  if (imgEl) {
+    imgEl.src = data.img || "";
+    imgEl.onerror = () => imgEl.style.display = "none";
+  }
+
+  if (numImgEl) {
+    numImgEl.src = data.numImg || "";
+    numImgEl.onerror = () => numImgEl.style.display = "none";
+  }
 
   /* =========================
      FRONT CARD
      ========================= */
 
-  const oracleDate =
-    document.getElementById("oracle-date");
+  const oracleDate = document.getElementById("oracle-date");
+  if (oracleDate) oracleDate.textContent = data.greg || "";
 
-  if (oracleDate) {
-    oracleDate.textContent = data.greg;
-  }
-
-  const oracleNumImg =
-    document.getElementById("oracle-num-img");
-
-  const oracleSignImg =
-    document.getElementById("oracle-sign-img");
+  const oracleNumImg = document.getElementById("oracle-num-img");
+  const oracleSignImg = document.getElementById("oracle-sign-img");
 
   if (oracleNumImg) {
-    oracleNumImg.src = data.numImg;
+    oracleNumImg.src = data.numImg || "";
+    oracleNumImg.onerror = () => oracleNumImg.style.display = "none";
   }
 
   if (oracleSignImg) {
-    oracleSignImg.src = data.img;
+    oracleSignImg.src = data.img || "";
+    oracleSignImg.onerror = () => oracleSignImg.style.display = "none";
   }
 
-  const toneInfo =
-    toneOracle?.[data.number] || {};
+  const toneInfo = toneOracle?.[data.number] || {};
+  const signInfo = signOracle?.[data.sign] || {};
 
-  const signInfo =
-    signOracle?.[data.sign] || {};
+  const toneTitle = document.getElementById("oracle-number-title");
+  const toneEss = document.getElementById("oracle-number-essence");
+  const toneMedFront = document.getElementById("oracle-number-medicine");
 
-  const toneTitle =
-    document.getElementById("oracle-number-title");
+  if (toneTitle) toneTitle.textContent = "Ton " + (data.number || "");
+  if (toneEss) toneEss.textContent = toneInfo.essence || "";
+  if (toneMedFront) toneMedFront.textContent = toneInfo.medicine || "";
 
-  const toneEss =
-    document.getElementById("oracle-number-essence");
+  const signTitle = document.getElementById("oracle-sign-title");
+  const signEss = document.getElementById("oracle-sign-essence");
+  const signKeywords = document.getElementById("oracle-sign-keywords");
+  const signMedFront = document.getElementById("oracle-sign-medicine");
 
-  const toneMedFront =
-    document.getElementById("oracle-number-medicine");
-
-  if (toneTitle) {
-    toneTitle.textContent = "Ton " + data.number;
-  }
-
-  if (toneEss) {
-    toneEss.textContent =
-      toneInfo.essence || "";
-  }
-
-  if (toneMedFront) {
-    toneMedFront.textContent =
-      toneInfo.medicine || "";
-  }
-
-  const signTitle =
-    document.getElementById("oracle-sign-title");
-
-  const signEss =
-    document.getElementById("oracle-sign-essence");
-
-  const signKey =
-    document.getElementById("oracle-sign-keywords");
-
-  const signMedFront =
-    document.getElementById("oracle-sign-medicine");
-
-  if (signTitle) {
-    signTitle.textContent = data.sign;
-  }
-
-  if (signEss) {
-    signEss.textContent =
-      signInfo.essence || "";
-  }
-
-  if (signKey) {
-    signKey.textContent =
-      signInfo.keywords || "";
-  }
-
-  if (signMedFront) {
-    signMedFront.textContent =
-      signInfo.medicine || "";
-  }
+  if (signTitle) signTitle.textContent = data.sign || "";
+  if (signEss) signEss.textContent = signInfo.essence || "";
+  if (signKeywords) signKeywords.textContent = signInfo.keywords || "";
+  if (signMedFront) signMedFront.textContent = signInfo.medicine || "";
 
   /* =========================
      BACK CARD
      ========================= */
 
-  const toneBack =
-    toneMedicine?.[data.number] || {};
+  const toneBack = toneMedicine?.[data.number] || {};
+  const signBack = signMedicine?.[data.sign] || {};
 
-  const signBack =
-    signMedicine?.[data.sign] || {};
-
-  const keywordEl =
-    document.getElementById("oracle-keyword");
-
-  const medEl =
-    document.getElementById("oracle-medicine-text");
-
-  const affEl =
-    document.getElementById("oracle-affirmation");
-
-  const qEl =
-    document.getElementById("oracle-question");
+  const keywordEl = document.getElementById("oracle-keyword");
+  const medEl = document.getElementById("oracle-medicine-text");
+  const affEl = document.getElementById("oracle-affirmation");
+  const qEl = document.getElementById("oracle-question");
 
   if (keywordEl) {
-
     keywordEl.textContent =
-      (toneBack.keyword || "") +
+      (toneBack.keywords || "") +
       " " +
-      (signBack.keyword || "");
-
+      (signBack.keywords || "");
   }
 
   if (medEl) {
-
     medEl.textContent =
       (toneBack.medicine || "") +
       " " +
       (signBack.medicine || "");
-
   }
 
   if (affEl) {
-
     affEl.textContent =
-      "Afirmacija: " +
-      (toneBack.affirmation || "");
-
+      "Afirmacija: " + (toneBack.affirmation || "");
   }
 
   if (qEl) {
-
     qEl.textContent =
-      "Vprašanje: " +
-      (toneBack.question || "");
-
+      "Vprašanje: " + (toneBack.question || "");
   }
-
 }
 
 /* --- INIT --- */
 
-window.addEventListener("load", updateZivCas);
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(updateZivCas, 50);
+});
 
 /* =========================
    PORTAL CONTROL
