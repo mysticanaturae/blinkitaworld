@@ -418,3 +418,13 @@ footer{
   pointer-events:auto;
   display:flex;
 }
+
+.blinkita-intro-inner{
+  animation: introPulse 4.5s ease-out;
+}
+
+@keyframes introPulse{
+  0%{transform:scale(0.98); opacity:0;}
+  40%{opacity:1;}
+  100%{transform:scale(1); opacity:1;}
+}
