@@ -252,21 +252,71 @@
   <p>Prejmi naslednje pismo iz Blinkita World.</p>
 </footer>
 
+<!-- SCRIPTS (CLEAN ENGINE) -->
 <script>
+const sections = document.querySelectorAll("section");
+
 const observer = new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
     if(entry.isIntersecting){
       entry.target.classList.add("in-view");
+
+      const ripple = document.createElement("div");
+      ripple.className = "ripple active";
+      document.body.appendChild(ripple);
+
+      setTimeout(()=>ripple.remove(), 800);
     }
   });
-},{threshold:0.2});
+},{threshold:0.25});
 
-document.querySelectorAll("section").forEach(sec=>{
-  observer.observe(sec);
+sections.forEach(s=>observer.observe(s));
+
+const audio = document.querySelector("#ambience");
+
+window.addEventListener("click", () => {
+  if(audio){
+    audio.volume = 0.3;
+    audio.play().catch(()=>{});
+  }
+}, { once:true });
+
+document.querySelectorAll("a").forEach(link=>{
+  link.addEventListener("click", (e)=>{
+    if(link.getAttribute("href").includes(".html")){
+      e.preventDefault();
+
+const overlay = document.createElement("div");
+overlay.className = "portal-overlay";
+document.body.appendChild(overlay);
+
+function getWorld(url){
+  if(url.includes("belize")) return "belize";
+  if(url.includes("tv")) return "tv";
+  if(url.includes("circle")) return "circle";
+  if(url.includes("knjiznica")) return "library";
+  return "home";
+}
+
+document.querySelectorAll("a").forEach(link=>{
+  link.addEventListener("click", (e)=>{
+    const href = link.getAttribute("href");
+
+    if(!href.includes(".html")) return;
+
+    e.preventDefault();
+
+    overlay.classList.add("active");
+
+    document.body.style.transform = "scale(1.02)";
+    document.body.style.transition = "0.6s ease";
+
+    setTimeout(()=>{
+      window.location.href = href;
+    }, 600);
+  });
 });
 </script>
 
-</body>
-</html>
 </body>
 </html>
