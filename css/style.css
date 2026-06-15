@@ -267,3 +267,100 @@ footer{
   .hero h1{font-size:2.7rem;}
   .main-header{padding:10px 15px;}
 }
+
+/* ==========================
+   INTRO SCREEN
+   ========================== */
+
+.blinkita-intro{
+  position:fixed;
+  inset:0;
+  z-index:99999;
+
+  background:linear-gradient(
+    180deg,
+    #fbf8f4,
+    #f6f1ea
+  );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  animation:introFade 3s forwards;
+}
+
+.blinkita-intro-inner{
+  text-align:center;
+}
+
+.blinkita-intro h1{
+  font-size:clamp(2.5rem,6vw,5rem);
+  letter-spacing:3px;
+}
+
+.blinkita-intro p{
+  margin-top:15px;
+  color:var(--gold);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  font-size:.85rem;
+}
+
+/* ==========================
+   PORTAL LOADER
+   ========================== */
+
+#portal-loader{
+  position:fixed;
+  inset:0;
+  z-index:99998;
+
+  background:linear-gradient(
+    180deg,
+    #fbf8f4,
+    #f6f1ea
+  );
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  animation:introFade 2s forwards;
+}
+
+.loader-content{
+  text-align:center;
+}
+
+.loader-content h1{
+  font-size:clamp(2rem,5vw,4rem);
+}
+
+.loader-content p{
+  margin-top:12px;
+  color:var(--gold);
+  letter-spacing:2px;
+}
+
+/* ==========================
+   INTRO ANIMATION
+   ========================== */
+
+@keyframes introFade{
+
+  0%{
+    opacity:1;
+  }
+
+  75%{
+    opacity:1;
+  }
+
+  100%{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+  }
+
+}
