@@ -44,7 +44,7 @@
   </nav>
 
  <!-- MINI KODA ČASA -->
-  <div id="ziv-cas-header">
+ <div id="ziv-cas-header" onclick="toggleOracle()">
 
     <div class="ziv-inner">
 
@@ -67,6 +67,35 @@
 </div>
 
 </header>
+
+<!-- ORACLE PANEL (FULL VIEW) -->
+<div id="oracle-panel" class="oracle-hidden">
+
+  <div class="oracle-content">
+
+    <h2>KODA ČASA & PORTAL DNEVA</h2>
+
+    <p id="oracle-date"></p>
+
+    <div class="oracle-images">
+      <img id="oracle-num-img">
+      <img id="oracle-sign-img">
+    </div>
+
+    <h3 id="oracle-number-title"></h3>
+    <p id="oracle-number-essence"></p>
+    <p id="oracle-number-medicine"></p>
+
+    <hr>
+
+    <h3 id="oracle-sign-title"></h3>
+    <p id="oracle-sign-essence"></p>
+    <p id="oracle-sign-keywords"></p>
+    <p id="oracle-sign-medicine"></p>
+
+  </div>
+
+</div>
 
 <!-- HERO -->
 <section class="hero">

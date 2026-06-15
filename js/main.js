@@ -160,6 +160,209 @@ const tzolkinNumberImages = [
   "https://static.wixstatic.com/media/7535eb_a5b6f5b75b254f1ca65fbe7cafb8086e~mv2.png"
 ];
 
+const signOracle = {
+  "Krokodil": {
+    essence: "Prvotni začetek. Rojstvo toka.",
+    keywords: "instinkt • materija • začetek življenja",
+    medicine: "Vstopi v novo fazo brez mentalnega nadzora. Dovoli začetku, da te nosi."
+  },
+
+  "Veter": {
+    essence: "Gibanje duha in komunikacije.",
+    keywords: "dih • sporočila • invokacija",
+    medicine: "Danes govori samo tisto, kar res želiš ustvariti v realnosti."
+  },
+
+  "Zora": {
+    essence: "Prehod iz teme v zavest.",
+    keywords: "prebujanje • svetloba • novi cikli",
+    medicine: "Nekaj v tebi se prebuja. Ne sili procesa."
+  },
+
+  "Kuščar": {
+    essence: "Preživetveni instinkt in prilagoditev.",
+    keywords: "reakcija • instinkt • zaščita",
+    medicine: "Opazuj, kje reagiraš avtomatsko. Tam je tvoja staro programiranje."
+  },
+
+  "Kača": {
+    essence: "Telo, energija, transformacija.",
+    keywords: "življenjska sila • seksualnost • sprememba",
+    medicine: "Energija se danes premika skozi telo. Ne zadržuj je."
+  },
+
+  "Smrt": {
+    essence: "Zaključek in prehod.",
+    keywords: "konec • reset • transformacija",
+    medicine: "Nekaj mora umreti, da lahko nekaj novega diha."
+  },
+
+  "Jelen": {
+    essence: "Nežnost srca.",
+    keywords: "srce • občutljivost • mir",
+    medicine: "Nežnost je tvoja moč, ne slabost."
+  },
+
+  "Zajec": {
+    essence: "Gibanje in hitrost.",
+    keywords: "intuicija • hitrost • odziv",
+    medicine: "Ne čakaj popolnega trenutka — premik je zdaj."
+  },
+
+  "Voda": {
+    essence: "Čustveni tok.",
+    keywords: "čustva • čiščenje • tok",
+    medicine: "Pusti, da se čustva premaknejo skozi tebe."
+  },
+
+  "Pes": {
+    essence: "Zvestoba in srčna povezanost.",
+    keywords: "odnosi • zvestoba • srce",
+    medicine: "Danes izberi odnose, ki hranijo tvoje srce."
+  },
+
+  "Opica": {
+    essence: "Igra in ustvarjanje.",
+    keywords: "humor • ustvarjalnost • lahkotnost",
+    medicine: "Ne jemlji vsega tako resno — ustvarjanje potrebuje igro."
+  },
+
+  "Cesta": {
+    essence: "Pot in smer življenja.",
+    keywords: "pot • izbira • usoda",
+    medicine: "Ne išči popolne poti. Hodi po tisti, ki se odpira."
+  },
+
+  "Trsje": {
+    essence: "Struktura in stabilnost.",
+    keywords: "red • disciplina • osnova",
+    medicine: "Stabilnost nastaja iz ponavljanja majhnih dejanj."
+  },
+
+  "Jaguar": {
+    essence: "Nočna moč in notranji svet.",
+    keywords: "moč • noč • zaščita",
+    medicine: "V temi vidiš tisto, kar drugi ne morejo."
+  },
+
+  "Orel": {
+    essence: "Širina pogleda.",
+    keywords: "vizija • perspektiva • svoboda",
+    medicine: "Dvigni se nad zgodbo. Ni vse osebno."
+  },
+
+  "Sova": {
+    essence: "Modrost noči.",
+    keywords: "intuicija • vpogled • tišina",
+    medicine: "Odgovori pridejo v tišini, ne v hrupu."
+  },
+
+  "Zemlja": {
+    essence: "Utelešenje in ravnovesje.",
+    keywords: "stabilnost • telo • narava",
+    medicine: "Vrni se v telo. Tukaj je odgovor."
+  },
+
+  "Ogledalo": {
+    essence: "Refleksija resnice.",
+    keywords: "resnica • odsev • zavest",
+    medicine: "Kar vidiš zunaj, je vedno del tebe."
+  },
+
+  "Nevihta": {
+    essence: "Preboj energije.",
+    keywords: "sprememba • reset • sila",
+    medicine: "Ne boj se razpada — to je prestrukturiranje."
+  },
+
+  "Sonce": {
+    essence: "Jasnost in življenje.",
+    keywords: "svetloba • vitalnost • zavest",
+    medicine: "Ne skrivaš se več. To je tvoj čas."
+  }
+};
+
+const toneOracle = {
+  "1": {
+    essence: "Začetna iskra.",
+    keywords: "namen • seme • impulz",
+    medicine: "Danes se nekaj začne v tebi, še preden razumeš."
+  },
+
+  "2": {
+    essence: "Polarnost.",
+    keywords: "odnos • izbira • dualnost",
+    medicine: "V tebi se oblikuje razmerje — ne izberi prehitro."
+  },
+
+  "3": {
+    essence: "Gibanje.",
+    keywords: "akcija • aktivacija • tok",
+    medicine: "Premik ustvari razumevanje."
+  },
+
+  "4": {
+    essence: "Struktura.",
+    keywords: "red • stabilnost • okvir",
+    medicine: "Postavi temelje, preden greš naprej."
+  },
+
+  "5": {
+    essence: "Moč.",
+    keywords: "fokus • energija • center",
+    medicine: "Tvoja moč je v osredotočenosti."
+  },
+
+  "6": {
+    essence: "Ravnovesje.",
+    keywords: "harmonija • uravnoteženje • tok",
+    medicine: "Uskladi tisto, kar je v konfliktu."
+  },
+
+  "7": {
+    essence: "Center.",
+    keywords: "duh • stik • prisotnost",
+    medicine: "Ne išči zunaj — bodi v centru."
+  },
+
+  "8": {
+    essence: "Harmonija.",
+    keywords: "lepota • skladnost • red",
+    medicine: "Danes stvari začnejo padati na svoje mesto."
+  },
+
+  "9": {
+    essence: "Razširitev.",
+    keywords: "rast • širina • vpliv",
+    medicine: "Tvoja energija se širi bolj, kot misliš."
+  },
+
+  "10": {
+    essence: "Manifestacija.",
+    keywords: "utelešenje • realnost • rezultat",
+    medicine: "Kar si nosila, postaja vidno."
+  },
+
+  "11": {
+    essence: "Razpad starega.",
+    keywords: "čiščenje • sprostitev • preboj",
+    medicine: "Kar ne služi več, odpada."
+  },
+
+  "12": {
+    essence: "Razumevanje.",
+    keywords: "integracija • vpogled • jasnost",
+    medicine: "Danes razumeš vzorce, ki so bili skriti."
+  },
+
+  "13": {
+    essence: "Zaključek cikla.",
+    keywords: "polnost • zaključek • prehod",
+    medicine: "Cikel se zaključi — prostor za novo."
+  }
+};
+
+
 /* --- CORE CALCULATION --- */
 
 function getZivCas() {
@@ -170,23 +373,23 @@ function getZivCas() {
     (now - anchorDate) / (1000 * 60 * 60 * 24)
   );
 
-  // tone (1–13)
-  const tzNumberIndex =
-    (anchorTone - 1 + dayOffset) % 13;
+  const tzNumberIndex = (anchorTone - 1 + dayOffset) % 13;
+  const tzSignIndex = (anchorSignIdx + dayOffset) % 20;
 
-  // sign (0–19)
-  const tzSignIndex =
-    (anchorSignIdx + dayOffset) % 20;
+  const sign = tzolkinSigns[tzSignIndex];
+  const number = tzolkinNumbers[tzNumberIndex];
 
   return {
-  greg: now.toLocaleDateString("sl-SI"),
+    greg: now.toLocaleDateString("sl-SI"),
 
-  number: tzolkinNumbers[tzNumberIndex],
-  sign: tzolkinSigns[tzSignIndex],
+    number,
+    sign,
 
-  img: tzolkinSignImages[tzSignIndex],
-  numImg: tzolkinNumberImages[tzNumberIndex]
-};
+    img: tzolkinSignImages[tzSignIndex],
+    numImg: tzolkinNumberImages[tzNumberIndex],
+
+    medicine: getMedicine(sign, number)
+  };
 }
 
 /* --- HEADER UPDATE --- */
@@ -211,6 +414,33 @@ const numImgEl = document.getElementById("tzolkin-number-img");
 
   if (imgEl) imgEl.src = data.img;
   if (numImgEl) numImgEl.src = data.numImg;
+
+const signData = signOracle[data.sign];
+const toneData = toneOracle[data.number];
+
+document.getElementById("oracle-date").textContent = data.greg;
+
+// IMAGES
+document.getElementById("oracle-num-img").src = data.numImg;
+document.getElementById("oracle-sign-img").src = data.img;
+
+// TONE
+document.getElementById("oracle-number-title").textContent = "Ton " + data.number;
+document.getElementById("oracle-number-essence").textContent = toneData.essence;
+document.getElementById("oracle-number-medicine").textContent = toneData.medicine;
+
+// SIGN
+document.getElementById("oracle-sign-title").textContent = data.sign;
+document.getElementById("oracle-sign-essence").textContent = signData.essence;
+document.getElementById("oracle-sign-keywords").textContent = signData.keywords;
+document.getElementById("oracle-sign-medicine").textContent = signData.medicine;
 }
 
 window.addEventListener("load", updateZivCas);
+
+function toggleOracle() {
+  const panel = document.getElementById("oracle-panel");
+
+  panel.classList.toggle("oracle-visible");
+  panel.classList.toggle("oracle-hidden");
+}
