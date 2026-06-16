@@ -45,43 +45,46 @@
 <!-- HEADER -->
 <header class="main-header">
 
-    <!-- NAVIGATION -->
-    <nav class="main-nav">
-        <a href="index.html">Domov</a>
-        <a href="koda-casa.html">Koda časa</a>
-        <a href="blinkita-tv.html">Blinkita TV</a>
-        <a href="knjiznica.html">Knjižnica</a>
-        <a href="circle.html">Circle</a>
-    </nav>
+<!-- NAVIGATION -->
+<nav class="main-nav">
+    <a href="index.html">Domov</a>
+    <a href="koda-casa.html">Koda časa</a>
+    <a href="blinkita-tv.html">Blinkita TV</a>
+    <a href="knjiznica.html">Knjižnica</a>
 
-    <!-- TZOLKIN WIDGET (SINGLE SOURCE OF TRUTH) -->
-    <div id="ziv-cas-header">
+    <a href="belize.html">Belize</a>
+    <a href="varuhinja-prehodov.html">Varuhinja prehodov</a>
 
-        <div class="ziv-inner">
+    <a href="circle.html">Circle</a>
+</nav>
 
-            <!-- TITLE (CSS ali JS lahko zamenja v "TZOLKIN PORTAL DNEVA") -->
-            <div class="ziv-title">KODA ČASA</div>
+<!-- TZOLKIN WIDGET -->
+<div id="ziv-cas-header">
 
-            <!-- DATE -->
-            <div id="greg-date"></div>
+    <div class="ziv-inner">
 
-            <!-- INLINE ENERGY ROW (2 + icon + sign + icon) -->
-            <div class="tzolkin-inline">
+        <!-- DATE -->
+        <div id="greg-date" class="ziv-date"></div>
 
-                <!-- TONE -->
-                <span id="tzolkin-number" class="energy-text"></span>
-                <img id="tzolkin-number-img" class="energy-img" alt="">
+        <!-- TITLE -->
+        <div class="ziv-title">KODA ČASA</div>
 
-                <span class="energy-sep">•</span>
+        <!-- ⭐ KODA ČASA TEXT (TO JE MANJKALO) -->
+        <div id="ziv-code" class="ziv-code">✦ ✦</div>
 
-                <!-- SIGN -->
-                <span id="tzolkin-sign" class="energy-text"></span>
-                <img id="tzolkin-sign-img" class="energy-img" alt="">
+        <!-- INLINE ENERGY -->
+        <div class="tzolkin-inline">
 
-            </div>
+            <span id="tzolkin-number" class="energy-text"></span>
+            <img id="tzolkin-number-img" class="energy-img" alt="">
+
+            <span id="tzolkin-sign" class="energy-text"></span>
+            <img id="tzolkin-sign-img" class="energy-img" alt="">
 
         </div>
+
     </div>
+</div>
 
 </header>
 
@@ -111,7 +114,7 @@
     </div>
 </section>
 
-<!-- CONTENT SECTIONS (UNCHANGED) -->
+<!-- CONTENT -->
 <section>
     <h2>Kaj je Blinkita World?</h2>
     <p class="lead">Ni sistem. Ni metoda. Ni program.</p>
