@@ -762,3 +762,58 @@ img{
   border-radius: 14px;
 }
 
+/* =========================
+   DOOR CARDS FIX (READABLE GLASS)
+========================= */
+
+.door-card{
+  position: relative;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(183, 154, 107, 0.25);
+
+  backdrop-filter: blur(14px);
+
+  border-radius: 18px;
+
+  padding: 22px 18px;
+
+  color: #2b2420; /* KLJUČNO: temen tekst */
+  text-decoration: none;
+
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+
+  transition: all 0.25s ease;
+}
+
+/* TEXT V OKNČKU */
+.door-card span{
+  display:block;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #1f1a17;
+}
+
+.door-card small{
+  display:block;
+  margin-top: 6px;
+  font-size: 12px;
+  opacity: 0.75;
+  color: #3a322c;
+}
+
+/* HOVER — da “oživi portal” */
+.door-card:hover{
+  transform: translateY(-6px) scale(1.02);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+}
+
+/* subtilna barvna razlika po vratih */
+.d1 { border-left: 4px solid #b79a6b; }
+.d2 { border-left: 4px solid #8aa6a3; }
+.d3 { border-left: 4px solid #c7a7d8; }
+.d4 { border-left: 4px solid #f2b6a0; }
+.d5 { border-left: 4px solid #a8c7ff; }
