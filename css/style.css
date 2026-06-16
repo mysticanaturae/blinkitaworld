@@ -649,3 +649,116 @@ section img:not(#ziv-cas-header img){
   z-index:2000;
 }
 
+/* =========================
+   BLINKITA PASTEL SKIN v1
+========================= */
+
+body.codex{
+  background: linear-gradient(
+    135deg,
+    #f8f4ee,
+    #f3f0ff,
+    #eef6f4,
+    #fff6f0
+  );
+}
+
+/* HEADINGS */
+h1, h2, h3{
+  font-weight:500;
+  letter-spacing:0.3px;
+}
+
+h1{
+  font-size:42px;
+  background: linear-gradient(90deg,#b79a6b,#8aa6a3,#c7a7d8);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* SECTIONS — soft card feel */
+section{
+  background: rgba(255,255,255,0.35);
+  backdrop-filter: blur(18px);
+  border-radius: 24px;
+  margin: 40px auto;
+  max-width: 1100px;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+}
+
+/* HERO upgrade */
+.hero{
+  border-radius: 0 0 40px 40px;
+}
+
+/* HERO CARD */
+.hero-card{
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+/* BUTTONS — soft glow */
+.btn{
+  box-shadow: 0 10px 30px rgba(183,154,107,0.25);
+}
+
+.btn:hover{
+  box-shadow: 0 18px 40px rgba(183,154,107,0.35);
+}
+
+/* SECONDARY BUTTON FIX (manjkal ti stil) */
+.btn-secondary{
+  display:inline-flex;
+  padding:14px 22px;
+  border-radius:14px;
+  border:1px solid rgba(183,154,107,0.5);
+  color:#1f1a17;
+  text-decoration:none;
+  margin-left:10px;
+  transition:0.2s ease;
+  background:rgba(255,255,255,0.4);
+}
+
+.btn-secondary:hover{
+  transform:scale(1.05);
+}
+
+/* DOORS GRID — make it alive */
+.doors-grid a{
+  background: rgba(255,255,255,0.45);
+  border-radius:18px;
+  transition:0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.doors-grid a:hover{
+  transform: translateY(-6px);
+  background: rgba(255,255,255,0.65);
+}
+
+/* MULTIVERSE CARDS */
+.world-card{
+  background: rgba(255,255,255,0.45);
+  border-radius: 16px;
+  padding: 20px;
+  text-align:center;
+  transition:0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.world-card:hover{
+  transform: scale(1.05);
+}
+
+/* TZOLKIN widget soft upgrade */
+#ziv-cas-header{
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(183,154,107,0.2);
+}
+
+/* IMAGE SOFT STYLE */
+img{
+  border-radius: 14px;
+}
+
