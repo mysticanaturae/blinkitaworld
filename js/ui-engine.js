@@ -1,11 +1,15 @@
 
 /* =========================
-   UI ENGINE
+   UI ENGINE — STABLE CORE
+   Blinkita World
    ========================= */
 
 let introRunning = false;
 
-/* INTRO */
+/* =========================
+   INTRO SYSTEM
+   ========================= */
+
 function runIntro() {
   if (introRunning) return;
   introRunning = true;
@@ -36,9 +40,15 @@ function runIntro() {
       i++;
       setTimeout(step, 2200);
     } else {
-      intro.classList.add("fade");
-      setTimeout(() => (intro.style.display = "none"), 1200);
+      finishIntro();
     }
+  };
+
+  const finishIntro = () => {
+    intro.classList.add("fade");
+    setTimeout(() => {
+      intro.style.display = "none";
+    }, 1000);
   };
 
   setTimeout(step, 800);
@@ -51,34 +61,50 @@ function skipIntro() {
   if (!intro) return;
 
   intro.classList.add("fade");
-  setTimeout(() => (intro.style.display = "none"), 1200);
+
+  setTimeout(() => {
+    intro.style.display = "none";
+  }, 1000);
 }
 
 window.runIntro = runIntro;
 window.skipIntro = skipIntro;
 
-/* SCROLL REVEAL */
+/* =========================
+   SCROLL REVEAL (FIXED CORE)
+   ========================= */
+
 function initScrollReveal() {
   const sections = document.querySelectorAll("section");
 
-  if (!("IntersectionObserver" in window) || !sections.length) {
-    sections.forEach(s => s.classList.add("visible"));
+  if (!sections.length) return;
+
+  // fallback (no observer support)
+  if (!("IntersectionObserver" in window)) {
+    sections.forEach(s => s.classList.add("is-visible"));
     return;
   }
 
-  const obs = new IntersectionObserver((entries, o) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add("visible");
-        o.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.15 });
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
 
-  sections.forEach(s => obs.observe(s));
+      entry.target.classList.add("is-visible");
+      obs.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.15
+  });
+
+  sections.forEach(section => observer.observe(section));
 }
 
-/* PARALLAX */
+window.initScrollReveal = initScrollReveal;
+
+/* =========================
+   PARALLAX (SAFE VERSION)
+   ========================= */
+
 function initParallax() {
   const hero = document.querySelector(".hero");
   if (!hero) return;
@@ -88,32 +114,44 @@ function initParallax() {
   window.addEventListener("scroll", () => {
     if (ticking) return;
 
+    ticking = true;
+
     requestAnimationFrame(() => {
-      hero.style.backgroundPositionY = window.scrollY * 0.25 + "px";
+      const y = window.scrollY * 0.15;
+
+      // SAFE transform (no layout break)
+      hero.style.transform = `translateY(${y * 0.05}px)`;
+
       ticking = false;
     });
-
-    ticking = true;
   });
 }
 
-/* PAGE TRANSITIONS */
-function initPageTransitions() {
-  document.querySelectorAll("a").forEach(link => {
-    const href = link.getAttribute("href");
-    if (!href?.includes(".html")) return;
+window.initParallax = initParallax;
 
+/* =========================
+   PAGE TRANSITIONS (ROBUST)
+   ========================= */
+
+function initPageTransitions() {
+  const links = document.querySelectorAll("a[href$='.html']");
+
+  links.forEach(link => {
     link.addEventListener("click", e => {
       e.preventDefault();
+
+      const href = link.getAttribute("href");
+      if (!href) return;
+
       document.body.classList.add("page-leaving");
 
       setTimeout(() => {
         window.location.href = href;
-      }, 400);
+      }, 350);
     });
   });
 }
 
-window.initScrollReveal = initScrollReveal;
-window.initParallax = initParallax;
 window.initPageTransitions = initPageTransitions;
+
+renderZivCas(toneKey, signKey, tzolkinData);

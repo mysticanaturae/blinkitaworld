@@ -91,7 +91,7 @@ function initTimeSystem() {
 ========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (typeof renderZivCas === "function" && typeof tzolkinData !== "undefined") {
-    renderZivCas(tzolkinData);
+  if (typeof renderZivCas === "function") {
+    renderZivCas();
   }
 });
