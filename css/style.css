@@ -1,9 +1,7 @@
 /* =========================
-   BLINKITA WORLD — DELUXE CORE v1
-   CLEAN + STABLE + ORACLE TAB SYSTEM
-   ========================= */
+   ROOT
+========================= */
 
-/* ROOT */
 :root{
   --bg:#f8f4ee;
   --dark:#1f1a17;
@@ -25,13 +23,13 @@ html{
 body{
   font-family:system-ui, sans-serif;
   background: radial-gradient(circle at top, #f8f4ee, #eef6f4);
-  color: var(--dark);
-  overflow-x: hidden;
+  color:var(--dark);
+  overflow-x:hidden;
 }
 
 /* =========================
-   GLOBAL SAFETY
-   ========================= */
+   GLOBAL SECTION SAFETY
+========================= */
 
 section{
   min-height:100vh;
@@ -42,8 +40,8 @@ section{
 }
 
 /* =========================
-   INTRO OVERLAY
-   ========================= */
+   INTRO / LOADER
+========================= */
 
 .blinkita-intro{
   position:fixed;
@@ -61,10 +59,6 @@ section{
   pointer-events:none;
 }
 
-/* =========================
-   LOADER
-   ========================= */
-
 #portal-loader{
   position:fixed;
   inset:0;
@@ -77,8 +71,8 @@ section{
 }
 
 /* =========================
-   HEADER (DELUXE CLEAN)
-   ========================= */
+   HEADER (APPLE / NETFLIX STABLE)
+========================= */
 
 .main-header{
   position:fixed;
@@ -88,138 +82,148 @@ section{
   height:70px;
 
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:space-between;
 
-  background:rgba(255,255,255,0.65);
-  backdrop-filter:blur(16px);
+  padding:0 20px;
 
   z-index:10000;
+
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(16px);
 }
 
-/* subtilen gold line */
-.main-header::after{
-  content:"";
-  position:absolute;
-  bottom:0;
-  left:10%;
-  right:10%;
-  height:1px;
-  background:linear-gradient(to right, transparent, rgba(184,154,92,0.6), transparent);
-}
-
-/* NAV */
+/* NAV LEFT */
 .main-nav{
   display:flex;
-  gap:18px;
+  align-items:center;
+  gap:14px;
 
-  padding:10px 18px;
-  border-radius:999px;
-
-  background:rgba(255,255,255,0.35);
-  box-shadow:0 10px 40px rgba(0,0,0,0.08);
+  flex-wrap:nowrap;
+  overflow:visible;
 }
 
 .main-nav a{
-  font-size:13px;
+  white-space:nowrap;
   text-decoration:none;
   color:var(--dark);
+  font-size:13px;
+
   padding:6px 10px;
   border-radius:999px;
-  transition:.25s ease;
+
+  transition:0.25s ease;
 }
 
 .main-nav a:hover{
   background:rgba(184,154,92,0.15);
-  transform:translateY(-1px);
 }
 
 /* =========================
-   ORACLE TAB (KODA ČASA)
-   ========================= */
+   TZOLKIN WIDGET (RIGHT SIDE HEADER)
+========================= */
 
 #ziv-cas-header{
   position:fixed;
-  top:85px; /* pod headerjem */
+  top:10px;
   right:20px;
 
-  width:260px;
-  max-width:260px;
+  width:220px; /* manjši = stabilnejši */
 
-  padding:14px;
-  border-radius:16px;
+  z-index:10001;
 
-  background:rgba(255,255,255,0.78);
-  backdrop-filter:blur(16px);
-  box-shadow:0 20px 60px rgba(0,0,0,0.15);
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(18px);
 
-  z-index:9999;
-  font-size:12px;
+  border-radius:14px;
+  padding:10px;
 
-  transition:transform .3s ease;
-}
+  box-shadow:0 20px 50px rgba(0,0,0,0.14);
 
-#ziv-cas-header:hover{
-  transform:translateY(2px) scale(1.02);
-}
-
-/* inner layout */
-.ziv-inner{
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:6px;
 }
 
-.ziv-title{
-  font-size:11px;
+/* TITLE */
+#ziv-cas-header::before{
+  content:"TZOLKIN PORTAL DNEVA";
+  font-size:10px;
   letter-spacing:2px;
-  opacity:0.7;
+  opacity:0.6;
 }
 
+/* DATE */
 #greg-date{
   font-size:11px;
-  opacity:0.8;
+  opacity:0.7;
+  text-align:center;
 }
 
-#ziv-code{
-  font-size:14px;
-  font-weight:600;
-}
+/* =========================
+   FIXED ENERGY ROW
+========================= */
 
-/* Tzolkin layout */
 .tzolkin-mini{
   display:flex;
-  justify-content:space-between;
+  align-items:center;
+  justify-content:center; /* KLJUČNO */
   gap:10px;
 }
 
-/* blocks */
+/* REMOVE FLEX:1 (TO JE BILO PROBLEM) */
 .tone-block,
 .sign-block{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:4px;
+  justify-content:center;
+  gap:3px;
+  min-width:60px;
 }
 
-/* images */
+/* IMAGES */
 .tone-block img,
 .sign-block img{
-  width:32px;
-  height:32px;
+  width:26px;
+  height:26px;
   object-fit:contain;
 }
 
-/* labels */
+/* TEXT */
 .tone-block span,
 .sign-block span{
   font-size:10px;
   opacity:0.75;
+  text-align:center;
+}
+
+/* =========================
+   INLINE ENERGY ROW (for future ODNOS ENERGIJA)
+========================= */
+
+.tzolkin-inline{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  flex-wrap:nowrap;
+}
+
+.energy-text{
+  font-size:13px;
+  font-weight:600;
+}
+
+.energy-img{
+  width:22px;
+  height:22px;
+  object-fit:contain;
 }
 
 /* =========================
    HERO
-   ========================= */
+========================= */
 
 .hero{
   min-height:100vh;
@@ -242,7 +246,6 @@ section{
   z-index:-1;
 }
 
-/* hero card */
 .hero-card{
   max-width:700px;
   background:rgba(0,0,0,.45);
@@ -254,8 +257,8 @@ section{
 }
 
 /* =========================
-   CARDS
-   ========================= */
+   CARDS / GRID
+========================= */
 
 .card{
   background:rgba(255,255,255,.65);
@@ -271,10 +274,6 @@ section{
   transform:translateY(-8px);
 }
 
-/* =========================
-   GRID
-   ========================= */
-
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -283,7 +282,7 @@ section{
 
 /* =========================
    BUTTONS
-   ========================= */
+========================= */
 
 .btn,
 .btn-secondary{
@@ -307,7 +306,7 @@ section{
 
 /* =========================
    MULTIVERSE
-   ========================= */
+========================= */
 
 .universe-grid{
   display:grid;
@@ -332,10 +331,7 @@ section{
   transform:scale(1.03);
 }
 
-/* =========================
-   IMAGES
-   ========================= */
-
+/* GLOBAL IMAGE SAFETY */
 img{
   max-width:100%;
   display:block;

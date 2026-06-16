@@ -1,14 +1,13 @@
 
 /* =========================
-   UI ENGINE — STABLE CORE
-   Blinkita World
-   ========================= */
+   UI ENGINE — STABLE CORE FIXED
+========================= */
 
 let introRunning = false;
 
 /* =========================
    INTRO SYSTEM
-   ========================= */
+========================= */
 
 function runIntro() {
   if (introRunning) return;
@@ -45,127 +44,58 @@ function runIntro() {
   };
 
   const finishIntro = () => {
-    intro.classList.add("fade");
+    intro.classList.add("hidden");
+
     setTimeout(() => {
       intro.style.display = "none";
-    }, 1000);
+    }, 900);
+
+    showWidget();
   };
 
   setTimeout(step, 800);
 }
 
-function skipIntro() {
-  introRunning = false;
+/* =========================
+   WIDGET SHOW
+========================= */
 
-  const intro = document.querySelector(".blinkita-intro");
-  if (!intro) return;
+function showWidget() {
+  const widget = document.getElementById("ziv-cas-header");
+  if (widget) widget.style.display = "flex";
 
-  intro.classList.add("fade");
-
+  // render AFTER intro
   setTimeout(() => {
-    intro.style.display = "none";
-  }, 1000);
+    if (typeof window.renderZivCas === "function") {
+      window.renderZivCas();
+    }
+  }, 50);
 }
 
-window.runIntro = runIntro;
-window.skipIntro = skipIntro;
+function skipIntro() {
+  const intro = document.getElementById("time-portal");
+  if (intro) intro.classList.add("hidden");
+
+  showWidget();
+}
 
 /* =========================
-   SCROLL REVEAL (FIXED CORE)
-   ========================= */
-
-function initScrollReveal() {
-  const sections = document.querySelectorAll("section");
-
-  if (!sections.length) return;
-
-  // fallback (no observer support)
-  if (!("IntersectionObserver" in window)) {
-    sections.forEach(s => s.classList.add("is-visible"));
-    return;
-  }
-
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-
-      entry.target.classList.add("is-visible");
-      obs.unobserve(entry.target);
-    });
-  }, {
-    threshold: 0.15
-  });
-
-  sections.forEach(section => observer.observe(section));
-}
-
-window.initScrollReveal = initScrollReveal;
-
-/* =========================
-   PARALLAX (SAFE VERSION)
-   ========================= */
-
-function initParallax() {
-  const hero = document.querySelector(".hero");
-  if (!hero) return;
-
-  let ticking = false;
-
-  window.addEventListener("scroll", () => {
-    if (ticking) return;
-
-    ticking = true;
-
-    requestAnimationFrame(() => {
-      const y = window.scrollY * 0.15;
-
-      // SAFE transform (no layout break)
-      hero.style.transform = `translateY(${y * 0.05}px)`;
-
-      ticking = false;
-    });
-  });
-}
-
-window.initParallax = initParallax;
-
-/* =========================
-   PAGE TRANSITIONS (ROBUST)
-   ========================= */
-
-function initPageTransitions() {
-  const links = document.querySelectorAll("a[href$='.html']");
-
-  links.forEach(link => {
-    link.addEventListener("click", e => {
-      e.preventDefault();
-
-      const href = link.getAttribute("href");
-      if (!href) return;
-
-      document.body.classList.add("page-leaving");
-
-      setTimeout(() => {
-        window.location.href = href;
-      }, 350);
-    });
-  });
-}
-
-window.initPageTransitions = initPageTransitions;
-
-renderZivCas(toneKey, signKey, tzolkinData);
+   INIT (IMPORTANT FIX)
+========================= */
 
 document.addEventListener("DOMContentLoaded", () => {
+
   const widget = document.getElementById("ziv-cas-header");
-  const intro = document.getElementById("time-portal");
+  if (widget) widget.style.display = "none";
 
-  if (widget && intro) {
-    widget.style.display = "none";
+  runIntro();
 
-    // ko intro izgine → pokaži widget
-    setTimeout(() => {
-      widget.style.display = "flex";
-    }, 2500); // ali ko klikne "Enter"
-  }
+  // fallback render (če intro skipa ali faila)
+  setTimeout(() => {
+    showWidget();
+  }, 2500);
 });
+
+/* expose */
+window.runIntro = runIntro;
+window.skipIntro = skipIntro;
