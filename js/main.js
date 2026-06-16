@@ -1,3 +1,7 @@
+/* =========================
+   MAIN BOOTSTRAP
+   ========================= */
+
 window.addEventListener("load", () => {
   const loader = document.getElementById("portal-loader");
   if (loader) loader.style.display = "none";

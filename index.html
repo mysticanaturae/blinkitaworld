@@ -40,11 +40,7 @@
         <p id="portal-text">
             Spominjaš se, kar si že vedela.
         </p>
-<button class="intro-enter-btn" onclick="
-  const intro = document.querySelector('.blinkita-intro');
-  intro.classList.add('fade');
-  setTimeout(() => intro.style.display='none', 1200);
-">
+<button class="intro-enter-btn" onclick="skipIntro()">
   Enter
 </button>
 
@@ -379,9 +375,10 @@
         <p>Prejmi naslednje pismo iz Blinkita World.</p>
     </footer>
 
-    <script defer src="tzolkin-data.js"></script>
-<script defer src="tzolkin.js"></script>
-<script defer src="js/main.js"></script>
+    <script src="tzolkin-data.js"></script>
+    <script src="tzolkin-engine.js"></script>
+    <script src="ui.js"></script>
+    <script src="main.js"></script>
 
 </body>
 </html>

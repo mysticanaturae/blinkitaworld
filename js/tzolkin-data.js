@@ -1,12 +1,8 @@
-/* =========================
-   ANCHOR SETUP (UNCHANGED)
-   ========================= */
+/* --- TZOLKIN DATA --- */
 
 const anchorDate = new Date("1800-01-01");
 const anchorTone = 10;
 const anchorSignIdx = 13;
-
-/* --- DATA --- */
 
 const tzolkinNumbers = ["1","2","3","4","5","6","7","8","9","10","11","12","13"];
 
