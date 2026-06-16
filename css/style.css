@@ -33,6 +33,18 @@ body{
   padding-top:70px;
 }
 
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(184,154,92,0.08), transparent 40%),
+    radial-gradient(circle at 80% 40%, rgba(255,255,255,0.08), transparent 50%),
+    radial-gradient(circle at 40% 90%, rgba(184,154,92,0.06), transparent 60%);
+  z-index:0;
+}
+
 /* =========================
    SECTION FLOW (FIXED STRUCTURE)
 ========================= */
@@ -44,6 +56,25 @@ section{
   flex-direction:column;
   justify-content:flex-start;
   gap:16px;
+}
+
+section:nth-of-type(odd){
+  background: #f8f4ee;
+}
+
+section:nth-of-type(even){
+  background: #ffffff;
+}
+
+section{
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: all 1s ease;
+}
+
+section.visible{
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 /* =========================
@@ -127,39 +158,80 @@ section{
 ========================= */
 
 #ziv-cas-header{
-  position:fixed;
-  top:80px;
-  right:20px;
+  position: fixed;
+  top: 10px;
+  right: 20px;
 
-  width:220px;
+  width: 200px;
 
-  z-index:10001;
+  z-index: 10001;
 
-  background:rgba(255,255,255,0.88);
-  backdrop-filter:blur(18px);
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(18px);
 
-  border-radius:14px;
-  padding:10px;
+  border-radius: 14px;
+  padding: 10px;
 
-  box-shadow:0 20px 50px rgba(0,0,0,0.14);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  text-align:center;
-  gap:6px;
+  text-align: center;
+
+  animation: widgetFloat 6s ease-in-out infinite;
+
+  border: 1px solid rgba(184,154,92,0.25);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.2);
+
+  backdrop-filter: blur(20px);
 }
 
-#ziv-cas-header::before{
-  content:"TZOLKIN PORTAL DNEVA";
-  font-size:10px;
-  letter-spacing:2px;
-  opacity:0.6;
+@keyframes widgetFloat{
+  0%{ transform: translateY(0px); }
+  50%{ transform: translateY(-3px); }
+  100%{ transform: translateY(0px); }
 }
 
-#greg-date{
+.ziv-portal-title{
+  font-size: 10px;
+  letter-spacing: 2px;
+  opacity: 0.6;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+
+.ziv-date{
+  font-size: 9px;
+  opacity: 0.6;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  margin-top:2px;
+}
+
+/* 3. GLAVNI NASLOV */
+.ziv-title{
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:1px;
+}
+
+/* 4. KODA */
+.ziv-code,
+#ziv-code,
+#ziv-code-secondary{
   font-size:11px;
   opacity:0.7;
+}
+
+/* 5. ŠTEVILO + ZNAMENJE */
+.energy-text{
+  font-size:8px;
+}
+
+.energy-img{
+  width:18px;
+  height:18px;
 }
 
 /* =========================
@@ -229,6 +301,7 @@ section{
   padding:8%;
   color:white;
   position:relative;
+  overflow: hidden;
 }
 
 .hero::before{
@@ -238,19 +311,74 @@ section{
   background:
     linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.35)),
     url("../images/blinkitanaplazi.jpg");
-  background-size:cover;
-  background-position:center;
-  z-index:-1;
+  background-size: cover;
+  background-position: center;
+ transform: scale(1.1) translateY(calc(var(--scroll, 0) * 60px));
+  transition: transform 0.2s ease-out;
+}
+
+.hero::before{
+  animation: heroZoom 18s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes heroZoom{
+  0%{
+    transform: scale(1);
+  }
+  50%{
+    transform: scale(1.08);
+  }
+  100%{
+    transform: scale(1);
+  }
 }
 
 .hero-card{
-  max-width:700px;
-  background:rgba(0,0,0,.45);
-  color:white;
-  padding:32px;
-  border-radius:20px;
-  backdrop-filter:blur(12px);
-  box-shadow:0 30px 100px rgba(0,0,0,.35);
+  max-width: 520px;          /* ožji = bolj vertikalen občutek */
+  width: 100%;
+  padding: 44px 38px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  border-radius: 28px;
+
+  background: rgba(0,0,0,0.42);
+  backdrop-filter: blur(16px);
+
+  box-shadow: 0 30px 100px rgba(0,0,0,0.35);
+}
+
+.hero-card p{
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+.hero-card h1{
+  font-size: 40px;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.hero-card h1,
+.hero-card p,
+.hero-card .hero-buttons{
+  opacity: 0;
+  transform: translateY(10px);
+  animation: heroTextIn 1s ease forwards;
+}
+
+.hero-card p{ animation-delay: 0.2s; }
+.hero-card h1{ animation-delay: 0.1s; }
+.hero-buttons{ animation-delay: 0.4s; }
+
+@keyframes heroTextIn{
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* =========================
@@ -356,3 +484,209 @@ img{
 .poetic ul{
   padding-left:18px;
 }
+
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.btn,
+.btn-secondary{
+  width: auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 18px;
+}
+
+.doors-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap:16px;
+  margin-top:20px;
+}
+
+.door-card{
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(14px);
+  border-radius: 18px;
+
+  padding: 18px;
+  text-decoration:none;
+  color: var(--dark);
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  gap:6px;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+
+  transition: 0.25s ease;
+}
+
+.door-card:hover{
+  transform: translateY(-6px);
+  background: rgba(255,255,255,0.9);
+}
+
+.door-card span{
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.door-card small{
+  opacity: 0.7;
+}
+
+.door-card{
+  border-radius: 20px;
+  padding: 20px;
+
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+
+  box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+
+  transform: translateY(0);
+  transition: all 0.3s ease;
+
+  border: 1px solid rgba(184,154,92,0.15);
+}
+
+.door-card:hover{
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 35px 90px rgba(0,0,0,0.18);
+}
+
+/* pastel accents */
+.d1{ background: rgba(255, 230, 230, 0.55); }
+.d2{ background: rgba(230, 255, 240, 0.55); }
+.d3{ background: rgba(230, 240, 255, 0.55); }
+.d4{ background: rgba(255, 250, 220, 0.55); }
+.d5{ background: rgba(240, 230, 255, 0.55); }
+
+
+.multiverse-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap:16px;
+  margin-top:20px;
+}
+
+.world-card{
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+
+  border-radius: 16px;
+  padding: 18px;
+
+  text-align:center;
+  text-decoration:none;
+  color: var(--dark);
+
+  box-shadow: 0 18px 50px rgba(0,0,0,0.12);
+
+  transition: 0.25s ease;
+}
+
+.world-card:hover{
+  transform: scale(1.03);
+}
+
+section{
+  padding: 70px 8%;
+  margin: 0;
+  gap: 14px;
+}
+
+section + section{
+  margin-top: 10px;
+}
+
+h1,h2,h3{
+  letter-spacing: -0.02em;
+}
+
+p{
+  opacity: 0.92;
+}
+
+.world-card{
+  padding: 26px;
+  border-radius: 18px;
+
+  font-size: 14px;
+
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(14px);
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+
+  transition: 0.3s ease;
+}
+
+.world-card:hover{
+  transform: scale(1.06);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.18);
+}
+
+.card,
+.door-card,
+.world-card{
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float{
+  0%{ transform: translateY(0px); }
+  50%{ transform: translateY(-4px); }
+  100%{ transform: translateY(0px); }
+}
+
+#ziv-cas-header{
+  border: 1px solid rgba(184,154,92,0.25);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.18);
+
+  animation: widgetPulse 4s ease-in-out infinite;
+}
+
+@keyframes widgetPulse{
+  0%{
+    box-shadow: 0 20px 50px rgba(0,0,0,0.14);
+  }
+  50%{
+    box-shadow: 0 25px 80px rgba(184,154,92,0.25);
+  }
+  100%{
+    box-shadow: 0 20px 50px rgba(0,0,0,0.14);
+  }
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+section{
+  scroll-margin-top: 80px;
+}
+
+section.visible{
+  transition: all 1s cubic-bezier(.2,.8,.2,1);
+}
+
+section{
+  padding: 60px 8%;
+}
+
+section:nth-of-type(odd){
+  background: #f8f4ee;
+}
+
+section:nth-of-type(even){
+  background: #ffffff;
+}
+
