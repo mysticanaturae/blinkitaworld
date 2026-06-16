@@ -9,7 +9,10 @@
   --shadow:0 25px 80px rgba(0,0,0,.12);
 }
 
-/* RESET */
+/* =========================
+   RESET
+========================= */
+
 *{
   margin:0;
   padding:0;
@@ -25,23 +28,26 @@ body{
   background: radial-gradient(circle at top, #f8f4ee, #eef6f4);
   color:var(--dark);
   overflow-x:hidden;
+
+  /* FIX: header overlap */
+  padding-top:70px;
 }
 
 /* =========================
-   SECTION (COMPACT SCROLL VERSION)
+   SECTION FLOW (FIXED STRUCTURE)
 ========================= */
 
 section{
-  min-height:auto;          /* KLJUČNO: odstrani 100vh */
-  padding:60px 8%;          /* manj zraka */
+  min-height:60vh;
+  padding:80px 8%;
   display:flex;
   flex-direction:column;
-  justify-content:flex-start; /* ne center */
-  gap:14px;
+  justify-content:flex-start;
+  gap:16px;
 }
 
 /* =========================
-   INTRO / LOADER
+   LOADER / INTRO
 ========================= */
 
 .blinkita-intro{
@@ -72,7 +78,7 @@ section{
 }
 
 /* =========================
-   HEADER (APPLE / NETFLIX STABLE)
+   HEADER (APPLE STYLE STABLE)
 ========================= */
 
 .main-header{
@@ -94,14 +100,12 @@ section{
   backdrop-filter:blur(16px);
 }
 
-/* NAV LEFT */
+/* NAV */
 .main-nav{
   display:flex;
   align-items:center;
   gap:14px;
-
   flex-wrap:nowrap;
-  overflow:visible;
 }
 
 .main-nav a{
@@ -109,10 +113,8 @@ section{
   text-decoration:none;
   color:var(--dark);
   font-size:13px;
-
   padding:6px 10px;
   border-radius:999px;
-
   transition:0.25s ease;
 }
 
@@ -121,15 +123,15 @@ section{
 }
 
 /* =========================
-   TZOLKIN WIDGET (RIGHT SIDE HEADER)
+   TZOLKIN WIDGET (FIXED SAFE POSITION)
 ========================= */
 
 #ziv-cas-header{
   position:fixed;
-  top:10px;
+  top:80px;
   right:20px;
 
-  width:220px; /* manjši = stabilnejši */
+  width:220px;
 
   z-index:10001;
 
@@ -143,12 +145,11 @@ section{
 
   display:flex;
   flex-direction:column;
+  align-items:center;
+  text-align:center;
   gap:6px;
-align-items:center;   /* KLJUČNO: center horizontalno */
-  text-align:center;    /* tekst v sredino */
 }
 
-/* TITLE */
 #ziv-cas-header::before{
   content:"TZOLKIN PORTAL DNEVA";
   font-size:10px;
@@ -156,36 +157,32 @@ align-items:center;   /* KLJUČNO: center horizontalno */
   opacity:0.6;
 }
 
-/* DATE */
 #greg-date{
   font-size:11px;
   opacity:0.7;
-  text-align:center;
 }
 
 /* =========================
-   FIXED ENERGY ROW
+   TZOLKIN CORE ROW
 ========================= */
 
 .tzolkin-mini{
   display:flex;
   align-items:center;
-  justify-content:center; /* KLJUČNO */
+  justify-content:center;
   gap:10px;
 }
 
-/* REMOVE FLEX:1 (TO JE BILO PROBLEM) */
 .tone-block,
 .sign-block{
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  gap:3px;
   min-width:60px;
+  gap:3px;
 }
 
-/* IMAGES */
 .tone-block img,
 .sign-block img{
   width:26px;
@@ -193,16 +190,14 @@ align-items:center;   /* KLJUČNO: center horizontalno */
   object-fit:contain;
 }
 
-/* TEXT */
 .tone-block span,
 .sign-block span{
   font-size:10px;
   opacity:0.75;
-  text-align:center;
 }
 
 /* =========================
-   INLINE ENERGY ROW (for future ODNOS ENERGIJA)
+   INLINE ENERGY
 ========================= */
 
 .tzolkin-inline{
@@ -210,7 +205,6 @@ align-items:center;   /* KLJUČNO: center horizontalno */
   align-items:center;
   justify-content:center;
   gap:8px;
-  flex-wrap:nowrap;
 }
 
 .energy-text{
@@ -224,39 +218,12 @@ align-items:center;   /* KLJUČNO: center horizontalno */
   object-fit:contain;
 }
 
-.ziv-date{
-  font-size:11px;
-  opacity:0.7;
-  margin-bottom:4px;
-}
-
-.ziv-title{
-  font-size:12px;
-  letter-spacing:2px;
-  font-weight:600;
-}
-
-.ziv-code{
-  font-size:11px;
-  opacity:0.65;
-  letter-spacing:1px;
-  margin:4px 0 6px 0;
-}
-
-.ziv-inner{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-}
-
 /* =========================
    HERO
 ========================= */
 
 .hero{
-  min-height:100vh;
+  min-height:90vh;
   display:flex;
   align-items:center;
   padding:8%;
@@ -286,40 +253,8 @@ align-items:center;   /* KLJUČNO: center horizontalno */
   box-shadow:0 30px 100px rgba(0,0,0,.35);
 }
 
-.hero-card p{
-  line-height:1.6;
-  margin-bottom:14px;
-}
-
-.hero-card h1{
-  margin-bottom:12px;
-  line-height:1.2;
-}
-
-.hero-kicker{
-  opacity:0.75;
-  font-size:14px;
-  margin-bottom:18px;
-}
-
-.hero-highlight{
-  margin:20px 0;
-  padding:14px 16px;
-  border-left:2px solid rgba(184,154,92,0.6);
-  background:rgba(255,255,255,0.06);
-  border-radius:10px;
-  font-style:italic;
-}
-
-.hero-buttons{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:22px;
-}
-
 /* =========================
-   CARDS / GRID
+   CARDS
 ========================= */
 
 .card{
@@ -336,6 +271,8 @@ align-items:center;   /* KLJUČNO: center horizontalno */
   transform:translateY(-8px);
 }
 
+/* GRID */
+
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
@@ -346,24 +283,20 @@ align-items:center;   /* KLJUČNO: center horizontalno */
    BUTTONS
 ========================= */
 
-.btn,
-.btn-secondary{
-  display:inline-block;
-  padding:12px 18px;
-  border-radius:999px;
-  text-decoration:none;
-  transition:.3s ease;
-}
-
 .btn{
   background:var(--gold);
   color:white;
+  padding:12px 18px;
+  border-radius:999px;
+  text-decoration:none;
 }
 
 .btn-secondary{
   border:1px solid rgba(255,255,255,0.5);
   color:white;
   background:transparent;
+  padding:12px 18px;
+  border-radius:999px;
 }
 
 /* =========================
@@ -393,58 +326,33 @@ align-items:center;   /* KLJUČNO: center horizontalno */
   transform:scale(1.03);
 }
 
-/* GLOBAL IMAGE SAFETY */
+/* =========================
+   IMAGE SAFETY
+========================= */
+
 img{
   max-width:100%;
   display:block;
 }
 
-.book-block{
-  margin:20px 0;
-  display:flex;
-  justify-content:center;
-}
-
-.book-block img{
-  max-width:280px;
-  border-radius:14px;
-  box-shadow:0 25px 70px rgba(0,0,0,0.25);
-  transform:rotate(-1deg);
-  transition:0.3s ease;
-}
-
-.book-block img:hover{
-  transform:rotate(0deg) scale(1.02);
-}
-
 /* =========================
-   POETIC SCROLL TEXT FLOW
+   POETIC TEXT
 ========================= */
+
+.poetic{
+  max-width:720px;
+}
 
 .poetic p,
 .poetic li{
-  margin: 0 0 10px 0;
-  line-height: 1.65;
+  margin:0 0 10px 0;
+  line-height:1.65;
 }
 
 .poetic h2{
-  margin-bottom: 14px;
+  margin-bottom:14px;
 }
 
-.poetic{
-  max-width: 720px;
-}
-
-.poetic p + p{
-  margin-top: 6px;
-}
-
-/* list style bolj “ritmičen” */
 .poetic ul{
-  padding-left: 18px;
-  margin-top: 10px;
-}
-
-.poetic li{
-  margin-bottom: 6px;
+  padding-left:18px;
 }
