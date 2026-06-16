@@ -285,6 +285,38 @@ align-items:center;   /* KLJUČNO: center horizontalno */
   box-shadow:0 30px 100px rgba(0,0,0,.35);
 }
 
+.hero-card p{
+  line-height:1.6;
+  margin-bottom:14px;
+}
+
+.hero-card h1{
+  margin-bottom:12px;
+  line-height:1.2;
+}
+
+.hero-kicker{
+  opacity:0.75;
+  font-size:14px;
+  margin-bottom:18px;
+}
+
+.hero-highlight{
+  margin:20px 0;
+  padding:14px 16px;
+  border-left:2px solid rgba(184,154,92,0.6);
+  background:rgba(255,255,255,0.06);
+  border-radius:10px;
+  font-style:italic;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:22px;
+}
+
 /* =========================
    CARDS / GRID
 ========================= */
