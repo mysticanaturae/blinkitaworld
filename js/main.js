@@ -1,10 +1,5 @@
 /* =========================
-   MAIN BOOTSTRAP — CLEAN STABLE CORE
-   Blinkita World v2
-   ========================= */
-
-/* =========================
-   START
+   MAIN BOOTSTRAP — STABLE CORE
 ========================= */
 
 window.addEventListener("load", () => {
@@ -12,25 +7,21 @@ window.addEventListener("load", () => {
 });
 
 /* =========================
-   SYSTEM BOOT
+   BOOT
 ========================= */
 
 function bootSystem() {
   hideLoader();
 
-  // UI CORE (safe execution order)
   safeCall("runIntro");
-  safeCall("initScrollReveal");
-  safeCall("initParallax");
-  safeCall("initPageTransitions");
 
-  // TIME SYSTEM
   initTimeSystem();
 
-  // 🔥 TZOLKIN RENDER (MAIN FIX)
   if (typeof renderZivCas === "function" && typeof tzolkinData !== "undefined") {
     renderZivCas(tzolkinData);
   }
+
+  initScrollObserver();
 }
 
 /* =========================
@@ -43,12 +34,8 @@ function hideLoader() {
 
   setTimeout(() => {
     loader.style.opacity = "0";
-    loader.style.transition = "opacity 0.6s ease";
-
-    setTimeout(() => {
-      loader.style.display = "none";
-    }, 600);
-  }, 400);
+    setTimeout(() => loader.style.display = "none", 600);
+  }, 300);
 }
 
 /* =========================
@@ -60,38 +47,46 @@ function safeCall(fnName) {
     if (typeof window[fnName] === "function") {
       window[fnName]();
     }
-  } catch (err) {
-    console.warn(`[Blinkita Engine] ${fnName} failed`, err);
+  } catch (e) {
+    console.warn("SafeCall error:", fnName, e);
   }
 }
 
 /* =========================
-   TIME SYSTEM (optional live refresh hook)
+   TIME SYSTEM
 ========================= */
 
 function initTimeSystem() {
-
-  // če obstaja refresh funkcija v prihodnosti
-  safeCall("updateZivCas");
-
-  // prihodnji refresh hook (varno)
   setInterval(() => {
-    try {
-      if (typeof renderZivCas === "function" && typeof tzolkinData !== "undefined") {
-        renderZivCas(tzolkinData);
-      }
-    } catch (e) {
-      console.warn("[Blinkita Engine] time refresh failed", e);
+    if (typeof renderZivCas === "function" && typeof tzolkinData !== "undefined") {
+      renderZivCas(tzolkinData);
     }
   }, 60000);
 }
 
 /* =========================
-   DOM READY (backup safety)
+   SCROLL SYSTEM (FIXED)
 ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
-  if (typeof renderZivCas === "function") {
-    renderZivCas();
-  }
-});
+function initScrollObserver() {
+  const sections = document.querySelectorAll("section");
+
+  if (!sections.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, {
+    threshold: 0.12
+  });
+
+  sections.forEach(sec => observer.observe(sec));
+
+  // SAFETY FALLBACK
+  setTimeout(() => {
+    sections.forEach(sec => sec.classList.add("visible"));
+  }, 1000);
+}
