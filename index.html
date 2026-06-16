@@ -7,10 +7,18 @@
 
     <title>BLINKITA WORLD</title>
 
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#b79a6b">
+<link rel="manifest" href="manifest.json">
 
-    <link rel="stylesheet" href="css/style.css">
+<meta name="theme-color" content="#b89a5c">
+
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Blinkita">
+
 </head>
 
 <body class="codex">
@@ -81,8 +89,6 @@
 
                 <span id="tzolkin-number" class="energy-text"></span>
                 <img id="tzolkin-number-img" class="energy-img" alt="">
-
-                <span class="energy-sep">•</span>
 
                 <span id="tzolkin-sign" class="energy-text"></span>
                 <img id="tzolkin-sign-img" class="energy-img" alt="">
@@ -317,6 +323,25 @@
 <script src="js/tzolkin-engine.js"></script>
 <script src="js/ui-engine.js"></script>
 <script src="js/main.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+
+  window.addEventListener("load", () => {
+
+    navigator.serviceWorker
+      .register("./sw.js")
+      .then(reg => {
+        console.log("SW OK", reg);
+      })
+      .catch(err => {
+        console.log("SW ERROR", err);
+      });
+
+  });
+
+}
+</script>
 
 </body>
 </html>
