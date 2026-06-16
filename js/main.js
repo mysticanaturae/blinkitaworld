@@ -1,7 +1,12 @@
 /* ==========================
    BLINKITA WORLD 8.0
-   CLEAN STABLE CORE FIX v2
+   STABLE ORACLE ENGINE v4
+   (FULL SAFE DROP-IN)
    ========================== */
+
+/* =========================
+   SAFE IMAGE HANDLER
+   ========================= */
 
 function safeSetImage(img, src) {
   if (!img) return;
@@ -13,17 +18,48 @@ function safeSetImage(img, src) {
 
   img.style.display = "";
   img.src = src;
+
   img.onerror = () => {
     img.style.display = "none";
   };
 }
 
 /* =========================
+   ORACLE TOGGLE (GLOBAL FIX)
+   ========================= */
+
+function toggleOracle() {
+  const panel = document.getElementById("oracle-panel");
+  if (!panel) return;
+
+  panel.classList.toggle("oracle-visible");
+}
+
+/* expose globally (KRITIČNO) */
+window.toggleOracle = toggleOracle;
+
+/* =========================
+   ORACLE FLIP (GLOBAL FIX)
+   ========================= */
+
+function flipOracle() {
+  const card = document.querySelector(".oracle-card");
+  if (!card) return;
+
+  card.classList.toggle("flipped");
+}
+
+window.flipOracle = flipOracle;
+
+/* =========================
    INTRO SAFE FLOW
    ========================= */
 
 window.addEventListener("load", () => {
-  const intro = document.querySelector(".blinkita-intro") || document.getElementById("time-portal");
+  const intro =
+    document.querySelector(".blinkita-intro") ||
+    document.getElementById("time-portal");
+
   const phaseEl = document.getElementById("portal-phase");
   const textEl = document.getElementById("portal-text");
 
@@ -38,8 +74,6 @@ window.addEventListener("load", () => {
   let i = 0;
 
   const run = () => {
-    if (!intro || !phaseEl || !textEl) return;
-
     if (i < phases.length) {
       phaseEl.textContent = phases[i].name;
       textEl.textContent = phases[i].text;
@@ -47,9 +81,7 @@ window.addEventListener("load", () => {
       setTimeout(run, 2200);
     } else {
       intro.classList.add("fade");
-      setTimeout(() => {
-        if (intro) intro.style.display = "none";
-      }, 1200);
+      setTimeout(() => (intro.style.display = "none"), 1200);
     }
   };
 
@@ -57,28 +89,26 @@ window.addEventListener("load", () => {
 });
 
 /* =========================
-   SCROLL REVEAL (SAFE)
+   SCROLL REVEAL SAFE
    ========================= */
 
 const sections = document.querySelectorAll("section");
 
 if ("IntersectionObserver" in window && sections.length > 0) {
   const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-        obs.unobserve(entry.target); // performance boost
+        obs.unobserve(entry.target);
       }
     });
   }, { threshold: 0.15 });
 
-  sections.forEach(section => {
-    if (section) observer.observe(section);
-  });
+  sections.forEach((s) => observer.observe(s));
 }
 
 /* =========================
-   HERO PARALLAX (SAFE)
+   HERO PARALLAX SAFE
    ========================= */
 
 const hero = document.querySelector(".hero");
@@ -89,7 +119,7 @@ if (hero) {
   window.addEventListener("scroll", () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
-        hero.style.backgroundPositionY = `${window.scrollY * 0.25}px`;
+        hero.style.backgroundPositionY = window.scrollY * 0.25 + "px";
         ticking = false;
       });
       ticking = true;
@@ -98,16 +128,14 @@ if (hero) {
 }
 
 /* =========================
-   PAGE TRANSITIONS (SAFE LINKS)
+   SAFE PAGE TRANSITIONS
    ========================= */
 
-document.querySelectorAll("a").forEach(link => {
+document.querySelectorAll("a").forEach((link) => {
   const href = link.getAttribute("href");
   if (!href) return;
 
-  const isInternalPage = href.includes(".html");
-
-  if (!isInternalPage) return;
+  if (!href.includes(".html")) return;
 
   link.addEventListener("click", (e) => {
     e.preventDefault();
@@ -624,76 +652,106 @@ const signMedicine = {
 
 
 /* =========================
-   CORE UPDATE ENGINE
-   ========================= */
+CORE UPDATE ENGINE
+========================= */
 
 function updateZivCas() {
-  try {
-    if (typeof getZivCas !== "function") return;
+try {
+if (typeof getZivCas !== "function") return;
 
-    const data = getZivCas();
-    if (!data) return;
+```
+const data = getZivCas();
+if (!data) return;
 
-    // HEADER
-    const dateEl = document.getElementById("greg-date");
-    const numEl = document.getElementById("tzolkin-number");
-    const signEl = document.getElementById("tzolkin-sign");
+/* HEADER */
+const dateEl = document.getElementById("greg-date");
+const numEl = document.getElementById("tzolkin-number");
+const signEl = document.getElementById("tzolkin-sign");
+const keywordHeader = document.getElementById("ziv-keyword");
 
-    if (dateEl) dateEl.textContent = data.greg || "";
-    if (numEl) numEl.textContent = data.number || "";
-    if (signEl) signEl.textContent = data.sign || "";
+if (dateEl) dateEl.textContent = data.greg || "";
+if (numEl) numEl.textContent = data.number || "";
+if (signEl) signEl.textContent = data.sign || "";
 
-    safeSetImage(document.getElementById("tzolkin-sign-img"), data.img);
-    safeSetImage(document.getElementById("tzolkin-number-img"), data.numImg);
+if (keywordHeader)
+  keywordHeader.textContent =
+    `${toneKey[data.number] || ""} • ${signKey[data.sign] || ""}`;
 
-    // ORACLE FRONT
-    const toneInfo = toneOracle?.[String(data.number)] || {};
-    const signInfo = signOracle?.[data.sign] || {};
+safeSetImage(document.getElementById("tzolkin-sign-img"), data.img);
+safeSetImage(document.getElementById("tzolkin-number-img"), data.numImg);
 
-    const toneTitle = document.getElementById("oracle-number-title");
-    const toneEss = document.getElementById("oracle-number-essence");
-    const toneMedFront = document.getElementById("oracle-number-medicine");
+/* ORACLE IMAGES */
 
-    if (toneTitle) toneTitle.textContent = "Ton " + data.number;
-    if (toneEss) toneEss.textContent = toneInfo.essence || "";
-    if (toneMedFront) toneMedFront.textContent = toneInfo.medicine || "";
+safeSetImage(document.getElementById("oracle-num-img"), data.numImg);
+safeSetImage(document.getElementById("oracle-sign-img"), data.img);
 
-    const signTitle = document.getElementById("oracle-sign-title");
-    const signEss = document.getElementById("oracle-sign-essence");
-    const signKeywords = document.getElementById("oracle-sign-keywords");
-    const signMedFront = document.getElementById("oracle-sign-medicine");
+safeSetImage(document.getElementById("oracle-back-num-img"), data.numImg);
+safeSetImage(document.getElementById("oracle-back-sign-img"), data.img);
 
-    if (signTitle) signTitle.textContent = data.sign || "";
-    if (signEss) signEss.textContent = signInfo.essence || "";
-    if (signKeywords) signKeywords.textContent = signInfo.keywords || "";
-    if (signMedFront) signMedFront.textContent = signInfo.medicine || "";
+/* ORACLE FRONT */
 
-    // BACK ORACLE
-    const toneBack = toneMedicine?.[data.number] || {};
-    const signBack = signMedicine?.[data.sign] || {};
+const toneInfo = toneOracle?.[String(data.number)] || {};
+const signInfo = signOracle?.[data.sign] || {};
 
-    const keywordEl = document.getElementById("oracle-keyword");
-    const medEl = document.getElementById("oracle-medicine-text");
-    const affEl = document.getElementById("oracle-affirmation");
-    const qEl = document.getElementById("oracle-question");
+const toneTitle = document.getElementById("oracle-number-title");
+const toneEss = document.getElementById("oracle-number-essence");
+const toneMedFront = document.getElementById("oracle-number-medicine");
 
-    if (keywordEl) {
-      keywordEl.textContent = `${toneBack.keywords || ""} ${signBack.keywords || ""}`.trim();
-    }
+if (toneTitle) toneTitle.textContent = "Ton " + data.number;
+if (toneEss) toneEss.textContent = toneInfo.essence || "";
+if (toneMedFront) toneMedFront.textContent = toneInfo.medicine || "";
 
-    if (medEl) {
-      medEl.textContent = `${toneBack.medicine || ""} ${signBack.medicine || ""}`.trim();
-    }
+const signTitle = document.getElementById("oracle-sign-title");
+const signEss = document.getElementById("oracle-sign-essence");
+const signKeywords = document.getElementById("oracle-sign-keywords");
+const signMedFront = document.getElementById("oracle-sign-medicine");
 
-    if (affEl) {
-      affEl.textContent = toneBack.affirmation ? `Afirmacija: ${toneBack.affirmation}` : "";
-    }
+if (signTitle) signTitle.textContent = data.sign || "";
+if (signEss) signEss.textContent = signInfo.essence || "";
+if (signKeywords) signKeywords.textContent = signInfo.keywords || "";
+if (signMedFront) signMedFront.textContent = signInfo.medicine || "";
 
-    if (qEl) {
-      qEl.textContent = toneBack.question ? `Vprašanje: ${toneBack.question}` : "";
-    }
+/* ORACLE BACK */
 
-  } catch (err) {
-    console.error("updateZivCas crash:", err);
-  }
+const toneBack = toneMedicine?.[String(data.number)] || {};
+const signBack = signMedicine?.[data.sign] || {};
+
+const keywordEl = document.getElementById("oracle-keyword");
+const medEl = document.getElementById("oracle-medicine-text");
+const affEl = document.getElementById("oracle-affirmation");
+const qEl = document.getElementById("oracle-question");
+
+if (keywordEl)
+  keywordEl.textContent =
+    `${toneKey[data.number] || ""} • ${signKey[data.sign] || ""}`;
+
+if (medEl)
+  medEl.textContent =
+    `${toneBack.medicine || ""} ${signBack.medicine || ""}`.trim();
+
+if (affEl)
+  affEl.textContent =
+    signBack.affirmation ||
+    toneBack.affirmation ||
+    "";
+
+if (qEl)
+  qEl.textContent =
+    signBack.question ||
+    toneBack.question ||
+    "";
+```
+
+} catch (err) {
+console.error("updateZivCas crash:", err);
 }
+}
+
+/* =========================
+AUTO START (CRITICAL FIX)
+========================= */
+
+window.addEventListener("load", () => {
+updateZivCas();
+setInterval(updateZivCas, 60000);
+});
