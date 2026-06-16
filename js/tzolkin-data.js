@@ -495,4 +495,18 @@ const signMedicine = {
   }
 };
 
-
+window.tzolkinData = {
+  anchorDate,
+  anchorTone,
+  anchorSignIdx,
+  tzolkinNumbers,
+  tzolkinSigns,
+  tzolkinNumberImages,
+  tzolkinSignImages,
+  toneOracle,
+  signOracle,
+  toneKey,
+  signKey,
+  toneMedicine,
+  signMedicine
+};
