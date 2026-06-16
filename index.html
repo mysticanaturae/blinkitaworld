@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body class="codex">
+<body>
 
 <!-- PORTAL LOADER -->
 <div id="portal-loader">
@@ -23,21 +23,18 @@
   </div>
 </div>
 
-<!-- TIME PORTAL INTRO -->
+<!-- INTRO -->
 <div class="blinkita-intro" id="time-portal">
   <div class="blinkita-intro-inner">
-
     <div id="portal-phase" class="phase">SPOMIN</div>
-
     <h1>Blinkita World</h1>
-
     <p id="portal-text">Spominjaš se, kar si že vedela.</p>
-
   </div>
 </div>
 
-<!-- NAV -->
+<!-- HEADER -->
 <header class="main-header">
+
   <nav class="main-nav">
     <a href="index.html">Domov</a>
     <a href="koda-casa.html">Koda Časa</a>
@@ -48,36 +45,32 @@
     <a href="varuhinja-prehodov.html">Varuhinja</a>
   </nav>
 
-  <!-- MINI KODA ČASA -->
-<div id="ziv-cas-header" onclick="toggleOracle()">
+  <!-- HUD -->
+  <div id="ziv-cas-header" onclick="toggleOracle()">
+    <div class="ziv-inner">
 
-  <div class="ziv-inner">
+      <div class="ziv-title">
+        KODA ČASA • PORTAL DNEVA
+      </div>
 
-    <div class="ziv-title">
-      KODA ČASA • PORTAL DNEVA
+      <div id="ziv-keyword" class="ziv-keyword"></div>
+
+      <div class="tzolkin-mini">
+        <img id="tzolkin-number-img" alt="Ton">
+        <span id="tzolkin-number"></span>
+
+        <img id="tzolkin-sign-img" alt="Znak">
+        <span id="tzolkin-sign"></span>
+      </div>
+
+      <div id="greg-date"></div>
+
     </div>
-
-    <div id="ziv-keyword" class="ziv-keyword"></div>
-
-    <div class="tzolkin-mini">
-
-      <img id="tzolkin-number-img" alt="Ton">
-      <span id="tzolkin-number"></span>
-
-      <img id="tzolkin-sign-img" alt="Znak">
-      <span id="tzolkin-sign"></span>
-
-    </div>
-
-    <div id="greg-date"></div>
-
   </div>
-
-</div>
 
 </header>
 
-<!-- ORACLE PANEL (FLIP CARD) -->
+<!-- ORACLE PANEL -->
 <div id="oracle-panel" class="oracle-hidden">
 
   <div class="oracle-card">
@@ -130,7 +123,7 @@
   </div>
 </div>
 
-<!-- HERO -->
+<!-- HERO (tvoj original + stabilen) -->
 <section class="hero">
   <div class="hero-card">
 
@@ -154,7 +147,7 @@
   </div>
 </section>
 
-<!-- OSTALO OSTANE ISTO -->
+<!-- OSTALO (ohranjeno kot si imela) -->
 <section><h2>Kaj je Blinkita World?</h2></section>
 <section><h2>Pot preobrazbe</h2></section>
 <section><h2>Pet vrat Blinkita World</h2></section>
