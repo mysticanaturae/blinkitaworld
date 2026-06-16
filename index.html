@@ -1,181 +1,39 @@
 <!doctype html>
 <html lang="sl">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>BLINKITA WORLD</title>
-
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#b79a6b">
-
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blinkita World</title>
+<link rel="stylesheet" href="style.css">
 </head>
+<body>
 
-<body class="codex">
-
-<!-- LOADER -->
-<div id="portal-loader">
-    <div class="loader-content">
-        <h1>Vstop v Kodo Časa</h1>
-        <p>odpiram tvoj časovni podpis…</p>
-    </div>
-</div>
-
-<!-- INTRO -->
-<div class="blinkita-intro" id="time-portal">
-    <div class="blinkita-intro-inner">
-
-        <div class="portal-symbol">✦</div>
-
-        <div id="portal-phase" class="portal-small">SPOMIN</div>
-
-        <h1 class="portal-title">BLINKITA WORLD</h1>
-
-        <p id="portal-text">Spominjaš se, kar si že vedela.</p>
-
-        <button class="intro-enter-btn" onclick="skipIntro()">
-            Enter
-        </button>
-
-    </div>
-</div>
-
-<!-- HEADER -->
-<header class="main-header">
-
-    <!-- NAVIGATION -->
+<header>
 <nav class="main-nav">
-    <a href="index.html">Domov</a>
-    <a href="koda-casa.html">Koda časa</a>
-    <a href="blinkita-tv.html">Blinkita TV</a>
-    <a href="knjiznica.html">Knjižnica</a>
-
-    <a href="belize.html">Belize</a>
-    <a href="varuhinja-prehodov.html">Varuhinja prehodov</a>
-
-    <a href="circle.html">Circle</a>
+<a href="index.html">Domov</a>
+<a href="koda-casa.html">Koda časa</a>
+<a href="blinkita-tv.html">Blinkita TV</a>
+<a href="knjiznica.html">Knjižnica</a>
+<a href="belize.html">Belize</a>
+<a href="varuhinja-prehodov.html">Varuhinja</a>
+<a href="circle.html">Circle</a>
 </nav>
 
-    <!-- TZOLKIN WIDGET -->
 <div id="ziv-cas-header">
-
-    <div class="ziv-inner">
-
-        <!-- DATE (NA VRHU) -->
-        <div id="greg-date" class="ziv-date"></div>
-
-        <!-- TITLE -->
-        <div class="ziv-title">KODA ČASA</div>
-
-        <!-- STAR CODE TEXT (toneKey + signKey) -->
-        <div id="ziv-code" class="ziv-code">✦ ✦</div>
-
-        <!-- INLINE ENERGY ROW -->
-        <div class="tzolkin-inline">
-
-            <span id="tzolkin-number" class="energy-text"></span>
-            <img id="tzolkin-number-img" class="energy-img" alt="">
-
-            <span id="tzolkin-sign" class="energy-text"></span>
-            <img id="tzolkin-sign-img" class="energy-img" alt="">
-
-        </div>
-
-    </div>
+<div id="greg-date"></div>
+<div class="tzolkin-inline">
+<span>✦</span><span>KODA</span>
 </div>
-
+</div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
-    <div class="hero-card">
-
-        <p class="hero-kicker">Dobrodošla v Blinkita World</p>
-
-        <h1>Nekatere poti te pripeljejo nazaj k sebi.</h1>
-
-        <p class="hero-subtitle">
-            Od Slovenije do Belizeja.<br>
-            Od vprašanj do Medicine Časa.<br>
-            Od iskanja do spomina.
-        </p>
-
-        <p>To ni spletna stran.<br>To je vstopni portal.</p>
-
-        <p style="font-size:12px; opacity:0.6;">ne iščeš — spominjaš se</p>
-
-        <div class="hero-buttons">
-            <a class="btn" href="koda-casa.html">✨ Odkrij svojo Kodo Časa</a>
-            <a class="btn-secondary" href="blinkita-tv.html">📺 Vstopi v Blinkita TV</a>
-        </div>
-
-    </div>
+<div class="hero-card">
+<h1>Blinkita World</h1>
+<p>Dobrodošla v živem zemljevidu časa.</p>
+<p><a href="https://mysticanaturae.github.io/osebnakodacasa/">Osebna Koda Časa</a></p>
+</div>
 </section>
-
-<!-- CONTENT SECTIONS -->
-<section>
-    <h2>Kaj je Blinkita World?</h2>
-    <p class="lead">Ni sistem. Ni metoda. Ni program.</p>
-    <p>Je živ zemljevid časa, zavesti in preobrazbe.</p>
-</section>
-
-<section>
-    <h2>Pot preobrazbe</h2>
-    <img src="images/Blinkita-PrejinPotem.jpg" alt="">
-</section>
-
-<section>
-    <h2>Pet vrat Blinkita World</h2>
-</section>
-
-<section>
-    <h2>Kdo je Blinkita?</h2>
-</section>
-
-<section id="belize">
-    <h2>Belize</h2>
-    <img src="images/Belize-Hopkins-Plaža.jpg" alt="">
-</section>
-
-<section>
-    <h2>Blinkita TV</h2>
-</section>
-
-<section class="library">
-    <h2>Knjižnica</h2>
-</section>
-
-<section class="varuhinja">
-    <h2>Varuhinja</h2>
-</section>
-
-<section>
-    <h2>Circle</h2>
-</section>
-
-<section class="manifest">
-    <h2>Manifest Blinkita World</h2>
-</section>
-
-<section class="closing">
-    <h2>Vrata so odprta.</h2>
-</section>
-
-<section class="multiverse">
-    <h2>Multiverse Map</h2>
-</section>
-
-<footer>
-    <h3>Pridruži se Circle</h3>
-</footer>
-
-<!-- SCRIPTS -->
-<script src="js/tzolkin-data.js"></script>
-<script src="js/tzolkin-engine.js"></script>
-<script src="js/ui-engine.js"></script>
-<script src="js/main.js"></script>
 
 </body>
 </html>
