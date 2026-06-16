@@ -1,8 +1,9 @@
 /* =========================
-   BLINKITA WORLD — STABLE CINEMATIC CORE
-   (RECOVERY + LEVEL 7 LIGHT)
+   BLINKITA WORLD — DELUXE CORE v1
+   CLEAN + STABLE + ORACLE TAB SYSTEM
    ========================= */
 
+/* ROOT */
 :root{
   --bg:#f8f4ee;
   --dark:#1f1a17;
@@ -22,25 +23,26 @@ html{
 }
 
 body{
-  font-family:system-ui,sans-serif;
-  background:radial-gradient(circle at top, #f8f4ee, #eef6f4);
-  color:var(--dark);
-  overflow-x:hidden;
+  font-family:system-ui, sans-serif;
+  background: radial-gradient(circle at top, #f8f4ee, #eef6f4);
+  color: var(--dark);
+  overflow-x: hidden;
 }
 
 /* =========================
-   SAFETY: EVERYTHING VISIBLE BY DEFAULT
+   GLOBAL SAFETY
    ========================= */
 
-/* IMPORTANT FIX — prevents "blank page" bug */
 section{
-  opacity:1;
-  transform:none;
-  filter:none;
+  min-height:100vh;
+  padding:100px 8%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
 /* =========================
-   INTRO OVERLAY (FIXED VISIBILITY CONTROL)
+   INTRO OVERLAY
    ========================= */
 
 .blinkita-intro{
@@ -51,7 +53,6 @@ section{
   align-items:center;
   justify-content:center;
   z-index:9999;
-  transition:opacity .8s ease, visibility .8s ease;
 }
 
 .blinkita-intro.hidden{
@@ -61,7 +62,7 @@ section{
 }
 
 /* =========================
-   LOADER FIX
+   LOADER
    ========================= */
 
 #portal-loader{
@@ -72,31 +73,152 @@ section{
   align-items:center;
   justify-content:center;
   z-index:10000;
-  transition:opacity .8s ease;
-}
-
-#portal-loader.hidden{
-  opacity:0;
-  pointer-events:none;
+  transition:opacity .6s ease;
 }
 
 /* =========================
-   HEADER
+   HEADER (DELUXE CLEAN)
    ========================= */
 
-header{
+.main-header{
   position:fixed;
   top:0;
   left:0;
   right:0;
-  z-index:999;
-  padding:14px 5%;
-  background:rgba(255,255,255,.8);
-  backdrop-filter:blur(10px);
+  height:70px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  background:rgba(255,255,255,0.65);
+  backdrop-filter:blur(16px);
+
+  z-index:10000;
+}
+
+/* subtilen gold line */
+.main-header::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:10%;
+  right:10%;
+  height:1px;
+  background:linear-gradient(to right, transparent, rgba(184,154,92,0.6), transparent);
+}
+
+/* NAV */
+.main-nav{
+  display:flex;
+  gap:18px;
+
+  padding:10px 18px;
+  border-radius:999px;
+
+  background:rgba(255,255,255,0.35);
+  box-shadow:0 10px 40px rgba(0,0,0,0.08);
+}
+
+.main-nav a{
+  font-size:13px;
+  text-decoration:none;
+  color:var(--dark);
+  padding:6px 10px;
+  border-radius:999px;
+  transition:.25s ease;
+}
+
+.main-nav a:hover{
+  background:rgba(184,154,92,0.15);
+  transform:translateY(-1px);
 }
 
 /* =========================
-   HERO (FILM OPENING)
+   ORACLE TAB (KODA ČASA)
+   ========================= */
+
+#ziv-cas-header{
+  position:fixed;
+  top:85px; /* pod headerjem */
+  right:20px;
+
+  width:260px;
+  max-width:260px;
+
+  padding:14px;
+  border-radius:16px;
+
+  background:rgba(255,255,255,0.78);
+  backdrop-filter:blur(16px);
+  box-shadow:0 20px 60px rgba(0,0,0,0.15);
+
+  z-index:9999;
+  font-size:12px;
+
+  transition:transform .3s ease;
+}
+
+#ziv-cas-header:hover{
+  transform:translateY(2px) scale(1.02);
+}
+
+/* inner layout */
+.ziv-inner{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.ziv-title{
+  font-size:11px;
+  letter-spacing:2px;
+  opacity:0.7;
+}
+
+#greg-date{
+  font-size:11px;
+  opacity:0.8;
+}
+
+#ziv-code{
+  font-size:14px;
+  font-weight:600;
+}
+
+/* Tzolkin layout */
+.tzolkin-mini{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+/* blocks */
+.tone-block,
+.sign-block{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+}
+
+/* images */
+.tone-block img,
+.sign-block img{
+  width:32px;
+  height:32px;
+  object-fit:contain;
+}
+
+/* labels */
+.tone-block span,
+.sign-block span{
+  font-size:10px;
+  opacity:0.75;
+}
+
+/* =========================
+   HERO
    ========================= */
 
 .hero{
@@ -120,47 +242,15 @@ header{
   z-index:-1;
 }
 
-/* =========================
-   SECTION CINEMATIC FLOW (SAFE)
-   ========================= */
-
-section{
-  min-height:100vh;
-  padding:100px 8%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
-
-/* animation ONLY if JS adds class */
-section.in-view{
-  animation:fadeInUp 1s ease forwards;
-}
-
-@keyframes fadeInUp{
-  from{
-    opacity:0;
-    transform:translateY(30px);
-    filter:blur(6px);
-  }
-  to{
-    opacity:1;
-    transform:translateY(0);
-    filter:blur(0);
-  }
-}
-
-/* =========================
-   TYPOGRAPHY
-   ========================= */
-
-h1,h2,h3{
-  font-family:Georgia,serif;
-}
-
-p{
-  line-height:1.7;
-  opacity:.92;
+/* hero card */
+.hero-card{
+  max-width:700px;
+  background:rgba(0,0,0,.45);
+  color:white;
+  padding:32px;
+  border-radius:20px;
+  backdrop-filter:blur(12px);
+  box-shadow:0 30px 100px rgba(0,0,0,.35);
 }
 
 /* =========================
@@ -168,272 +258,85 @@ p{
    ========================= */
 
 .card{
-  background:rgba(255,255,255,.85);
+  background:rgba(255,255,255,.65);
+  backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:var(--shadow);
   padding:24px;
   border-radius:18px;
-  box-shadow:var(--shadow);
   transition:.3s ease;
 }
 
 .card:hover{
-  transform:translateY(-6px);
+  transform:translateY(-8px);
 }
 
 /* =========================
-   BELIZE LIGHT CINEMA
+   GRID
    ========================= */
 
-#belize{
-  position:relative;
-  overflow:hidden;
-  color:white;
-}
-
-#belize::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 30% 40%, rgba(0,200,180,.18), transparent 60%),
-    radial-gradient(circle at 70% 60%, rgba(0,120,255,.12), transparent 55%);
-  mix-blend-mode:screen;
-}
-
-/* =========================
-   NAV SAFETY
-   ========================= */
-
-nav a{
-  text-decoration:none;
-  color:inherit;
-}
-
-/* =========================
-   IMAGE SYSTEM
-   ========================= */
-
-img{
-  max-width:100%;
-  display:block;
-}
-
-/* =========================
-   BLINKITA UI RECOVERY LAYER v1
-   ========================= */
-
-/* GLASS CORE UPGRADE */
-.card{
-  background: rgba(255,255,255,.65);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,.35);
-  box-shadow: 0 20px 60px rgba(0,0,0,.12);
-}
-
-/* CINEMATIC HOVER */
-.card:hover{
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 30px 90px rgba(0,0,0,.18);
-}
-
-/* UNIVERSE FLEX SYSTEM */
-.universe-grid{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
-}
-
-/* NETFLIX ROW */
-.netflix-row{
-  display: flex;
-  gap: 18px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 10px;
-}
-
-.netflix-row .card{
-  min-width: 260px;
-  scroll-snap-align: start;
-}
-
-/* SCROLLBAR CLEAN */
-.netflix-row::-webkit-scrollbar{
-  height: 6px;
-}
-
-.netflix-row::-webkit-scrollbar-thumb{
-  background: rgba(0,0,0,.2);
-  border-radius: 10px;
-}
-
-/* RIGHT CALENDAR PANEL (BASIC FIX) */
-#calendar-panel{
-  position: fixed;
-  right: 20px;
-  top: 100px;
-  width: 280px;
-  background: rgba(255,255,255,.7);
-  backdrop-filter: blur(12px);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  padding: 16px;
-  z-index: 9998;
-}
-
-/* POPUP ORACLE BASE */
-.oracle-modal{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-}
-
-.oracle-modal.active{
-  display: flex;
-}
-
-.oracle-content{
-  width: min(800px, 92%);
-  background: rgba(255,255,255,.9);
-  backdrop-filter: blur(16px);
-  border-radius: 18px;
-  padding: 24px;
-}
-
-/* =========================
-   BLINKITA UI SYSTEM v1.0 (MISSING LAYER)
-   ========================= */
-
-/* HERO CARD CINEMATIC */
-.hero-card{
-  max-width: 700px;
-  background: rgba(0,0,0,.45);
-  color: white;
-  padding: 32px;
-  border-radius: 20px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 30px 100px rgba(0,0,0,.35);
-}
-
-/* BUTTON SYSTEM */
-.btn, .btn-secondary{
-  display:inline-block;
-  padding:12px 18px;
-  border-radius: 999px;
-  text-decoration:none;
-  font-weight: 500;
-  transition: .3s ease;
-}
-
-.btn{
-  background: #b89a5c;
-  color: white;
-}
-
-.btn:hover{
-  transform: translateY(-2px);
-  opacity:.9;
-}
-
-.btn-secondary{
-  background: transparent;
-  border: 1px solid rgba(255,255,255,.5);
-  color: white;
-}
-
-/* GRID (FIVE DOORS) */
 .grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
   gap:20px;
 }
 
-/* DOOR CARDS */
-.door{
-  text-align:center;
-  cursor:pointer;
+/* =========================
+   BUTTONS
+   ========================= */
+
+.btn,
+.btn-secondary{
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:999px;
+  text-decoration:none;
+  transition:.3s ease;
 }
 
-/* NETFLIX ROW FIX */
-.netflix{
-  display:flex;
-  gap:16px;
-  overflow-x:auto;
-  padding:10px 0;
+.btn{
+  background:var(--gold);
+  color:white;
 }
 
-.netflix .card{
-  min-width:200px;
-  flex:0 0 auto;
+.btn-secondary{
+  border:1px solid rgba(255,255,255,0.5);
+  color:white;
+  background:transparent;
 }
 
-/* MULTIVERSE WORLD MAP */
+/* =========================
+   MULTIVERSE
+   ========================= */
+
+.universe-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+}
+
 .world{
   display:flex;
   align-items:center;
   justify-content:center;
   min-height:120px;
   border-radius:16px;
-  background: rgba(255,255,255,.6);
-  backdrop-filter: blur(10px);
+  background:rgba(255,255,255,.6);
+  backdrop-filter:blur(10px);
   text-decoration:none;
-  color: inherit;
+  color:inherit;
   transition:.3s ease;
 }
 
 .world:hover{
-  transform: scale(1.03);
+  transform:scale(1.03);
 }
 
-/* INTRO PORTAL TYPO */
-.portal-title{
-  font-size: 48px;
-  letter-spacing: 2px;
+/* =========================
+   IMAGES
+   ========================= */
+
+img{
+  max-width:100%;
+  display:block;
 }
-
-.portal-small{
-  opacity:.7;
-  font-size: 14px;
-}
-
-.intro-enter-btn{
-  margin-top:20px;
-  padding:10px 16px;
-  border-radius:999px;
-  border:none;
-  background:#b89a5c;
-  color:white;
-  cursor:pointer;
-}
-
-/* ŽIV ČAS PANEL FIX */
-#ziv-cas-header{
-  position: fixed;
-  top: 70px;
-  right: 20px;
-  width: 280px;
-  z-index: 99999;
-
-  background: rgba(255,255,255,.75);
-  backdrop-filter: blur(14px);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.15);
-
-  padding: 14px;
-}
-
-/* prepreči raztegovanje */
-.ziv-inner{
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-/* UNIVERSE FINAL POLISH */
-.universe-grid .world span{
-  font-weight: 500;
-}
-

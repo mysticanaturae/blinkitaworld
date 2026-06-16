@@ -155,3 +155,17 @@ function initPageTransitions() {
 window.initPageTransitions = initPageTransitions;
 
 renderZivCas(toneKey, signKey, tzolkinData);
+
+document.addEventListener("DOMContentLoaded", () => {
+  const widget = document.getElementById("ziv-cas-header");
+  const intro = document.getElementById("time-portal");
+
+  if (widget && intro) {
+    widget.style.display = "none";
+
+    // ko intro izgine → pokaži widget
+    setTimeout(() => {
+      widget.style.display = "flex";
+    }, 2500); // ali ko klikne "Enter"
+  }
+});

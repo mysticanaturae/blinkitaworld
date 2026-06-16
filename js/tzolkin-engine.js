@@ -1,5 +1,5 @@
 /* =========================
-   TZOLKIN ENGINE v2 — CLEAN ORACLE CORE
+   TZOLKIN ENGINE v2 — FIXED CLEAN CORE
    ========================= */
 
 window.renderZivCas = function () {
@@ -10,28 +10,41 @@ window.renderZivCas = function () {
     return;
   }
 
-  // 1. GET CURRENT VALUES (from engine logic or fallback)
+  // 1. DATE
   const now = new Date();
+
+  // 2. ANCHOR (IZ DATA, NE GLOBAL)
+  const anchorDate = data.anchorDate ? new Date(data.anchorDate) : new Date("1800-01-01");
+
   const diffDays = Math.floor(
-    (now - new Date("1800-01-01")) / (1000 * 60 * 60 * 24)
+    (now - anchorDate) / (1000 * 60 * 60 * 24)
   );
 
+  // 3. INDEXES
   const toneIndex = ((diffDays % 13) + 13) % 13;
   const signIndex = ((diffDays % 20) + 20) % 20;
 
-  const toneNumber = (toneIndex + 1).toString();
+  // 4. RAW VALUES
+  const toneNumber = String(toneIndex + 1);
   const signName = data.tzolkinSigns[signIndex];
 
+  // 5. KEYWORDS
   const toneKeyText = data.toneKey[toneNumber];
   const signKeyText = data.signKey[signName];
 
-  // 2. CODE
+  // 6. IMAGES
+  const toneImgSrc = data.tzolkinNumberImages?.[toneIndex];
+  const signImgSrc = data.tzolkinSignImages?.[signIndex];
+
+  // =========================
+  // DOM UPDATE
+  // =========================
+
   const codeEl = document.getElementById("ziv-code");
   if (codeEl) {
     codeEl.textContent = `${toneKeyText} ${signKeyText}`;
   }
 
-  // 3. GREG DATE
   const greg = document.getElementById("greg-date");
   if (greg) {
     greg.textContent = now.toLocaleDateString("sl-SI", {
@@ -42,22 +55,20 @@ window.renderZivCas = function () {
     });
   }
 
-  // 4. TONE BLOCK
   const toneImg = document.getElementById("tzolkin-number-img");
   const toneTxt = document.getElementById("tzolkin-number");
 
-  if (toneImg) toneImg.src = data.tzolkinNumberImages[toneIndex];
+  if (toneImg && toneImgSrc) toneImg.src = toneImgSrc;
   if (toneTxt) toneTxt.textContent = toneNumber;
 
-  // 5. SIGN BLOCK
   const signImg = document.getElementById("tzolkin-sign-img");
   const signTxt = document.getElementById("tzolkin-sign");
 
-  if (signImg) signImg.src = data.tzolkinSignImages[signIndex];
+  if (signImg && signImgSrc) signImg.src = signImgSrc;
   if (signTxt) signTxt.textContent = signName;
 
-  // 6. OPTIONAL: LOG (debug)
-  console.log("[TZOLKIN]", {
+  // DEBUG
+  console.log("[TZOLKIN OK]", {
     tone: toneNumber,
     sign: signName,
     code: `${toneKeyText} ${signKeyText}`
