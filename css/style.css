@@ -67,31 +67,14 @@ section:nth-of-type(even){
 }
 
 section{
-  opacity: 1 !important;
-  transform: none !important;
+  opacity: 0;
+  transform: translateY(40px) scale(0.98);
+  transition: all 1s ease;
 }
 
-section{
-  position: relative;
-}
-
-section:hover{
-  transform: translateY(-2px);
-}
-
-section{
-  animation: fadeSoft 0.8s ease both;
-}
-
-@keyframes fadeSoft{
-  from{
-    opacity: 0.85;
-    transform: translateY(6px);
-  }
-  to{
-    opacity: 1;
-    transform: translateY(0);
-  }
+section.visible{
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 /* =========================
@@ -330,7 +313,13 @@ section{
     url("../images/blinkitanaplazi.jpg");
   background-size: cover;
   background-position: center;
+ transform: scale(1.1) translateY(calc(var(--scroll, 0) * 60px));
   transition: transform 0.2s ease-out;
+}
+
+.hero::before{
+  animation: heroZoom 18s ease-in-out infinite;
+  transform-origin: center;
 }
 
 @keyframes heroZoom{
@@ -699,59 +688,4 @@ section:nth-of-type(odd){
 
 section:nth-of-type(even){
   background: #ffffff;
-}
-
-section{
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-.ziv-page-title {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-/* =========================
-   ORACLE CARD FLIP
-========================= */
-
-.blinkita-intro {
-  perspective: 1200px;
-}
-
-.blinkita-intro-inner {
-  transition: transform 0.9s ease;
-  transform-style: preserve-3d;
-}
-
-.blinkita-intro.oracle-open .blinkita-intro-inner {
-  transform: rotateY(180deg);
-}
-
-/* front/back sides (če še nimaš) */
-
-.oracle-front,
-.oracle-back {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.oracle-back {
-  transform: rotateY(180deg);
-}
-
-.hero::before {
-  animation: heroBreath 12s ease-in-out infinite;
-}
-
-@keyframes heroBreath {
-  0%   { transform: scale(1.05); }
-  50%  { transform: scale(1.12); }
-  100% { transform: scale(1.05); }
 }

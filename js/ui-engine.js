@@ -1,6 +1,5 @@
-
 /* =========================
-   UI ENGINE — STABLE CORE RESTORE
+   UI ENGINE — STABLE CORE FIXED
 ========================= */
 
 let introRunning = false;
@@ -20,20 +19,19 @@ function runIntro() {
   const phaseEl = document.getElementById("portal-phase");
   const textEl = document.getElementById("portal-text");
 
-  const widget = document.getElementById("ziv-cas-header");
-  if (widget) widget.style.display = "none";
-
   if (!intro || !phaseEl || !textEl) return;
 
   const phases = [
     { name: "SPOMIN", text: "Spominjaš se, kar si že vedela." },
-    { name: "ODPIRANJE", text: "Vrata se odpirajo znotraj." },
-    { name: "VSTOP", text: "Prestopaš v prostor časa." }
+    { name: "ODPIRANJE", text: "Vrata se ne odpirajo zunaj, ampak znotraj." },
+    { name: "VSTOP", text: "Prestopaš v prostor, ki je vedno obstajal." }
   ];
 
   let i = 0;
 
   const step = () => {
+    if (!introRunning) return;
+
     if (i < phases.length) {
       phaseEl.textContent = phases[i].name;
       textEl.textContent = phases[i].text;
@@ -49,8 +47,9 @@ function runIntro() {
 
     setTimeout(() => {
       intro.style.display = "none";
-      showWidget();
     }, 900);
+
+    showWidget();
   };
 
   setTimeout(step, 800);
@@ -64,32 +63,38 @@ function showWidget() {
   const widget = document.getElementById("ziv-cas-header");
   if (widget) widget.style.display = "flex";
 
-  if (typeof window.renderZivCas === "function") {
-    window.renderZivCas();
-  }
+  // render AFTER intro
+  setTimeout(() => {
+    if (typeof window.renderZivCas === "function") {
+      window.renderZivCas();
+    }
+  }, 50);
+}
+
+function skipIntro() {
+  const intro = document.getElementById("time-portal");
+  if (intro) intro.classList.add("hidden");
+
+  showWidget();
 }
 
 /* =========================
-   INIT
+   INIT (IMPORTANT FIX)
 ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
 
   const widget = document.getElementById("ziv-cas-header");
   if (widget) widget.style.display = "none";
 
   runIntro();
+
+  // fallback render (če intro skipa ali faila)
+  setTimeout(() => {
+    showWidget();
+  }, 2500);
 });
 
-/* =========================
-   ORACLE STATE (SAFE)
-========================= */
-
-function toggleOracleCard() {
-  const card = document.getElementById("time-portal");
-  if (!card) return;
-
-  card.classList.toggle("oracle-open");
-}
-
-window.toggleOracleCard = toggleOracleCard;
+/* expose */
+window.runIntro = runIntro;
+window.skipIntro = skipIntro;

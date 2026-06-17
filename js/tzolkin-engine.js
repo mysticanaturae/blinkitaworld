@@ -1,66 +1,51 @@
 /* =========================
-   TZOLKIN ENGINE v4 — LOCAL TIME FIX
+   TZOLKIN ENGINE v5 — STABLE LOCAL CORE
 ========================= */
 
 /* =========================
-   LOCAL DATE HELPERS
+   LOCAL DATE
 ========================= */
 
 function getLocalDateString(date = new Date()) {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const d = String(date.getDate()).padStart(2, "0");
 
-  return `${year}-${month}-${day}`;
+  return `${y}-${m}-${d}`;
 }
 
 /* =========================
-   KIN CALCULATOR
+   KIN CALC
 ========================= */
 
 function calculateTzolkinKin(dateInput) {
+  const [y, m, d] = dateInput.split("-").map(Number);
 
-  const dateParts = dateInput.split("-");
-
-  const date = new Date(
-    parseInt(dateParts[0]),
-    parseInt(dateParts[1]) - 1,
-    parseInt(dateParts[2])
-  );
+  const date = new Date(y, m - 1, d);
 
   const refDate = new Date(1800, 0, 1);
   const refKin = 114;
 
-  const msPerDay = 1000 * 60 * 60 * 24;
+  const msPerDay = 86400000;
 
-  const daysSince = Math.floor((date - refDate) / msPerDay);
+  const days = Math.floor((date - refDate) / msPerDay);
 
-  const kin =
-    ((refKin - 1 + daysSince) % 260 + 260) % 260 + 1;
-
-  return kin;
+  return ((refKin - 1 + days) % 260 + 260) % 260 + 1;
 }
 
 /* =========================
-   MAIN RENDER ENGINE
+   MAIN RENDER (SINGLE SOURCE)
 ========================= */
-
-if (window.__introRunning && !window.__forceRenderAfterIntro) return;
 
 window.renderZivCas = function () {
 
   const data = window.tzolkinData;
+  if (!data) return;
 
-  if (!data) {
-    console.warn("[TZOLKIN] tzolkinData missing");
-    return;
-  }
-
-  /* ✅ LOCAL TIME FIX (NO UTC, NO ISO SHIFT) */
   const now = new Date();
-  const todayStr = getLocalDateString(now);
+  const today = getLocalDateString(now);
 
-  const kin = calculateTzolkinKin(todayStr);
+  const kin = calculateTzolkinKin(today);
 
   const toneIndex = (kin - 1) % 13;
   const signIndex = (kin - 1) % 20;
@@ -68,31 +53,21 @@ window.renderZivCas = function () {
   const toneNumber = String(toneIndex + 1);
   const signName = data.tzolkinSigns[signIndex];
 
-  const toneKeyText = data.toneKey?.[toneNumber] || "";
-  const signKeyText = data.signKey?.[signName] || "";
+  const toneKey = data.toneKey?.[toneNumber] || "";
+  const signKey = data.signKey?.[signName] || "";
 
-  const relationEnergy = `${toneKeyText} ${signKeyText}`;
-
-  const toneImgSrc = data.tzolkinNumberImages?.[toneIndex];
-  const signImgSrc = data.tzolkinSignImages?.[signIndex];
-
-  const pageTitleEl = document.querySelector(".ziv-page-title");
-
-  if (pageTitleEl && !pageTitleEl.dataset.locked) {
-  // NE dotikamo besedila več, samo lock
-  pageTitleEl.dataset.locked = "true";
-}
+  const energy = `${toneKey} ${signKey}`;
 
   /* =========================
-     DOM UPDATE
+     DOM
   ========================= */
 
   const codeEl = document.getElementById("ziv-code");
-  if (codeEl) codeEl.textContent = relationEnergy;
+  if (codeEl) codeEl.textContent = energy;
 
-  const greg = document.getElementById("greg-date");
-  if (greg) {
-    greg.textContent = now.toLocaleDateString("sl-SI", {
+  const dateEl = document.getElementById("greg-date");
+  if (dateEl) {
+    dateEl.textContent = now.toLocaleDateString("sl-SI", {
       weekday: "long",
       year: "numeric",
       month: "long",
@@ -100,31 +75,21 @@ window.renderZivCas = function () {
     });
   }
 
+  const toneEl = document.getElementById("tzolkin-number");
+  if (toneEl) toneEl.textContent = toneNumber;
+
+  const signEl = document.getElementById("tzolkin-sign");
+  if (signEl) signEl.textContent = signName;
+
   const toneImg = document.getElementById("tzolkin-number-img");
-  const toneTxt = document.getElementById("tzolkin-number");
-
   if (toneImg) {
-    toneImg.src = toneImgSrc || "";
-    toneImg.style.display = toneImgSrc ? "block" : "none";
+    toneImg.src = data.tzolkinNumberImages?.[toneIndex] || "";
   }
-
-  if (toneTxt) toneTxt.textContent = toneNumber;
 
   const signImg = document.getElementById("tzolkin-sign-img");
-  const signTxt = document.getElementById("tzolkin-sign");
-
   if (signImg) {
-    signImg.src = signImgSrc || "";
-    signImg.style.display = signImgSrc ? "block" : "none";
+    signImg.src = data.tzolkinSignImages?.[signIndex] || "";
   }
 
-  if (signTxt) signTxt.textContent = signName;
-
-  console.log("[TZOLKIN OK]", {
-    kin,
-    tone: toneNumber,
-    sign: signName,
-    code: relationEnergy,
-    dateUsed: todayStr
-  });
+  console.log("[TZOLKIN]", { kin, toneNumber, signName, energy, today });
 };
