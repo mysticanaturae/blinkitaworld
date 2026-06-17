@@ -5,6 +5,20 @@
 let introRunning = false;
 
 /* =========================
+   SAFE HELPERS
+========================= */
+
+function el(id) {
+  return document.getElementById(id);
+}
+
+function safeText(id, value) {
+  const node = el(id);
+  if (!node) return;
+  node.textContent = value;
+}
+
+/* =========================
    INTRO SYSTEM
 ========================= */
 
@@ -14,10 +28,10 @@ function runIntro() {
 
   const intro =
     document.querySelector(".blinkita-intro") ||
-    document.getElementById("time-portal");
+    el("time-portal");
 
-  const phaseEl = document.getElementById("portal-phase");
-  const textEl = document.getElementById("portal-text");
+  const phaseEl = el("portal-phase");
+  const textEl = el("portal-text");
 
   if (!intro || !phaseEl || !textEl) return;
 
@@ -56,14 +70,13 @@ function runIntro() {
 }
 
 /* =========================
-   WIDGET SHOW
+   WIDGET SHOW (SAFE)
 ========================= */
 
 function showWidget() {
-  const widget = document.getElementById("ziv-cas-header");
+  const widget = el("ziv-cas-header");
   if (widget) widget.style.display = "flex";
 
-  // render AFTER intro
   setTimeout(() => {
     if (typeof window.renderZivCas === "function") {
       window.renderZivCas();
@@ -72,24 +85,22 @@ function showWidget() {
 }
 
 function skipIntro() {
-  const intro = document.getElementById("time-portal");
+  const intro = el("time-portal");
   if (intro) intro.classList.add("hidden");
 
   showWidget();
 }
 
 /* =========================
-   INIT (IMPORTANT FIX)
+   INIT SAFE BOOT
 ========================= */
 
 window.addEventListener("load", () => {
-
-  const widget = document.getElementById("ziv-cas-header");
+  const widget = el("ziv-cas-header");
   if (widget) widget.style.display = "none";
 
   runIntro();
 
-  // fallback render (če intro skipa ali faila)
   setTimeout(() => {
     showWidget();
   }, 2500);

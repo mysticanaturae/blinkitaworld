@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="tv-mode">
+<!-- 🔥 FIX: page identity -->
+<body class="tv-mode" data-page="tv">
 
 <!-- HEADER -->
 <header class="main-header">
@@ -28,25 +29,23 @@
 
     <div class="ziv-inner">
 
-      <!-- PORTAL TITLE (STATIC - nikoli JS) -->
       <div class="ziv-portal-title">TZOLKIN PORTAL DNEVA</div>
 
-      <!-- DATE -->
       <div class="ziv-date" id="greg-date"></div>
 
-      <!-- PAGE TITLE (EDINI VARIABILEN TEXT) -->
-      <div class="ziv-page-title">KODA ČASA</div>
+      <!-- 🔥 FIXED -->
+      <div class="ziv-page-title">BLINKITA TV</div>
 
-      <!-- KODA -->
       <div id="ziv-code" class="ziv-code"></div>
 
-      <!-- ENERGY -->
       <div class="tzolkin-inline">
+
         <span id="tzolkin-number" class="energy-text"></span>
         <img id="tzolkin-number-img" class="energy-img">
 
         <span id="tzolkin-sign" class="energy-text"></span>
         <img id="tzolkin-sign-img" class="energy-img">
+
       </div>
 
     </div>
@@ -64,7 +63,6 @@
 
     <p>
       Vsaka epizoda je energijski zapis.
-      Ne gledanje — vstop.
     </p>
 
     <div class="hero-buttons">
@@ -77,7 +75,6 @@
 
 <!-- CATEGORY 1 -->
 <section class="tv-section">
-
   <h2>Medicina Časa</h2>
 
   <div class="tv-grid">
@@ -105,7 +102,6 @@
 
 <!-- CATEGORY 2 -->
 <section class="tv-section">
-
   <h2>Zgodbe iz Belizeja</h2>
 
   <div class="tv-grid">
@@ -133,7 +129,6 @@
 
 <!-- CATEGORY 3 -->
 <section class="tv-section">
-
   <h2>Aktivacije</h2>
 
   <div class="tv-grid">
@@ -159,7 +154,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <h3>Blinkita TV</h3>
   <p>Signal se širi skozi čas.</p>

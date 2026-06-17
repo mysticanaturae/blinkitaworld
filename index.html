@@ -7,25 +7,24 @@
 
     <title>BLINKITA WORLD</title>
 
-<link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 
-<link rel="icon" href="icons/icon-192.png">
+    <link rel="icon" href="icons/icon-192.png">
+    <link rel="manifest" href="manifest.json">
 
-<link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#b89a5c">
 
-<meta name="theme-color" content="#b89a5c">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
 
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Blinkita">
-
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Blinkita">
 </head>
 
-<body class="codex">
+<!-- 🔥 FIX: page identity (CRITICAL for JS stability) -->
+<body class="codex" data-page="index">
 
 <!-- LOADER -->
 <div id="portal-loader">
@@ -57,40 +56,31 @@
 <!-- HEADER -->
 <header class="main-header">
 
-    <!-- NAVIGATION -->
-    <!-- NAVIGATION -->
-<nav class="main-nav">
-    <a href="index.html">Domov</a>
-    <a href="koda-casa.html">Koda časa</a>
-    <a href="blinkita-tv.html">Blinkita TV</a>
-    <a href="knjiznica.html">Knjižnica</a>
-
-    <a href="belize.html">Belize</a>
-    <a href="varuhinja-prehodov.html">Varuhinja prehodov</a>
-
-    <a href="circle.html">Circle</a>
-</nav>
+    <nav class="main-nav">
+        <a href="index.html">Domov</a>
+        <a href="koda-casa.html">Koda časa</a>
+        <a href="blinkita-tv.html">Blinkita TV</a>
+        <a href="knjiznica.html">Knjižnica</a>
+        <a href="belize.html">Belize</a>
+        <a href="varuhinja-prehodov.html">Varuhinja prehodov</a>
+        <a href="circle.html">Circle</a>
+    </nav>
 
     <!-- TZOLKIN WIDGET -->
     <div id="ziv-cas-header">
 
         <div class="ziv-inner">
 
-            <!-- TITLE -->
             <div class="ziv-portal-title">TZOLKIN PORTAL DNEVA</div>
-            
-            <!-- DATE -->
+
             <div class="ziv-date" id="greg-date"></div>
 
             <div class="ziv-title">KODA ČASA</div>
 
-            <!-- 🔥 GLAVNA KODA (tone + sign key v JS) -->
             <div class="ziv-code" id="ziv-code"></div>
 
-            <!-- 🔥 SEKUNDARNA KODA (toneKey + signKey – KAR SI IZGUBILA) -->
             <div class="ziv-code-secondary" id="ziv-code-secondary"></div>
 
-            <!-- INLINE ENERGY -->
             <div class="tzolkin-inline">
 
                 <span id="tzolkin-number" class="energy-text"></span>
@@ -120,26 +110,11 @@
       Od identitete do spomina in do premika v načinu življenja.
     </p>
 
-   <p>
-      Nekatere stvari se v življenju začnejo drugače razporejati.
-    </p>
-
-    <p>
-      Tempo se spremeni.<br>
-      Odločitve postanejo jasnejše.
-    </p>
-
-    <p>
-      Blinkita World deluje kot vstop v drugačen način zaznavanja časa in izbire.
-    </p>
-
-    <p>
-      Kar je bilo prej zmeda, se začne umirjati v strukturo.
-    </p>
-
-    <p>
-      Kar je bilo hrup, izgubi težo.
-    </p>
+    <p>Nekatere stvari se v življenju začnejo drugače razporejati.</p>
+    <p>Tempo se spremeni. Odločitve postanejo jasnejše.</p>
+    <p>Blinkita World deluje kot vstop v drugačen način zaznavanja časa in izbire.</p>
+    <p>Kar je bilo prej zmeda, se začne umirjati v strukturo.</p>
+    <p>Kar je bilo hrup, izgubi težo.</p>
 
     <p style="font-size:12px; opacity:0.7;">
       Če si tukaj, si že v premiku.
@@ -153,13 +128,11 @@
   </div>
 </section>
 
-<!-- CONTENT SECTIONS -->
+<!-- CONTENT -->
 <section>
   <h2>Kaj je Blinkita World?</h2>
 
-  <p class="lead">
-    Živ zemljevid časa, zavesti in preobrazbe.
-  </p>
+  <p class="lead">Živ zemljevid časa, zavesti in preobrazbe.</p>
 
   <p>
     Tukaj se življenje prepozna v gibanju.
@@ -167,17 +140,16 @@
   </p>
 
   <p>
-  Zgodba se začne sestavljati v trenutku, ko to bereš.
-  V tvojem tempu, skozi tvoje občutke, skozi tvoj notranji fokus.
-</p>
+    Zgodba se začne sestavljati v trenutku, ko to bereš.
+  </p>
 
-<p>
-  Nekaj v načinu, kako gledaš nase in na svoj čas, se premakne.
-  Ne glasno. Ampak dovolj, da ga opaziš.
-</p>
+  <p>
+    Nekaj v načinu, kako gledaš nase in na svoj čas, se premakne.
+  </p>
 </section>
 
 <section class="five-doors">
+
     <h2>Pet vrat Blinkita World</h2>
 
     <p class="lead">
@@ -219,8 +191,8 @@
     <h2>Kdo je Blinkita?</h2>
 
     <p>
-        Raziskovalka časa • tkalka zgodb med svetovi • avtorica 200+ eknjig •
-        hipnoterapevtka • posvečena Varuhinja Časa in Starodavne Prihodnosti, Saq I'x, Bela Jaguarka • mama
+        Raziskovalka časa • tkalka zgodb • avtorica 200+ eknjig •
+        hipnoterapevtka • Varuhinja Časa • mama
     </p>
 </section>
 
@@ -228,14 +200,8 @@
     <h2>Belize</h2>
 
     <p>Tukaj sem našla delček svoje duše.</p>
-    <p>Tukaj sem začela živeti drugače.</p>
 
     <img src="images/Belize-Hopkins-Plaža.jpg" alt="">
-</section>
-
-<section>
-    <h2>Blinkita TV</h2>
-    <p>Medicina Časa • Dnevnik iz Belizeja • Pogovori pod palmami</p>
 </section>
 
 <section class="library">
@@ -246,27 +212,11 @@
         Več kot 200 prehodov.
     </p>
 
-    <p>
-        Vsaka knjiga je ključ.<br>
-        Vsak ključ odpre drugačen čas v tebi.
-    </p>
-
     <a class="btn" href="knjiznica.html">📚 Vstopi v knjižnico</a>
 </section>
 
 <section class="varuhinja">
     <h2>Varuhinja</h2>
-
-    <p class="lead">
-        Nekatere poti se ne izberejo.<br>
-        Srečajo te.
-    </p>
-
-    <p>
-        To je prostor prehodov,<br>
-        kjer se stari jaz zaključi<br>
-        in novi začne dihati.
-    </p>
 
     <a class="btn" href="varuhinja-prehodov.html">🔥 Spoznaj zgodbo</a>
 </section>
@@ -274,72 +224,16 @@
 <section>
     <h2>Circle</h2>
 
-    <p class="lead">
-        Prostor ljudi, ki jih zanima preobrazba,<br>
-        čas in zavest.
-    </p>
-
-    <p>
-        Tukaj se ne gradi identiteta.<br>
-        Tukaj se spomniš, kdo si brez nje.
-    </p>
-
     <a class="btn" href="circle.html">✨ Pridruži se Circle</a>
 </section>
 
 <section class="manifest">
     <h2>Manifest Blinkita World</h2>
-
-    <p>
-        Ne učim ljudi, kako začeti.<br>
-        Pomagam jim razumeti, kako ostati.
-    </p>
+    <p>Ne učim ljudi, kako začeti. Pomagam jim razumeti, kako ostati.</p>
 </section>
 
 <section class="closing">
     <h2>Vrata so odprta.</h2>
-
-    <p>Čas te je pripeljal sem.</p>
-
-    <p style="opacity:0.7; font-size:13px;">
-        ne izbiraš poti — spominjaš se je
-    </p>
-</section>
-
-<section class="multiverse">
-    <h2>Multiverse Map</h2>
-
-    <p class="lead">
-        Izberi svet. Ne stran.
-    </p>
-
-    <div class="multiverse-grid">
-
-        <a href="koda-casa.html" class="world-card life">
-            <span>BLINKITA LIFE</span>
-        </a>
-
-        <a href="blinkita-tv.html" class="world-card tv">
-            <span>BLINKITA TV</span>
-        </a>
-
-        <a href="knjiznica.html" class="world-card library">
-            <span>KNJIŽNICA</span>
-        </a>
-
-        <a href="belize.html" class="world-card belize">
-            <span>BELIZE WORLD</span>
-        </a>
-
-        <a href="varuhinja-prehodov.html" class="world-card portal">
-            <span>VARUHINJA</span>
-        </a>
-
-        <a href="circle.html" class="world-card circle">
-            <span>CIRCLE</span>
-        </a>
-
-    </div>
 </section>
 
 <footer>
@@ -352,22 +246,14 @@
 <script src="js/ui-engine.js"></script>
 <script src="js/main.js"></script>
 
+<!-- SERVICE WORKER -->
 <script>
 if ("serviceWorker" in navigator) {
-
   window.addEventListener("load", () => {
-
-    navigator.serviceWorker
-      .register("./sw.js")
-      .then(reg => {
-        console.log("SW OK", reg);
-      })
-      .catch(err => {
-        console.log("SW ERROR", err);
-      });
-
+    navigator.serviceWorker.register("./sw.js")
+      .then(reg => console.log("SW OK", reg))
+      .catch(err => console.log("SW ERROR", err));
   });
-
 }
 </script>
 

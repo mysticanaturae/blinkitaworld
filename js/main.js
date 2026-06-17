@@ -1,21 +1,54 @@
 /* =========================
-   MAIN BOOTSTRAP — STABLE CORE
+   BLINKITA MAIN CORE vFINAL
 ========================= */
 
 window.addEventListener("load", () => {
-  bootSystem();
+  boot();
 });
 
-/* =========================
-   BOOT SYSTEM
-========================= */
-
-function bootSystem() {
+function boot() {
   hideLoader();
+
+  // intro
   safeCall("runIntro");
 
+  // hide widget first
+  const widget = document.getElementById("ziv-cas-header");
+  if (widget) widget.style.display = "none";
+
+  // render once immediately
+  safeRender();
+
+  // start systems
   initTimeSystem();
   initScrollObserver();
+
+  // safety fallback
+  setTimeout(() => {
+    safeRender();
+  }, 2000);
+}
+
+/* =========================
+   SAFE CALL
+========================= */
+
+function safeCall(fn) {
+  try {
+    if (typeof window[fn] === "function") window[fn]();
+  } catch (e) {
+    console.warn("safeCall error", fn, e);
+  }
+}
+
+/* =========================
+   SAFE RENDER
+========================= */
+
+function safeRender() {
+  if (typeof window.renderZivCas === "function") {
+    window.renderZivCas();
+  }
 }
 
 /* =========================
@@ -28,78 +61,38 @@ function hideLoader() {
 
   setTimeout(() => {
     loader.style.opacity = "0";
-
     setTimeout(() => {
       loader.style.display = "none";
     }, 600);
-
   }, 300);
 }
 
 /* =========================
-   SAFE CALL
-========================= */
-
-function safeCall(fnName) {
-  try {
-    if (typeof window[fnName] === "function") {
-      window[fnName]();
-    }
-  } catch (e) {
-    console.warn("SafeCall error:", fnName, e);
-  }
-}
-
-/* =========================
-   TIME SYSTEM (TZOLKIN REFRESH LOOP)
+   TIME LOOP
 ========================= */
 
 function initTimeSystem() {
   setInterval(() => {
-    if (
-      typeof renderZivCas === "function" &&
-      typeof tzolkinData !== "undefined"
-    ) {
-      renderZivCas(tzolkinData);
-    }
+    safeRender();
   }, 60000);
 }
 
 /* =========================
-   SCROLL OBSERVER (KEYNOTE STYLE SAFE)
+   SCROLL FX
 ========================= */
 
 function initScrollObserver() {
   const sections = document.querySelectorAll("section");
-
   if (!sections.length) return;
 
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
+  const obs = new IntersectionObserver((entries, o) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        o.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
 
-          // IMPORTANT: prevents re-trigger chaos
-          obs.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.12
-    }
-  );
-
-  sections.forEach(sec => observer.observe(sec));
-
-  // SAFETY FALLBACK (če observer ne sproži)
-  setTimeout(() => {
-    sections.forEach(sec => sec.classList.add("visible"));
-  }, 1200);
+  sections.forEach(s => obs.observe(s));
 }
-
-/* =========================
-   OPTIONAL: DEBUG HELP (SAFE)
-========================= */
-
-console.log("[MAIN] Blinkita World core loaded");
