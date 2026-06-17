@@ -690,3 +690,7 @@ section:nth-of-type(even){
   background: #ffffff;
 }
 
+section{
+  opacity: 1 !important;
+  transform: none !important;
+}
