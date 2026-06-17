@@ -43,6 +43,9 @@ function runIntro() {
 
   const finishIntro = () => {
 
+window.__introRunning = false;
+window.__forceRenderAfterIntro = true;
+
     intro.classList.add("hidden");
 
     setTimeout(() => {
@@ -84,11 +87,12 @@ function showWidget() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+  window.__introRunning = true;
+
   const widget = document.getElementById("ziv-cas-header");
   if (widget) widget.style.display = "none";
 
   runIntro();
-
 });
 
 /* =========================

@@ -45,6 +45,8 @@ function calculateTzolkinKin(dateInput) {
    MAIN RENDER ENGINE
 ========================= */
 
+if (window.__introRunning && !window.__forceRenderAfterIntro) return;
+
 window.renderZivCas = function () {
 
   const data = window.tzolkinData;
