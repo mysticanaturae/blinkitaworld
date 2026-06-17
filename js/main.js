@@ -1,54 +1,21 @@
 /* =========================
-   BLINKITA MAIN CORE vFINAL
+   MAIN BOOTSTRAP — STABLE CORE
 ========================= */
 
 window.addEventListener("load", () => {
-  boot();
+  bootSystem();
 });
 
-function boot() {
-  hideLoader();
+/* =========================
+   BOOT SYSTEM
+========================= */
 
-  // intro
+function bootSystem() {
+  hideLoader();
   safeCall("runIntro");
 
-  // hide widget first
-  const widget = document.getElementById("ziv-cas-header");
-  if (widget) widget.style.display = "none";
-
-  // render once immediately
-  safeRender();
-
-  // start systems
   initTimeSystem();
   initScrollObserver();
-
-  // safety fallback
-  setTimeout(() => {
-    safeRender();
-  }, 2000);
-}
-
-/* =========================
-   SAFE CALL
-========================= */
-
-function safeCall(fn) {
-  try {
-    if (typeof window[fn] === "function") window[fn]();
-  } catch (e) {
-    console.warn("safeCall error", fn, e);
-  }
-}
-
-/* =========================
-   SAFE RENDER
-========================= */
-
-function safeRender() {
-  if (typeof window.renderZivCas === "function") {
-    window.renderZivCas();
-  }
 }
 
 /* =========================
@@ -61,50 +28,78 @@ function hideLoader() {
 
   setTimeout(() => {
     loader.style.opacity = "0";
+
     setTimeout(() => {
       loader.style.display = "none";
     }, 600);
+
   }, 300);
 }
 
 /* =========================
-   TIME LOOP
+   SAFE CALL
+========================= */
+
+function safeCall(fnName) {
+  try {
+    if (typeof window[fnName] === "function") {
+      window[fnName]();
+    }
+  } catch (e) {
+    console.warn("SafeCall error:", fnName, e);
+  }
+}
+
+/* =========================
+   TIME SYSTEM (TZOLKIN REFRESH LOOP)
 ========================= */
 
 function initTimeSystem() {
   setInterval(() => {
-    safeRender();
+    if (
+      typeof renderZivCas === "function" &&
+      typeof tzolkinData !== "undefined"
+    ) {
+      renderZivCas(tzolkinData);
+    }
   }, 60000);
 }
 
 /* =========================
-   SCROLL FX
+   SCROLL OBSERVER (KEYNOTE STYLE SAFE)
 ========================= */
 
 function initScrollObserver() {
   const sections = document.querySelectorAll("section");
+
   if (!sections.length) return;
 
-  const obs = new IntersectionObserver((entries, o) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add("visible");
-        o.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.12 });
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
 
-  sections.forEach(s => obs.observe(s));
+          // IMPORTANT: prevents re-trigger chaos
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.12
+    }
+  );
+
+  sections.forEach(sec => observer.observe(sec));
+
+  // SAFETY FALLBACK (če observer ne sproži)
+  setTimeout(() => {
+    sections.forEach(sec => sec.classList.add("visible"));
+  }, 1200);
 }
 
-window.addEventListener("scroll", () => {
-  const footer = document.querySelector("footer");
+/* =========================
+   OPTIONAL: DEBUG HELP (SAFE)
+========================= */
 
-  const scrollTop = window.scrollY;
-  const docHeight = document.body.scrollHeight - window.innerHeight;
-
-  const progress = scrollTop / docHeight;
-
-  footer.style.opacity = 0.4 + progress * 0.6;
-  footer.style.transform = `translateY(${10 - progress * 10}px)`;
-});
+console.log("[MAIN] Blinkita World core loaded");

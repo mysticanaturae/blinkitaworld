@@ -1,12 +1,6 @@
 /* =========================
-   TZOLKIN ENGINE v5 — STABLE CORE (CLEAN)
+   TZOLKIN ENGINE v5 — STABLE LOCAL CORE
 ========================= */
-
-/* =========================
-   SAFE STATE
-========================= */
-
-let isRendering = false;
 
 /* =========================
    LOCAL DATE
@@ -40,79 +34,62 @@ function calculateTzolkinKin(dateInput) {
 }
 
 /* =========================
-   MAIN RENDER (SAFE SINGLE SOURCE)
+   MAIN RENDER (SINGLE SOURCE)
 ========================= */
 
 window.renderZivCas = function () {
 
-  if (isRendering) return;
-  isRendering = true;
+  const data = window.tzolkinData;
+  if (!data) return;
 
-  try {
-    const data = window.tzolkinData;
-    if (!data) return;
+  const now = new Date();
+  const today = getLocalDateString(now);
 
-    const now = new Date();
-    const today = getLocalDateString(now);
+  const kin = calculateTzolkinKin(today);
 
-    const kin = calculateTzolkinKin(today);
+  const toneIndex = (kin - 1) % 13;
+  const signIndex = (kin - 1) % 20;
 
-    const toneIndex = (kin - 1) % 13;
-    const signIndex = (kin - 1) % 20;
+  const toneNumber = String(toneIndex + 1);
+  const signName = data.tzolkinSigns[signIndex];
 
-    const toneNumber = String(toneIndex + 1);
-    const signName = data.tzolkinSigns?.[signIndex];
+  const toneKey = data.toneKey?.[toneNumber] || "";
+  const signKey = data.signKey?.[signName] || "";
 
-    const toneKey = data.toneKey?.[toneNumber] || "";
-    const signKey = data.signKey?.[signName] || "";
+  const energy = `${toneKey} ${signKey}`;
 
-    const energy = `${toneKey} ${signKey}`;
+  /* =========================
+     DOM
+  ========================= */
 
-    /* =========================
-       DOM GUARD (CRITICAL FIX)
-    ========================= */
+  const codeEl = document.getElementById("ziv-code");
+  if (codeEl) codeEl.textContent = energy;
 
-    const codeEl = document.getElementById("ziv-code");
-    const dateEl = document.getElementById("greg-date");
-    const toneEl = document.getElementById("tzolkin-number");
-    const signEl = document.getElementById("tzolkin-sign");
-    const toneImg = document.getElementById("tzolkin-number-img");
-    const signImg = document.getElementById("tzolkin-sign-img");
-
-    // if page doesn't have widget → exit safely
-    if (!codeEl && !dateEl && !toneEl && !signEl) return;
-
-    /* =========================
-       UPDATE UI
-    ========================= */
-
-    if (codeEl) codeEl.textContent = energy;
-
-    if (dateEl) {
-      dateEl.textContent = now.toLocaleDateString("sl-SI", {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
-    }
-
-    if (toneEl) toneEl.textContent = toneNumber;
-    if (signEl) signEl.textContent = signName;
-
-    if (toneImg && data.tzolkinNumberImages) {
-      toneImg.src = data.tzolkinNumberImages?.[toneIndex] || "";
-    }
-
-    if (signImg && data.tzolkinSignImages) {
-      signImg.src = data.tzolkinSignImages?.[signIndex] || "";
-    }
-
-    console.log("[TZOLKIN]", { kin, toneNumber, signName, energy, today });
-
-  } catch (err) {
-    console.warn("[TZOLKIN ERROR]", err);
-  } finally {
-    isRendering = false;
+  const dateEl = document.getElementById("greg-date");
+  if (dateEl) {
+    dateEl.textContent = now.toLocaleDateString("sl-SI", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    });
   }
+
+  const toneEl = document.getElementById("tzolkin-number");
+  if (toneEl) toneEl.textContent = toneNumber;
+
+  const signEl = document.getElementById("tzolkin-sign");
+  if (signEl) signEl.textContent = signName;
+
+  const toneImg = document.getElementById("tzolkin-number-img");
+  if (toneImg) {
+    toneImg.src = data.tzolkinNumberImages?.[toneIndex] || "";
+  }
+
+  const signImg = document.getElementById("tzolkin-sign-img");
+  if (signImg) {
+    signImg.src = data.tzolkinSignImages?.[signIndex] || "";
+  }
+
+  console.log("[TZOLKIN]", { kin, toneNumber, signName, energy, today });
 };
