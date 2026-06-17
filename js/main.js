@@ -1,5 +1,5 @@
 /* =========================
-   MAIN BOOTSTRAP — STABLE CORE
+   MAIN BOOTSTRAP — ORCHESTRATOR CORE
 ========================= */
 
 window.addEventListener("load", () => {
@@ -7,14 +7,20 @@ window.addEventListener("load", () => {
 });
 
 /* =========================
-   BOOT SYSTEM
+   BOOT SYSTEM (SINGLE ENTRY POINT)
 ========================= */
 
 function bootSystem() {
-  hideLoader();
-  safeCall("runIntro");
 
+  hideLoader();
+
+  // CORE UI
+  safeCall("initUI");
+
+  // TIME SYSTEM
   initTimeSystem();
+
+  // SCROLL SYSTEM
   initScrollObserver();
 }
 
@@ -23,6 +29,7 @@ function bootSystem() {
 ========================= */
 
 function hideLoader() {
+
   const loader = document.getElementById("portal-loader");
   if (!loader) return;
 
@@ -46,60 +53,64 @@ function safeCall(fnName) {
       window[fnName]();
     }
   } catch (e) {
-    console.warn("SafeCall error:", fnName, e);
+    console.warn("[SAFE CALL ERROR]", fnName, e);
   }
 }
 
 /* =========================
-   TIME SYSTEM (TZOLKIN REFRESH LOOP)
+   TIME SYSTEM
 ========================= */
 
 function initTimeSystem() {
+
   setInterval(() => {
+
     if (
       typeof renderZivCas === "function" &&
       typeof tzolkinData !== "undefined"
     ) {
       renderZivCas(tzolkinData);
     }
+
   }, 60000);
 }
 
 /* =========================
-   SCROLL OBSERVER (KEYNOTE STYLE SAFE)
+   SCROLL OBSERVER
 ========================= */
 
 function initScrollObserver() {
+
   const sections = document.querySelectorAll("section");
 
   if (!sections.length) return;
 
   const observer = new IntersectionObserver(
     (entries, obs) => {
+
       entries.forEach(entry => {
+
         if (entry.isIntersecting) {
           entry.target.classList.add("visible");
-
-          // IMPORTANT: prevents re-trigger chaos
           obs.unobserve(entry.target);
         }
+
       });
+
     },
-    {
-      threshold: 0.12
-    }
+    { threshold: 0.12 }
   );
 
   sections.forEach(sec => observer.observe(sec));
 
-  // SAFETY FALLBACK (če observer ne sproži)
+  // fallback safety
   setTimeout(() => {
     sections.forEach(sec => sec.classList.add("visible"));
-  }, 1200);
+  }, 1500);
 }
 
 /* =========================
-   OPTIONAL: DEBUG HELP (SAFE)
+   DEBUG
 ========================= */
 
-console.log("[MAIN] Blinkita World core loaded");
+console.log("[MAIN] Blinkita system online");

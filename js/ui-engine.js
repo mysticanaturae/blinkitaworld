@@ -1,25 +1,34 @@
 /* =========================
-   UI ENGINE — STABLE CORE FIXED
+   UI ENGINE — CLEAN CORE (FINAL)
+========================= */
+
+/* =========================
+   STATE GUARDS
 ========================= */
 
 let introRunning = false;
+
+/* prevent double init */
+window.__introStarted = false;
 
 /* =========================
    INTRO SYSTEM
 ========================= */
 
 function runIntro() {
+
+  // HARD LOCK (prevents double execution)
+  if (window.__introStarted) return;
+  window.__introStarted = true;
+
   if (introRunning) return;
   introRunning = true;
 
-  const intro =
-    document.querySelector(".blinkita-intro") ||
-    document.getElementById("time-portal");
-
   const phaseEl = document.getElementById("portal-phase");
   const textEl = document.getElementById("portal-text");
+  const introFlow = document.getElementById("intro-flow");
 
-  if (!intro || !phaseEl || !textEl) return;
+  if (!phaseEl || !textEl || !introFlow) return;
 
   const phases = [
     { name: "SPOMIN", text: "Spominjaš se, kar si že vedela." },
@@ -43,27 +52,47 @@ function runIntro() {
   };
 
   const finishIntro = () => {
-    intro.classList.add("hidden");
+    introFlow.classList.add("hidden");
 
     setTimeout(() => {
-      intro.style.display = "none";
+      introFlow.style.display = "none";
     }, 900);
 
     showWidget();
   };
 
-  setTimeout(step, 800);
+  setTimeout(step, 900);
 }
 
 /* =========================
-   WIDGET SHOW
+   SKIP INTRO
+========================= */
+
+function skipIntro() {
+  const introFlow = document.getElementById("intro-flow");
+
+  if (introFlow) {
+    introFlow.classList.add("hidden");
+
+    setTimeout(() => {
+      introFlow.style.display = "none";
+    }, 600);
+  }
+
+  showWidget();
+}
+
+/* =========================
+   WIDGET CONTROL
 ========================= */
 
 function showWidget() {
   const widget = document.getElementById("ziv-cas-header");
-  if (widget) widget.style.display = "flex";
 
-  // render AFTER intro
+  if (widget) {
+    widget.style.display = "flex";
+  }
+
   setTimeout(() => {
     if (typeof window.renderZivCas === "function") {
       window.renderZivCas();
@@ -71,30 +100,32 @@ function showWidget() {
   }, 50);
 }
 
-function skipIntro() {
-  const intro = document.getElementById("time-portal");
-  if (intro) intro.classList.add("hidden");
-
-  showWidget();
-}
-
 /* =========================
-   INIT (IMPORTANT FIX)
+   INIT FUNCTION (CALLED BY MAIN)
 ========================= */
 
-window.addEventListener("load", () => {
+function initUI() {
 
   const widget = document.getElementById("ziv-cas-header");
-  if (widget) widget.style.display = "none";
+
+  if (widget) {
+    widget.style.display = "none";
+  }
 
   runIntro();
 
-  // fallback render (če intro skipa ali faila)
+  // SAFETY FALLBACK (if anything breaks)
   setTimeout(() => {
     showWidget();
-  }, 2500);
-});
+  }, 9000);
+}
 
-/* expose */
+/* =========================
+   EXPOSE GLOBALS
+========================= */
+
 window.runIntro = runIntro;
 window.skipIntro = skipIntro;
+window.initUI = initUI;
+
+console.log("[UI] Blinkita UI engine loaded");
