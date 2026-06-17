@@ -67,14 +67,31 @@ section:nth-of-type(even){
 }
 
 section{
-  opacity: 0;
-  transform: translateY(40px) scale(0.98);
-  transition: all 1s ease;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
-section.visible{
-  opacity: 1;
-  transform: translateY(0) scale(1);
+section{
+  position: relative;
+}
+
+section:hover{
+  transform: translateY(-2px);
+}
+
+section{
+  animation: fadeSoft 0.8s ease both;
+}
+
+@keyframes fadeSoft{
+  from{
+    opacity: 0.85;
+    transform: translateY(6px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* =========================
@@ -313,13 +330,7 @@ section.visible{
     url("../images/blinkitanaplazi.jpg");
   background-size: cover;
   background-position: center;
- transform: scale(1.1) translateY(calc(var(--scroll, 0) * 60px));
   transition: transform 0.2s ease-out;
-}
-
-.hero::before{
-  animation: heroZoom 18s ease-in-out infinite;
-  transform-origin: center;
 }
 
 @keyframes heroZoom{
