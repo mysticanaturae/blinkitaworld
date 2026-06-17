@@ -1,6 +1,18 @@
 /* =========================
-   TZOLKIN ENGINE v3 — CLEAN STABLE CORE
-   ========================= */
+   TZOLKIN ENGINE v4 — LOCAL TIME FIX
+========================= */
+
+/* =========================
+   LOCAL DATE HELPERS
+========================= */
+
+function getLocalDateString(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
 
 /* =========================
    KIN CALCULATOR
@@ -10,14 +22,15 @@ function calculateTzolkinKin(dateInput) {
 
   const dateParts = dateInput.split("-");
 
-  const date = new Date(Date.UTC(
+  const date = new Date(
     parseInt(dateParts[0]),
     parseInt(dateParts[1]) - 1,
     parseInt(dateParts[2])
-  ));
+  );
 
-  const refDate = new Date(Date.UTC(1800, 0, 1));
+  const refDate = new Date(1800, 0, 1);
   const refKin = 114;
+
   const msPerDay = 1000 * 60 * 60 * 24;
 
   const daysSince = Math.floor((date - refDate) / msPerDay);
@@ -41,8 +54,9 @@ window.renderZivCas = function () {
     return;
   }
 
+  /* ✅ LOCAL TIME FIX (NO UTC, NO ISO SHIFT) */
   const now = new Date();
-  const todayStr = now.toISOString().split("T")[0];
+  const todayStr = getLocalDateString(now);
 
   const kin = calculateTzolkinKin(todayStr);
 
@@ -59,6 +73,13 @@ window.renderZivCas = function () {
 
   const toneImgSrc = data.tzolkinNumberImages?.[toneIndex];
   const signImgSrc = data.tzolkinSignImages?.[signIndex];
+
+  const pageTitleEl = document.querySelector(".ziv-page-title");
+
+  if (pageTitleEl && !pageTitleEl.dataset.locked) {
+  // NE dotikamo besedila več, samo lock
+  pageTitleEl.dataset.locked = "true";
+}
 
   /* =========================
      DOM UPDATE
@@ -101,6 +122,7 @@ window.renderZivCas = function () {
     kin,
     tone: toneNumber,
     sign: signName,
-    code: relationEnergy
+    code: relationEnergy,
+    dateUsed: todayStr
   });
 };

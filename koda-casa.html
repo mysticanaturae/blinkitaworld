@@ -11,7 +11,7 @@
 
 <body>
 
-<!-- HEADER (ISTI KOT INDEX) -->
+<!-- HEADER -->
 <header class="main-header">
 
   <nav class="main-nav">
@@ -20,20 +20,27 @@
     <a href="blinkita-tv.html">Blinkita TV</a>
     <a href="knjiznica.html">Knjižnica</a>
     <a href="belize.html">Belize</a>
-    <a href="varuhinja-prehodov.html">Varuhinja</a>
     <a href="circle.html">Circle</a>
   </nav>
 
   <!-- TZOLKIN WIDGET -->
   <div id="ziv-cas-header">
+
     <div class="ziv-inner">
 
-      <div id="greg-date" class="ziv-date"></div>
+      <!-- PORTAL TITLE (STATIC - nikoli JS) -->
+      <div class="ziv-portal-title">TZOLKIN PORTAL DNEVA</div>
 
-      <div class="ziv-title">KODA ČASA</div>
+      <!-- DATE -->
+      <div class="ziv-date" id="greg-date"></div>
 
-      <div id="ziv-code" class="ziv-code">✦ ✦</div>
+      <!-- PAGE TITLE (EDINI VARIABILEN TEXT) -->
+      <div class="ziv-page-title">KODA ČASA</div>
 
+      <!-- KODA -->
+      <div id="ziv-code" class="ziv-code"></div>
+
+      <!-- ENERGY -->
       <div class="tzolkin-inline">
         <span id="tzolkin-number" class="energy-text"></span>
         <img id="tzolkin-number-img" class="energy-img">
