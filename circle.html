@@ -4,12 +4,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Blinkita TV | Dashboard</title>
+
+  <title>Circle | Blinkita World</title>
 
   <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="tv-mode">
+<!-- 🔥 CRITICAL FIX -->
+<body class="codex" data-page="codex">
 
 <!-- HEADER -->
 <header class="main-header">
@@ -28,25 +30,20 @@
 
     <div class="ziv-inner">
 
-      <!-- PORTAL TITLE (STATIC - nikoli JS) -->
       <div class="ziv-portal-title">TZOLKIN PORTAL DNEVA</div>
 
-      <!-- DATE -->
       <div class="ziv-date" id="greg-date"></div>
 
-      <!-- PAGE TITLE (EDINI VARIABILEN TEXT) -->
       <div class="ziv-page-title">KODA ČASA</div>
 
-      <!-- KODA -->
       <div id="ziv-code" class="ziv-code"></div>
 
-      <!-- ENERGY -->
       <div class="tzolkin-inline">
         <span id="tzolkin-number" class="energy-text"></span>
-        <img id="tzolkin-number-img" class="energy-img">
+        <img id="tzolkin-number-img" class="energy-img" alt="">
 
         <span id="tzolkin-sign" class="energy-text"></span>
-        <img id="tzolkin-sign-img" class="energy-img">
+        <img id="tzolkin-sign-img" class="energy-img" alt="">
       </div>
 
     </div>
