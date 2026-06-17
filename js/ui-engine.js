@@ -83,7 +83,7 @@ function skipIntro() {
    INIT (IMPORTANT FIX)
 ========================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
 
   const widget = document.getElementById("ziv-cas-header");
   if (widget) widget.style.display = "none";
