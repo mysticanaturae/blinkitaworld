@@ -1,13 +1,59 @@
-<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="css/style.css"><title>Starodavna prihodnost</title></head><body>
-<header><nav>
-<a href="index.html">Domov</a>
-<a href="koda-casa.html">Koda Časa</a>
-<a href="blinkita-tv.html">Blinkita TV</a>
-<a href="knjiznica.html">Knjižnica</a>
-<a href="belize.html">Belize</a>
-<a href="circle.html">Circle</a>
-<a href="varuhinja-prehodov.html">Varuhinja</a>
-</nav></header>
+<!doctype html>
+<html lang="sl">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blinkita TV | Dashboard</title>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="tv-mode">
+
+<!-- HEADER -->
+<header class="main-header">
+
+  <nav class="main-nav">
+    <a href="index.html">Domov</a>
+    <a href="koda-casa.html">Koda Časa</a>
+    <a href="blinkita-tv.html">Blinkita TV</a>
+    <a href="knjiznica.html">Knjižnica</a>
+    <a href="belize.html">Belize</a>
+    <a href="circle.html">Circle</a>
+  </nav>
+
+  <!-- TZOLKIN WIDGET -->
+  <div id="ziv-cas-header">
+
+    <div class="ziv-inner">
+
+      <!-- PORTAL TITLE (STATIC - nikoli JS) -->
+      <div class="ziv-portal-title">TZOLKIN PORTAL DNEVA</div>
+
+      <!-- DATE -->
+      <div class="ziv-date" id="greg-date"></div>
+
+      <!-- PAGE TITLE (EDINI VARIABILEN TEXT) -->
+      <div class="ziv-page-title">KODA ČASA</div>
+
+      <!-- KODA -->
+      <div id="ziv-code" class="ziv-code"></div>
+
+      <!-- ENERGY -->
+      <div class="tzolkin-inline">
+        <span id="tzolkin-number" class="energy-text"></span>
+        <img id="tzolkin-number-img" class="energy-img">
+
+        <span id="tzolkin-sign" class="energy-text"></span>
+        <img id="tzolkin-sign-img" class="energy-img">
+      </div>
+
+    </div>
+  </div>
+
+</header>
+
 
 <section class="hero"><div class="hero-card"><h1>Starodavna prihodnost</h1><p>Tukaj vstavi celotno vsebino, ki sva jo pripravila.</p></div></section>
 <section><div class='gallery'><div class='placeholder'>BELIZE 1</div><div class='placeholder'>BELIZE 2</div><div class='placeholder'>BELIZE 3</div></div></section>
