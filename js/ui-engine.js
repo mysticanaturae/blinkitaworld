@@ -1,4 +1,8 @@
 
+/* =========================
+   UI ENGINE — STABLE CORE RESTORE
+========================= */
+
 let introRunning = false;
 
 /* =========================
@@ -17,8 +21,7 @@ function runIntro() {
   const textEl = document.getElementById("portal-text");
 
   const widget = document.getElementById("ziv-cas-header");
-
-  if (widget) widget.style.display = "none"; // 🔥 HARD HIDE widget
+  if (widget) widget.style.display = "none";
 
   if (!intro || !phaseEl || !textEl) return;
 
@@ -35,41 +38,22 @@ function runIntro() {
       phaseEl.textContent = phases[i].name;
       textEl.textContent = phases[i].text;
       i++;
-      setTimeout(step, 2000);
+      setTimeout(step, 2200);
     } else {
       finishIntro();
     }
   };
 
   const finishIntro = () => {
-
-window.__introRunning = false;
-window.__forceRenderAfterIntro = true;
-
     intro.classList.add("hidden");
 
     setTimeout(() => {
       intro.style.display = "none";
-
-      showWidget();     // 🔥 šele tukaj
-      renderOnce();     // 🔥 kontroliran render
+      showWidget();
     }, 900);
   };
 
   setTimeout(step, 800);
-}
-
-/* =========================
-   SAFE SINGLE RENDER
-========================= */
-
-function renderOnce() {
-  if (window.__tzolkinRendered) return;
-  window.__tzolkinRendered = true;
-
-  if (typeof window.renderZivCas === "function") {
-    window.renderZivCas();
-  }
 }
 
 /* =========================
@@ -79,6 +63,10 @@ function renderOnce() {
 function showWidget() {
   const widget = document.getElementById("ziv-cas-header");
   if (widget) widget.style.display = "flex";
+
+  if (typeof window.renderZivCas === "function") {
+    window.renderZivCas();
+  }
 }
 
 /* =========================
@@ -87,8 +75,6 @@ function showWidget() {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  window.__introRunning = true;
-
   const widget = document.getElementById("ziv-cas-header");
   if (widget) widget.style.display = "none";
 
@@ -96,23 +82,14 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =========================
-   ORACLE STATE
+   ORACLE STATE (SAFE)
 ========================= */
 
-let oracleOpen = false;
-
 function toggleOracleCard() {
-
   const card = document.getElementById("time-portal");
   if (!card) return;
 
-  oracleOpen = !oracleOpen;
-
-  if (oracleOpen) {
-    card.classList.add("oracle-open");
-  } else {
-    card.classList.remove("oracle-open");
-  }
+  card.classList.toggle("oracle-open");
 }
 
 window.toggleOracleCard = toggleOracleCard;
