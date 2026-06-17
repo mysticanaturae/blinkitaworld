@@ -1,40 +1,54 @@
 /* =========================
-   UI ENGINE — CLEAN CORE (FINAL)
-========================= */
-
-/* =========================
-   STATE GUARDS
+   UI ENGINE — STABLE CORE FIXED
 ========================= */
 
 let introRunning = false;
 
-/* prevent double init */
-window.__introStarted = false;
+/* =========================
+   SAFE HELPERS
+========================= */
+
+function el(id) {
+  return document.getElementById(id);
+}
+
+function safeText(id, value) {
+  const node = el(id);
+  if (!node) return;
+  node.textContent = value;
+}
 
 /* =========================
    INTRO SYSTEM
 ========================= */
 
 function runIntro() {
-
-  // HARD LOCK (prevents double execution)
-  if (window.__introStarted) return;
-  window.__introStarted = true;
-
   if (introRunning) return;
   introRunning = true;
 
-  const phaseEl = document.getElementById("portal-phase");
-  const textEl = document.getElementById("portal-text");
-  const introFlow = document.getElementById("intro-flow");
+  const intro =
+    document.querySelector(".blinkita-intro") ||
+    el("time-portal");
 
-  if (!phaseEl || !textEl || !introFlow) return;
+  const phaseEl = el("portal-phase");
+  const textEl = el("portal-text");
+
+  if (!intro || !phaseEl || !textEl) return;
 
   const phases = [
-    { name: "SPOMIN", text: "Spominjaš se, kar si že vedela." },
-    { name: "ODPIRANJE", text: "Vrata se ne odpirajo zunaj, ampak znotraj." },
-    { name: "VSTOP", text: "Prestopaš v prostor, ki je vedno obstajal." }
-  ];
+  {
+    name: "SPOMIN",
+    text: "Spomin se vrača vate."
+  },
+  {
+    name: "ODPIRANJE",
+    text: "Vrata se odpirajo znotraj tebe."
+  },
+  {
+    name: "VSTOP",
+    text: "Prostor te prepozna."
+  }
+];
 
   let i = 0;
 
@@ -52,46 +66,25 @@ function runIntro() {
   };
 
   const finishIntro = () => {
-    introFlow.classList.add("hidden");
+    intro.classList.add("hidden");
 
     setTimeout(() => {
-      introFlow.style.display = "none";
+      intro.style.display = "none";
     }, 900);
 
     showWidget();
   };
 
-  setTimeout(step, 900);
+  setTimeout(step, 800);
 }
 
 /* =========================
-   SKIP INTRO
-========================= */
-
-function skipIntro() {
-  const introFlow = document.getElementById("intro-flow");
-
-  if (introFlow) {
-    introFlow.classList.add("hidden");
-
-    setTimeout(() => {
-      introFlow.style.display = "none";
-    }, 600);
-  }
-
-  showWidget();
-}
-
-/* =========================
-   WIDGET CONTROL
+   WIDGET SHOW (SAFE)
 ========================= */
 
 function showWidget() {
-  const widget = document.getElementById("ziv-cas-header");
-
-  if (widget) {
-    widget.style.display = "flex";
-  }
+  const widget = el("ziv-cas-header");
+  if (widget) widget.style.display = "flex";
 
   setTimeout(() => {
     if (typeof window.renderZivCas === "function") {
@@ -100,32 +93,28 @@ function showWidget() {
   }, 50);
 }
 
-/* =========================
-   INIT FUNCTION (CALLED BY MAIN)
-========================= */
+function skipIntro() {
+  const intro = el("time-portal");
+  if (intro) intro.classList.add("hidden");
 
-function initUI() {
-
-  const widget = document.getElementById("ziv-cas-header");
-
-  if (widget) {
-    widget.style.display = "none";
-  }
-
-  runIntro();
-
-  // SAFETY FALLBACK (if anything breaks)
-  setTimeout(() => {
-    showWidget();
-  }, 9000);
+  showWidget();
 }
 
 /* =========================
-   EXPOSE GLOBALS
+   INIT SAFE BOOT
 ========================= */
 
+window.addEventListener("load", () => {
+  const widget = el("ziv-cas-header");
+  if (widget) widget.style.display = "none";
+
+  runIntro();
+
+  setTimeout(() => {
+    showWidget();
+  }, 2500);
+});
+
+/* expose */
 window.runIntro = runIntro;
 window.skipIntro = skipIntro;
-window.initUI = initUI;
-
-console.log("[UI] Blinkita UI engine loaded");

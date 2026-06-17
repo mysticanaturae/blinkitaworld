@@ -1,27 +1,54 @@
 /* =========================
-   MAIN BOOTSTRAP — ORCHESTRATOR CORE
+   BLINKITA MAIN CORE vFINAL
 ========================= */
 
 window.addEventListener("load", () => {
-  bootSystem();
+  boot();
 });
 
-/* =========================
-   BOOT SYSTEM (SINGLE ENTRY POINT)
-========================= */
-
-function bootSystem() {
-
+function boot() {
   hideLoader();
 
-  // CORE UI
-  safeCall("initUI");
+  // intro
+  safeCall("runIntro");
 
-  // TIME SYSTEM
+  // hide widget first
+  const widget = document.getElementById("ziv-cas-header");
+  if (widget) widget.style.display = "none";
+
+  // render once immediately
+  safeRender();
+
+  // start systems
   initTimeSystem();
-
-  // SCROLL SYSTEM
   initScrollObserver();
+
+  // safety fallback
+  setTimeout(() => {
+    safeRender();
+  }, 2000);
+}
+
+/* =========================
+   SAFE CALL
+========================= */
+
+function safeCall(fn) {
+  try {
+    if (typeof window[fn] === "function") window[fn]();
+  } catch (e) {
+    console.warn("safeCall error", fn, e);
+  }
+}
+
+/* =========================
+   SAFE RENDER
+========================= */
+
+function safeRender() {
+  if (typeof window.renderZivCas === "function") {
+    window.renderZivCas();
+  }
 }
 
 /* =========================
@@ -29,88 +56,55 @@ function bootSystem() {
 ========================= */
 
 function hideLoader() {
-
   const loader = document.getElementById("portal-loader");
   if (!loader) return;
 
   setTimeout(() => {
     loader.style.opacity = "0";
-
     setTimeout(() => {
       loader.style.display = "none";
     }, 600);
-
   }, 300);
 }
 
 /* =========================
-   SAFE CALL
-========================= */
-
-function safeCall(fnName) {
-  try {
-    if (typeof window[fnName] === "function") {
-      window[fnName]();
-    }
-  } catch (e) {
-    console.warn("[SAFE CALL ERROR]", fnName, e);
-  }
-}
-
-/* =========================
-   TIME SYSTEM
+   TIME LOOP
 ========================= */
 
 function initTimeSystem() {
-
   setInterval(() => {
-
-    if (
-      typeof renderZivCas === "function" &&
-      typeof tzolkinData !== "undefined"
-    ) {
-      renderZivCas(tzolkinData);
-    }
-
+    safeRender();
   }, 60000);
 }
 
 /* =========================
-   SCROLL OBSERVER
+   SCROLL FX
 ========================= */
 
 function initScrollObserver() {
-
   const sections = document.querySelectorAll("section");
-
   if (!sections.length) return;
 
-  const observer = new IntersectionObserver(
-    (entries, obs) => {
+  const obs = new IntersectionObserver((entries, o) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add("visible");
+        o.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
 
-      entries.forEach(entry => {
-
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          obs.unobserve(entry.target);
-        }
-
-      });
-
-    },
-    { threshold: 0.12 }
-  );
-
-  sections.forEach(sec => observer.observe(sec));
-
-  // fallback safety
-  setTimeout(() => {
-    sections.forEach(sec => sec.classList.add("visible"));
-  }, 1500);
+  sections.forEach(s => obs.observe(s));
 }
 
-/* =========================
-   DEBUG
-========================= */
+window.addEventListener("scroll", () => {
+  const footer = document.querySelector("footer");
 
-console.log("[MAIN] Blinkita system online");
+  const scrollTop = window.scrollY;
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+
+  const progress = scrollTop / docHeight;
+
+  footer.style.opacity = 0.4 + progress * 0.6;
+  footer.style.transform = `translateY(${10 - progress * 10}px)`;
+});
