@@ -960,3 +960,68 @@ footer {
 .portal-card:hover::before {
   animation: auraPulse 3s ease-in-out infinite;
 }
+
+.cta-box{
+  margin-top: 50px;
+  padding: 30px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 25px 70px rgba(0,0,0,0.12);
+  text-align: center;
+}
+
+.cta-box h3{
+  margin-bottom: 10px;
+}
+
+.price{
+  margin: 15px 0;
+  font-size: 22px;
+}
+
+.price .old{
+  text-decoration: line-through;
+  opacity: 0.5;
+  margin-right: 10px;
+}
+
+.price .new{
+  font-weight: bold;
+  color: #b89a5c;
+}
+
+.cta-buttons{
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.modal-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+}
+
+.modal-box{
+  background: rgba(255,255,255,0.95);
+  padding: 30px;
+  border-radius: 18px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.25);
+  transform: scale(0.95);
+  transition: 0.3s ease;
+}
+
+.modal-overlay.active .modal-box{
+  transform: scale(1);
+}

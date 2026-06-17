@@ -118,3 +118,36 @@ window.addEventListener("load", () => {
 /* expose */
 window.runIntro = runIntro;
 window.skipIntro = skipIntro;
+
+/* =========================
+   OPEN BANK MODAL
+========================= */
+
+function openBankModal(e) {
+  if (e) e.preventDefault();
+
+  const modal = document.getElementById("bank-modal");
+  if (modal) {
+    modal.style.display = "flex";
+    setTimeout(() => modal.classList.add("active"), 10);
+  }
+}
+
+function closeBankModal() {
+  const modal = document.getElementById("bank-modal");
+  if (!modal) return;
+
+  modal.classList.remove("active");
+
+  setTimeout(() => {
+    modal.style.display = "none";
+  }, 300);
+}
+
+function copyIBAN() {
+  const iban = document.getElementById("iban-text").innerText;
+
+  navigator.clipboard.writeText(iban).then(() => {
+    alert("TRR kopiran v odložišče");
+  });
+}

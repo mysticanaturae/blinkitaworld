@@ -185,55 +185,109 @@
     </div>
 </section>
 
-<section>
-    <h2>Kdo je Blinkita?</h2>
+<section class="blinkita-about">
 
-<p class="image-caption">
-  Prehod iz zgodbe v zavest.
-</p>
+  <h2>Kdo je Blinkita?</h2>
 
-<div class="blinkita-portal-image">
-  <img src="images/blinkita-prejinpotem.jpg" alt="Blinkita transformacija">
-  <div class="image-glow"></div>
-</div>
+  <p class="image-caption">
+    Prehod iz zgodbe v zavest.
+  </p>
+
+  <div class="blinkita-portal-image">
+    <img src="images/blinkita-prejinpotem.jpg" alt="Blinkita transformacija">
+    <div class="image-glow"></div>
+  </div>
+
+  <p>
+    Blinkita je danes tudi oseba.<br>
+    A še veliko več kot to.
+  </p>
+
+  <p>
+    Ime, ki ga ljudje uporabljajo, ko nagovarjajo polje preobrazbe skozi čas.
+  </p>
+
+  <p>
+    30 let rasti. učenja. raztapljanja stare identitete.<br>
+    Od leta 1996 do 2026 - Metamorfoza Blanke v Blinkito.
+  </p>
+
+  <p>
+    Telo se je spremenilo.<br>
+    Zavest se je razširila.<br>
+    In ime je postalo vrata.
+  </p>
+
+  <p>
+    V tem prostoru velja starodavni princip In Lak’ech:<br>
+    <strong>Ti si moj drugi jaz. Jaz sem tvoj drugi ti.</strong><br>
+    Kar se dotakne tebe, se premakne v obeh smereh časa.
+  </p>
+
+  <p>
+    Moja pot se je oblikovala skozi globoko notranjo transformacijo in metamorfozo življenja.<br>
+    Iz telesa, iz zgodbe, iz identitete - v širše polje zavesti, kjer se človek začne spominjati samega sebe.
+  </p>
+
+  <p>
+    Leta posvetitve so me pripeljala v linijo varuhov časa.<br>
+    Kot Saq I'x - Bela Jaguarka - sem bila posvečena v tok varovanja časa<br>
+    s strani avtentičnega Maya ajq’ij, varuha koledarja in ambasadorja miru Tata Pedro Cruza v Gvatemali.
+  </p>
+
+  <p>
+    Ta posvetitev ni dogodek v preteklosti.<br>
+    Je živa frekvenca, ki deluje kot notranji kompas - skozi čas, ljudi in odločitve.
+  </p>
+
+  <p>
+    Iz te linije se odpira Blinkita World —<br>
+    ne kot projekt, temveč kot živi sistem, kjer se čas, zavest in človeška izkušnja srečujejo v isti točki.
+  </p>
+
+  <p>
+    Vsaka knjiga, vsaka hipnoza, vsak vpogled in vsak stik nosi isto nit:<br>
+    <strong>prehod iz pozabe v spomin.</strong>
+  </p>
+
+  <!-- CTA SECTION -->
+  <div class="cta-box">
+
+    <h3>Čarovnija Vitkosti</h3>
 
     <p>
-        Blinkita je živo polje zavesti in ekosistem preobrazbe.
-        Hkrati je to ime, ki nosi eno zavest skozi čas - iz preteklosti, skozi sedanjost in v prihodnje različice sebe.
+      5 × 21-dnevna potovanja zavesti<br>
+      5 × hipnoza preobrazbe<br>
+      + darilo: e-knjiga <strong>Trening zavesti</strong>
     </p>
 
     <p>
-        V tem prostoru velja starodavni princip In Lak’ech:
-        <strong>Ti si moj drugi jaz. Jaz sem tvoj drugi ti.</strong>
-        Vse, kar se tukaj dotakne, se premakne v obeh smereh časa.
+      Celovit portal ponovne povezave s telesom, zavestjo in časom.
     </p>
 
-    <p>
-        Moja pot se je oblikovala skozi globoko notranjo transformacijo in metamorfozo življenja.
-        Iz telesa, iz zgodbe, iz identitete - v širše polje zavesti, kjer se človek začne spominjati samega sebe.
+    <p class="price">
+      <span class="old">480 €</span>
+      <span class="new">260 €</span>
     </p>
 
-    <p>
-        Leta posvetitve so me pripeljala v linijo varuhov časa.
-        Kot Saq I'x - Belo Jaguarko - sem bila posvečena v tok varovanja časa
-        s strani avtentičnega Maya ajq’ij, varuha koledarja in ambasadorja miru Tata Pedro Cruza v Gvatemali.
+    <p class="note">
+      (čas ne čaka — samo prepozna)
     </p>
 
-    <p>
-        Ta posvetitev ni dogodek v preteklosti.
-        Je živa frekvenca, ki deluje kot notranji kompas - skozi čas, ljudi in odločitve.
-    </p>
+    <div class="cta-buttons">
 
-    <p>
-        Iz te linije se odpira Blinkita World -
-        ne kot projekt, temveč kot živi sistem, kjer se čas, zavest in človeška izkušnja srečujejo v isti točki.
-    </p>
+      <a href="https://www.paypal.com" class="btn" target="_blank">
+        Naročilo preko PayPala
+      </a>
 
-    <p>
-        Vsaka knjiga, vsaka hipnoza, vsak vpogled in vsak stik
-        nosi isto nit:
-        <strong>prehod iz pozabe v spomin.</strong>
-    </p>
+      <a href="#" class="btn-secondary" onclick="openBankModal(event)">
+  Bančno nakazilo
+</a>
+
+    </div>
+
+  </div>
+
 </section>
 
 <section id="belize">
@@ -591,6 +645,38 @@ if ("serviceWorker" in navigator) {
 
 }
 </script>
+
+<!-- BANK MODAL -->
+<div id="bank-modal" class="modal-overlay">
+
+  <div class="modal-box">
+
+    <h3>Bančno nakazilo</h3>
+
+    <p><strong>AKADEMIJA ŽIVLJENJA</strong><br>
+    Pod hribom 22<br>
+    1000 Ljubljana</p>
+
+    <p>
+      TRR:<br>
+      <strong id="iban-text">SI56 1010 0006 0655 938</strong>
+    </p>
+
+    <p>
+      Banka Intesa Sanpaolo d.d.
+    </p>
+
+    <button onclick="copyIBAN()" class="btn">
+      Kopiraj TRR
+    </button>
+
+    <button onclick="closeBankModal()" class="btn-secondary">
+      Zapri
+    </button>
+
+  </div>
+
+</div>
 
 </body>
 </html>
