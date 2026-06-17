@@ -1,19 +1,22 @@
-const CACHE_NAME = "blinkita-world-v1";
+const CACHE_NAME = "blinkita-world-v2";
 
-const ASSETS = [
+/* samo kritični core + shell */
+const CORE_ASSETS = [
   "./",
   "./index.html",
   "./offline.html",
   "./manifest.json",
-  "./css/style.css"
+  "./css/style.css",
+  "./js/main.js",
+  "./js/tzolkin-engine.js",
+  "./js/tzolkin-data.js",
+  "./js/ui-engine.js"
 ];
 
 /* INSTALL */
 self.addEventListener("install", event => {
-
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(ASSETS))
+    caches.open(CACHE_NAME).then(cache => cache.addAll(CORE_ASSETS))
   );
 
   self.skipWaiting();
@@ -21,7 +24,6 @@ self.addEventListener("install", event => {
 
 /* ACTIVATE */
 self.addEventListener("activate", event => {
-
   event.waitUntil(
     caches.keys().then(keys =>
       Promise.all(
@@ -37,22 +39,19 @@ self.addEventListener("activate", event => {
   self.clients.claim();
 });
 
-/* FETCH */
+/* FETCH STRATEGY (SAFE NETWORK-FIRST) */
 self.addEventListener("fetch", event => {
+  const req = event.request;
 
   event.respondWith(
-
-    caches.match(event.request)
-      .then(response => {
-
-        if(response){
-          return response;
-        }
-
-        return fetch(event.request)
-          .catch(() => caches.match("./offline.html"));
+    fetch(req)
+      .then(networkRes => {
+        return networkRes;
       })
-
+      .catch(() => {
+        return caches.match(req).then(cacheRes => {
+          return cacheRes || caches.match("./offline.html");
+        });
+      })
   );
-
 });
