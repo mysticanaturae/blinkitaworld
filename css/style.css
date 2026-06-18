@@ -1497,9 +1497,19 @@ footer {
   }
 
   #ziv-cas-header{
-    top:80px;
-    right:10px;
-    width:170px;
-  }
+
+  top:auto;
+  bottom:15px;
+
+  right:15px;
+
+  width:160px;
+
+  z-index:999;
+
+  border-radius:16px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,.18);
 
 }
