@@ -151,3 +151,18 @@ function copyIBAN() {
     alert("TRR kopiran v odložišče");
   });
 }
+/* =========================
+   MOBILE MENU
+========================= */
+
+function toggleMenu(){
+
+  const nav = document.querySelector(".main-nav");
+
+  if(nav){
+    nav.classList.toggle("active");
+  }
+
+}
+
+window.toggleMenu = toggleMenu;
