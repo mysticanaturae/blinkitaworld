@@ -290,6 +290,31 @@ section{
 }
 
 /* =========================
+   MOBILE TZOLKIN POSITION
+========================= */
+
+@media (max-width: 768px) {
+
+  #ziv-cas-header {
+    position: fixed;
+    top: auto;
+    bottom: 15px;
+    right: 15px;
+    left: auto;
+
+    z-index: 99999;
+
+    /* NE dotikamo velikosti */
+    width: auto;
+    height: auto;
+
+    /* samo malo “lažji feel” */
+    transform: scale(0.95);
+  }
+
+}
+
+/* =========================
    INLINE ENERGY
 ========================= */
 
