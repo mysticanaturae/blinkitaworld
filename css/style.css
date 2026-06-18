@@ -178,34 +178,32 @@ section{
    TZOLKIN WIDGET (FIXED SAFE POSITION)
 ========================= */
 
-#ziv-cas-header{
-  position: fixed;
-  top: 10px;
-  right: 20px;
+@media (max-width:768px){
 
-  width: 200px;
+  #ziv-cas-header{
+    position: fixed;
+    top: auto;
+    bottom: 20px;
+    right: 15px;
 
-  z-index: 10001;
+    width: 150px;
+    z-index: 999;
 
-  background: rgba(255,255,255,0.88);
-  backdrop-filter: blur(18px);
+    border-radius: 16px;
 
-  border-radius: 14px;
-  padding: 10px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.18);
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
+    /* KLJUČNO: da ne prekriva vsega */
+    opacity: 0.95;
+    transform: scale(0.95);
 
-  text-align: center;
+    transition: all 0.3s ease;
+  }
 
-  animation: widgetFloat 6s ease-in-out infinite;
-
-  border: 1px solid rgba(184,154,92,0.25);
-  box-shadow: 0 30px 90px rgba(0,0,0,0.2);
-
-  backdrop-filter: blur(20px);
+  #ziv-cas-header:hover{
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes widgetFloat{
@@ -1526,6 +1524,47 @@ footer {
   box-shadow:
     0 15px 40px rgba(0,0,0,.18);
 
+}
+
+.mobile-menu-btn{
+  display:none;
+  z-index:10001; /* KLJUČNO */
+}
+
+@media (max-width:768px){
+
+  .mobile-menu-btn{
+    display:block;
+    font-size:28px;
+    cursor:pointer;
+    background:none;
+    border:none;
+
+    position:relative;
+    z-index:10002;
+  }
+
+  .main-header{
+    z-index:10000;
+  }
+
+  .main-nav{
+    display:none;
+    position:absolute;
+    top:70px;
+    left:0;
+    right:0;
+    background:white;
+    flex-direction:column;
+    padding:20px;
+    gap:12px;
+    box-shadow:0 20px 40px rgba(0,0,0,.12);
+    z-index:9999;
+  }
+
+  .main-nav.active{
+    display:flex;
+  }
 }
 
 .cta-box{

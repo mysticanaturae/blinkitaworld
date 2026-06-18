@@ -166,3 +166,14 @@ function toggleMenu(){
 }
 
 window.toggleMenu = toggleMenu;
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.querySelector(".mobile-menu-btn");
+  const nav = document.querySelector(".main-nav");
+
+  if (!btn || !nav) return;
+
+  btn.addEventListener("click", () => {
+    nav.classList.toggle("active");
+  });
+});
