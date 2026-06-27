@@ -108,3 +108,19 @@ window.addEventListener("scroll", () => {
   footer.style.opacity = 0.4 + progress * 0.6;
   footer.style.transform = `translateY(${10 - progress * 10}px)`;
 });
+
+/* =========================
+   PORTAL
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const portalBtn = document.getElementById("blinkita-time-btn");
+
+    if (portalBtn) {
+        portalBtn.addEventListener("click", () => {
+            window.location.href = "portal/index.html";
+        });
+    }
+
+});

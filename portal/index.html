@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blinkita Time</title>
+  <link rel="stylesheet" href="../css/portal.css">
+</head>
+
+<body>
+
+<div id="game">
+
+  <h1>BLINKITA TIME</h1>
+
+  <div id="info"></div>
+
+  <div id="grid"></div>
+
+  <button id="shareBtn">DELI</button>
+
+</div>
+
+<script src="../js/tzolkin-data.js"></script>
+<script src="../js/tzolkin-engine.js"></script>
+
+<script src="../js/portal.js"></script>
+<script src="../js/wordsearch.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/share.js"></script>
+
+<script>
+/* =========================
+   BOOT PORTAL
+========================= */
+
+const puzzle = generateDailyPuzzle();
+const today = puzzle.date;
+
+/* SAVE IF NOT EXISTS */
+if (!isDayCompleted(today)) {
+  saveBlinkitaProgress(today, {
+    kin: puzzle.kin,
+    words: puzzle.words
+  });
+}
+
+/* RENDER INFO */
+document.getElementById("info").innerHTML =
+  `Dan ${puzzle.kin} | ${puzzle.words.length} ključev`;
+
+/* RENDER GRID */
+const gridEl = document.getElementById("grid");
+
+puzzle.grid.forEach(row => {
+  const rowEl = document.createElement("div");
+
+  row.forEach(cell => {
+    const cellEl = document.createElement("span");
+    cellEl.textContent = cell;
+    rowEl.appendChild(cellEl);
+  });
+
+  gridEl.appendChild(rowEl);
+});
+
+/* SHARE */
+document.getElementById("shareBtn")
+  .addEventListener("click", () => {
+    shareBlinkitaDay(puzzle);
+  });
+</script>
+
+</body>
+</html>
